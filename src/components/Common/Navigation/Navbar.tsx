@@ -4,7 +4,7 @@ import NavItem from "./NavItem";
 const Navbar = () => {
   return (
     <nav className="h-screen bg-primary w-96">
-      Navigation
+      <h3 className="pl-10 mb-5 font-bold">Navigation</h3>
       <ul>
         <NavItem to="/" icon="dashboard" iconColor="purple">
           Dashboard

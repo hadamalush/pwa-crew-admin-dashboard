@@ -1,9 +1,8 @@
 import { type FC } from "react";
 import { type IconNameType } from "../../UI/Icons/IconBase";
 import { NavLink, useLocation } from "react-router-dom";
-import Icon from "../../UI/Icons/Icon";
 import { cn } from "../../../util/utils";
-import { iconColor } from "../../UI/Icons/Icon";
+import Icon, { iconColor } from "../../UI/Icons/Icon";
 
 type NavItemProps = {
   icon: IconNameType;
