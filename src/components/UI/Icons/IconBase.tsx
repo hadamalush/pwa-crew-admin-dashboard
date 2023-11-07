@@ -1,12 +1,15 @@
-import { ReactElement } from "react";
+// import { ReactElement } from "react";
+// import { VariantProps, cva } from "class-variance-authority";
 
-export type IconNameType = "dashboard" | "users" | "mail" | "settings" | "calendarPlus" | "power";
+// export type IconNameType = "dashboard" | "users" | "mail" | "settings" | "calendarPlus" | "power";
 
-export type IconBaseType = {
-  [key in IconNameType]: ReactElement;
-};
+export type IconNameType = keyof typeof IconsBase;
 
-export const IconsBase: IconBaseType = {
+// export type IconBaseType = {
+//   [key in IconNameType]: ReactElement;
+// };
+
+export const IconsBase = {
   dashboard: (
     <svg
       xmlns="http://www.w3.org/2000/svg"
@@ -30,7 +33,7 @@ export const IconsBase: IconBaseType = {
       xmlns="http://www.w3.org/2000/svg"
       className="icon icon-tabler icon-tabler-users"
       viewBox="0 0 24 24"
-      stroke-width="2"
+      strokeWidth="2"
       stroke="currentColor"
       fill="none"
       strokeLinecap="round"

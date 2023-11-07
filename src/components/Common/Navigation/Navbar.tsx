@@ -4,23 +4,24 @@ import NavItem from "./NavItem";
 const Navbar = () => {
   return (
     <nav className="h-screen bg-primary w-96">
+      Navigation
       <ul>
-        <NavItem to="/" icon="dashboard">
+        <NavItem to="/" icon="dashboard" iconColor="purple">
           Dashboard
         </NavItem>
-        <NavItem to="/" icon="mail" className="text-orangeYellow">
+        <NavItem to="/inbox" icon="mail" iconColor="blue">
           Inbox
         </NavItem>
-        <NavItem to="/" icon="users" className="text-lightGreen">
+        <NavItem to="/users" icon="users" iconColor="green">
           Users
         </NavItem>
-        <NavItem to="/" icon="calendarPlus" className="text-lightBlue">
+        <NavItem to="/events" icon="calendarPlus" iconColor="yellow">
           Events
         </NavItem>
-        <NavItem to="/" icon="settings" className="text-orangeYellow">
+        <NavItem to="/settings" icon="settings" iconColor="blue">
           Settings
         </NavItem>
-        <NavItem to="/" icon="power" className="text-lightRed">
+        <NavItem to="/test" icon="power" iconColor="red">
           Sign out
         </NavItem>
       </ul>

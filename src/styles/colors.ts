@@ -5,6 +5,7 @@ export default {
   primaryLight: "#2a2d3a",
   secondary: "#00f6ff",
 
+  white: "#ffffff",
   black: "#000000",
   darkPurple: "#8f5fe8",
   orangeYellow: "#ffab00",
