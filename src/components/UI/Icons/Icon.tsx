@@ -1,13 +1,15 @@
 import React from "react";
 import { IconsBase, type IconNameType } from "./IconBase";
+import { cn } from "../../../util/utils";
 
 type IconProps = {
   iconName: IconNameType;
+  className?: string;
 };
 
-const Icon = ({ iconName }: IconProps) => {
+const Icon = ({ iconName, className }: IconProps) => {
   const IconWithClass = React.cloneElement(IconsBase[iconName], {
-    className: "w-10 ",
+    className: cn("w-10 h-10", className),
   });
   return IconWithClass;
 };

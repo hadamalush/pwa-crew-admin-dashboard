@@ -11,6 +11,7 @@ export const IconsBase: IconBaseType = {
     <svg
       xmlns="http://www.w3.org/2000/svg"
       className="icon icon-tabler icon-tabler-layout-dashboard"
+      viewBox="0 0 24 24"
       strokeWidth="2"
       stroke="currentColor"
       fill="none"
@@ -28,6 +29,7 @@ export const IconsBase: IconBaseType = {
     <svg
       xmlns="http://www.w3.org/2000/svg"
       className="icon icon-tabler icon-tabler-users"
+      viewBox="0 0 24 24"
       stroke-width="2"
       stroke="currentColor"
       fill="none"
@@ -45,6 +47,7 @@ export const IconsBase: IconBaseType = {
     <svg
       xmlns="http://www.w3.org/2000/svg"
       className="icon icon-tabler icon-tabler-mail"
+      viewBox="0 0 24 24"
       strokeWidth="2"
       stroke="currentColor"
       fill="none"
@@ -60,6 +63,7 @@ export const IconsBase: IconBaseType = {
     <svg
       xmlns="http://www.w3.org/2000/svg"
       className="icon icon-tabler icon-tabler-settings"
+      viewBox="0 0 24 24"
       strokeWidth="2"
       stroke="currentColor"
       fill="none"
@@ -75,6 +79,7 @@ export const IconsBase: IconBaseType = {
     <svg
       xmlns="http://www.w3.org/2000/svg"
       className="icon icon-tabler icon-tabler-calendar-star"
+      viewBox="0 0 24 24"
       strokeWidth="2"
       stroke="currentColor"
       fill="none"
@@ -93,6 +98,7 @@ export const IconsBase: IconBaseType = {
     <svg
       xmlns="http://www.w3.org/2000/svg"
       className="icon icon-tabler icon-tabler-power"
+      viewBox="0 0 24 24"
       strokeWidth="2"
       stroke="currentColor"
       fill="none"

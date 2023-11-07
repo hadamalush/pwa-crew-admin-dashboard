@@ -1,16 +1,12 @@
 /** @type {import('tailwindcss').Config} */
+import colors from "./src/styles/colors";
 
 export default {
   content: ["./src/**/*.{js,jsx,ts,tsx}"],
   mode: "jit",
   theme: {
     extend: {
-      colors: {
-        primary: "#191c24",
-        secondary: "#00f6ff",
-        dimWhite: "rgba(255, 255, 255, 0.7)",
-        dimBlue: "rgba(9, 151, 124, 0.1)",
-      },
+      colors: colors,
       fontFamily: {
         poppins: ["Poppins", "sans-serif"],
       },
