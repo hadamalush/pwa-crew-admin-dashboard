@@ -3,42 +3,61 @@ import DropdownList from "../UI/Dropdown/DropdownList";
 import Icon from "../UI/Icons/Icon";
 import Avatar from "../transitions/Avatar";
 import { NavLink } from "react-router-dom";
-import { DUMMY_NOTIFICATIONS } from "../transitions/dummy-items";
+import { DUMMY_NOTIFICATIONS, DUMMY_MESSAGES } from "../transitions/dummy-items";
 import { useState } from "react";
 
 const Header = () => {
   const [isVisibleNotifications, setIsVisibleNotifications] = useState(false);
+  const [isVisibleMessages, setIsVisibleMessages] = useState(false);
 
-  const handleDropdown = (option: string, event: React.MouseEvent<HTMLButtonElement>) => {
-    event.stopPropagation();
+  const handleDropdown = (option: string, e: React.MouseEvent<HTMLButtonElement>) => {
+    e.stopPropagation();
 
     if (option === "notifications") {
+      setIsVisibleMessages(false);
       setIsVisibleNotifications(true);
+      console.log("ustaw true");
+    }
+    if (option === "messages") {
+      setIsVisibleNotifications(false);
+      setIsVisibleMessages(true);
     }
   };
+
+  console.log(isVisibleNotifications);
 
   return (
     <header className="bg-primary w-full h-28 flexCenter justify-end">
       <NavLink to="https://pwa-crew-site-demo.vercel.app/" target="_blank" className="group px-5">
         <Icon iconName="home" size="s1_5" className="group-hover:text-lightBlue duration-200" />
       </NavLink>
-      <Button variant="outline" className="group px-5 border-l border-borderPrimary">
+      <Button
+        onClick={(e) => handleDropdown("messages", e)}
+        variant="outline"
+        className="group px-5 border-l border-borderPrimary"
+      >
         <Icon iconName="mail" size="s1_5" className="group-hover:text-lightBlue duration-200" />
+
+        <DropdownList
+          title="Notifications"
+          items={DUMMY_MESSAGES}
+          isVisible={isVisibleMessages}
+          onClose={() => setIsVisibleMessages(false)}
+        />
       </Button>
       <Button
-        onClick={(event) => handleDropdown("notifications", event)}
+        onClick={(e) => handleDropdown("notifications", e)}
         variant="outline"
         className="group px-5 border-l border-borderPrimary"
       >
         <Icon iconName="bell" size="s1_5" className="group-hover:text-lightBlue duration-200" />
 
-        {isVisibleNotifications && (
-          <DropdownList
-            title="Notifications"
-            items={DUMMY_NOTIFICATIONS}
-            onClose={() => setIsVisibleNotifications(false)}
-          />
-        )}
+        <DropdownList
+          title="Notifications"
+          items={DUMMY_NOTIFICATIONS}
+          isVisible={isVisibleNotifications}
+          onClose={() => setIsVisibleNotifications(false)}
+        />
       </Button>
       <Button variant="outline" className="group m-10 ">
         <Avatar src="/avatar.jpg" size="s4" />

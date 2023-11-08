@@ -1,4 +1,13 @@
-export const DUMMY_MESSAGES = [
+import { IconNameType } from "../UI/Icons/IconBase";
+
+type DUMMY_MESSAGESTYPE = {
+  id: string;
+  iconName: IconNameType;
+  title: string;
+  description: string;
+};
+
+export const DUMMY_MESSAGES: DUMMY_MESSAGESTYPE[] = [
   {
     id: "e1",
     iconName: "users",

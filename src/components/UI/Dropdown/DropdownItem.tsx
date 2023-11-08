@@ -3,10 +3,12 @@ import Avatar from "../../transitions/Avatar";
 import { IconNameType } from "../Icons/IconBase";
 import Heading from "../Heading";
 import { NavLink } from "react-router-dom";
+import { cn } from "../../../util/utils";
+import { basicVariantColorType } from "../../variants/variants";
 
 export type DropdownItemProps = {
   iconName?: IconNameType | undefined;
-  avatarSrc: string | undefined;
+  avatarSrc?: string | undefined;
   title: string;
   description: string;
   id: string;
@@ -14,9 +16,14 @@ export type DropdownItemProps = {
 
 const DropdownItem = ({ iconName, avatarSrc, title, description }: DropdownItemProps) => {
   let img;
+  const iconColor = cn({
+    ["blue"]: iconName === "users",
+    ["green"]: iconName === "mail",
+    ["yellow"]: iconName === "bell",
+  }) as basicVariantColorType;
 
   if (iconName) {
-    img = <Icon size="s4" iconName={iconName} className="ml-4" />;
+    img = <Icon color={iconColor} size="s4" iconName={iconName} className="ml-4" />;
   }
   if (avatarSrc) img = <Avatar size="s5" src={avatarSrc} className="ml-2" />;
 
