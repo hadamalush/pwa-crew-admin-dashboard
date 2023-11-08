@@ -1,31 +1,66 @@
+import { useMediaQuery } from "react-responsive";
 import { cn } from "../../../util/utils";
 import NavItem from "./NavItem";
 
 type NavbarProps = {
-  statusNav: boolean;
+  isVisibleNav: boolean;
 };
 
-const Navbar = ({ statusNav }: NavbarProps) => {
+const Navbar = ({ isVisibleNav }: NavbarProps) => {
+  const isMdScreen = useMediaQuery({ minWidth: 1060 });
+
+  console.log(isVisibleNav && isMdScreen);
+
   return (
-    <nav className={cn("h-screen bg-primary w-96 duration-200", { "w-36": !statusNav })}>
-      {statusNav && <h3 className="pl-10 mb-5 font-bold">Navigation</h3>}
+    <nav
+      className={cn(
+        " bg-primary md:w-96 duration-200 md:left-0 absolute right-0 w-screen xs:w-96 h-3/4 md:h-screen translate-x-full md:translate-x-0 shadow-2xl shadow-black xs:rounded-bl-xl ",
+        {
+          "md:w-36": !isVisibleNav,
+        },
+        {
+          "translate-x-0": isVisibleNav && !isMdScreen,
+        }
+      )}
+    >
+      {(isVisibleNav || !isMdScreen) && <h3 className="pl-10 mb-5 font-bold">Navigation</h3>}
       <ul>
-        <NavItem to="/" icon="dashboard" iconColor="purple" title={statusNav ? "Dashboard" : ""} />
-        <NavItem to="/inbox" icon="mail" iconColor="blue" title={statusNav ? "Inbox" : ""} />
-        <NavItem to="/users" icon="users" iconColor="green" title={statusNav ? "Users" : ""} />
+        <NavItem
+          to="/"
+          icon="dashboard"
+          iconColor="purple"
+          title={isVisibleNav || !isMdScreen ? "Dashboard" : ""}
+        />
+        <NavItem
+          to="/inbox"
+          icon="mail"
+          iconColor="blue"
+          title={isVisibleNav || !isMdScreen ? "Inbox" : ""}
+        />
+        <NavItem
+          to="/users"
+          icon="users"
+          iconColor="green"
+          title={isVisibleNav || !isMdScreen ? "Users" : ""}
+        />
         <NavItem
           to="/events"
           icon="calendarPlus"
           iconColor="yellow"
-          title={statusNav ? "Events" : ""}
+          title={isVisibleNav || !isMdScreen ? "Events" : ""}
         />
         <NavItem
           to="/settings"
           icon="settings"
           iconColor="blue"
-          title={statusNav ? "Settings" : ""}
+          title={isVisibleNav || !isMdScreen ? "Settings" : ""}
         />
-        <NavItem to="/test" icon="power" iconColor="red" title={statusNav ? "Sign out" : ""} />
+        <NavItem
+          to="/test"
+          icon="power"
+          iconColor="red"
+          title={isVisibleNav || !isMdScreen ? "Sign out" : ""}
+        />
       </ul>
     </nav>
   );

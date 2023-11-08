@@ -7,8 +7,8 @@ const MainLayout = () => {
 
   return (
     <>
-      <Header setIsVisibleNav={setIsVisibleNav} />
-      <Navbar statusNav={isVisibleNav} />
+      <Header setIsVisibleNav={setIsVisibleNav} isVisibleNav={isVisibleNav} />
+      <Navbar isVisibleNav={isVisibleNav} />
     </>
   );
 };

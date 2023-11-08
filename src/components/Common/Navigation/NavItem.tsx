@@ -34,7 +34,8 @@ const NavItem = ({ icon, iconColor, to, title, className }: NavItemProps) => {
         <span className="bg-primaryLight w-14 h-14 mr-4 rounded-full flexCenter">
           <Icon iconName={icon} color={iconColor} size="s1" className="w-36 h-8" />
         </span>
-        {title && title}
+
+        {title && <span className="animate-scale">{title}</span>}
       </NavLink>
     </li>
   );

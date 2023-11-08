@@ -6,12 +6,14 @@ import { NavLink, Form } from "react-router-dom";
 import Heading from "../UI/Heading";
 import { DUMMY_NOTIFICATIONS, DUMMY_MESSAGES, SETTINGS } from "../transitions/dummy-items";
 import { useState, type Dispatch, type SetStateAction } from "react";
+import { cn } from "../../util/utils";
 
 type HeaderProps = {
   setIsVisibleNav: Dispatch<SetStateAction<boolean>>;
+  isVisibleNav: boolean;
 };
 
-const Header = ({ setIsVisibleNav }: HeaderProps) => {
+const Header = ({ setIsVisibleNav, isVisibleNav }: HeaderProps) => {
   const [isVisibleNotifications, setIsVisibleNotifications] = useState(false);
   const [isVisibleMessages, setIsVisibleMessages] = useState(false);
   const [isVisibleProfile, setIsVisibleProfile] = useState(false);
@@ -45,33 +47,42 @@ const Header = ({ setIsVisibleNav }: HeaderProps) => {
     <header className="bg-primary w-full h-28 flexCenter justify-end">
       <Heading
         as="h1"
-        className="w-96 pl-10 text-4xl text-white tracking-widest uppercase flex-shrink-0"
+        className={cn(
+          "w-96 pl-10 text-4xl text-white tracking-widest uppercase flex-shrink-0 duration-200 hidden md:inline-block",
+          {
+            "w-36 text-center p-0": !isVisibleNav,
+          }
+        )}
       >
-        Pwa Crew
+        P{isVisibleNav && <span className="duration-100  inline-block animate-scale">wa Crew</span>}
       </Heading>
 
-      <Button variant="outline" className="group px-5 outline-none" onClick={handleNav}>
+      <Button
+        variant="outline"
+        className="group px-5 outline-none order-1 md:order-none"
+        onClick={handleNav}
+      >
         <Icon
           iconName="menu"
           size="s1"
-          className="group-hover:text-lightBlue duration-200 text-textPrimary"
+          className="group-hover:text-lightBlue text-textPrimary duration-200 "
         />
       </Button>
 
-      <Form className="flex m-auto w-5/12 ">
+      <Form className=" m-auto w-5/12 hidden md:flex">
         <input
           className="w-full px-7 py-3 placeholder:text-textPrimary rounded-md border border-borderPrimary bg-primary outline-none"
           placeholder="Search users"
         />
       </Form>
 
-      <Button variant="outline" className="group px-5 ">
+      <Button variant="outline" className="group px-5 hidden md:inline-flex">
         <Icon iconName="sun" size="s1_5" className="group-hover:text-lightBlue duration-200" />
       </Button>
       <NavLink
         to="https://pwa-crew-site-demo.vercel.app/"
         target="_blank"
-        className="group px-5 border-l border-borderPrimary"
+        className="group px-5 border-l border-borderPrimary hidden md:inline"
       >
         <Icon iconName="home" size="s1_5" className="group-hover:text-lightBlue duration-200" />
       </NavLink>
@@ -105,18 +116,18 @@ const Header = ({ setIsVisibleNav }: HeaderProps) => {
       </Button>
       <Button
         variant="outline"
-        className="group m-10"
+        className="group mr-7 ml-3"
         onClick={(e) => handleDropdown("profile", e)}
       >
         <Avatar src="/avatar.jpg" size="s4" />
-        <span className="text-white text-2xl font-medium pl-3 group-hover:text-lightBlue duration-200">
+        <span className="text-white text-2xl font-medium pl-3 group-hover:text-lightBlue duration-200 w-32 overflow-hidden whitespace-nowrap text-ellipsis hidden md:inline">
           Bolesław Chrobry
         </span>
         <Icon
           iconName="miniArrowDown"
           color="default"
           size="s1"
-          className="mt-1 ml-1 w-5 group-hover:text-lightBlue duration-200"
+          className="mt-1 ml-1 w-5 group-hover:text-lightBlue duration-200 hidden md:inline-block"
         />
 
         <DropdownList
