@@ -9,11 +9,6 @@ type IconProps = VariantProps<typeof basicVariant> & {
   className?: string;
 };
 
-// interface IconProps1 extends VariantProps<typeof basicVariant> {
-//   iconName: IconNameType;
-//   className?: string;
-// }
-
 const Icon = ({ iconName, size, color, className }: IconProps) => {
   const IconWithClass = React.cloneElement(IconsBase[iconName], {
     className: cn(basicVariant({ color, size, className })),

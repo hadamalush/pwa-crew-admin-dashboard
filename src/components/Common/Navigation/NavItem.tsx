@@ -1,15 +1,16 @@
 import { type FC } from "react";
+import { type basicVariantColorType } from "../../variants/variants";
 import { type IconNameType } from "../../UI/Icons/IconBase";
 import { NavLink, useLocation } from "react-router-dom";
 import { cn } from "../../../util/utils";
-import Icon, { iconColor } from "../../UI/Icons/Icon";
+import Icon from "../../UI/Icons/Icon";
 
 type NavItemProps = {
   icon: IconNameType;
   to: string;
   children: string;
   className?: string;
-  iconColor?: iconColor;
+  iconColor?: basicVariantColorType;
 };
 
 const classesNavItem = {
@@ -32,7 +33,7 @@ const NavItem: FC<NavItemProps> = ({ icon, iconColor, to, children, className })
         to={to}
       >
         <span className="bg-primaryLight w-14 h-14 mr-4 rounded-full flexCenter">
-          <Icon iconName={icon} color={iconColor} size="s1" />
+          <Icon iconName={icon} color={iconColor} size="s1" className="w-36 h-8" />
         </span>
         {children}
       </NavLink>

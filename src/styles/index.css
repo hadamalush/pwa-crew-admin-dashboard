@@ -32,4 +32,8 @@ body {
   .flexCenter {
     @apply flex justify-center items-center;
   }
+
+  /* .flexRight {
+    @apply flex items-center justify-end;
+  } */
 }

@@ -15,7 +15,9 @@ export const basicVariant = cva("w-10 h-10", {
     },
     size: {
       default: "w-10 h-10",
+      s0: "w-4 h-4",
       s1: "w-6 h-6",
+      s1_5: "w-8- h-8",
       s2: "w-10 h-10",
       s3: "w-12 h-12",
       s4: "w-14 h-14",
