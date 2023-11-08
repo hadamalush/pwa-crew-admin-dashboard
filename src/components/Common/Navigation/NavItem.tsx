@@ -15,7 +15,7 @@ type NavItemProps = {
 
 const classesNavItem = {
   default:
-    "relative flex items-center pl-10 py-2 w-11/12 rounded-r-full hover:bg-navItemActive duration-300 ",
+    "relative flex items-center pl-10 py-2 w-11/12 rounded-r-full hover:bg-navItemActive duration-300",
   isActiveClass:
     "bg-navItemActive before:absolute before:left-0 before:inset-y-0 before:w-1 before:bg-lightBlue before:duration-300",
 };

@@ -6,6 +6,11 @@ type DUMMY_MESSAGESTYPE = {
   title: string;
   description: string;
 };
+type SETTINGSTYPE = {
+  id: string;
+  iconName: IconNameType;
+  title: string;
+};
 
 export const DUMMY_MESSAGES: DUMMY_MESSAGESTYPE[] = [
   {
@@ -58,5 +63,18 @@ export const DUMMY_NOTIFICATIONS = [
     avatarSrc: "/cosmita.webp",
     title: "Mattew Ovenbake sent you message",
     description: "Lorem Ipsum has been the industry's standard dummy text ever since the 1500s",
+  },
+];
+
+export const SETTINGS: SETTINGSTYPE[] = [
+  {
+    id: "s1",
+    iconName: "settings",
+    title: "Settings",
+  },
+  {
+    id: "s2",
+    iconName: "power",
+    title: "Sign out",
   },
 ];

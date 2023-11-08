@@ -3,28 +3,34 @@ import DropdownList from "../UI/Dropdown/DropdownList";
 import Icon from "../UI/Icons/Icon";
 import Avatar from "../transitions/Avatar";
 import { NavLink } from "react-router-dom";
-import { DUMMY_NOTIFICATIONS, DUMMY_MESSAGES } from "../transitions/dummy-items";
+import { DUMMY_NOTIFICATIONS, DUMMY_MESSAGES, SETTINGS } from "../transitions/dummy-items";
 import { useState } from "react";
 
 const Header = () => {
   const [isVisibleNotifications, setIsVisibleNotifications] = useState(false);
   const [isVisibleMessages, setIsVisibleMessages] = useState(false);
+  const [isVisibleProfile, setIsVisibleProfile] = useState(false);
 
   const handleDropdown = (option: string, e: React.MouseEvent<HTMLButtonElement>) => {
     e.stopPropagation();
 
     if (option === "notifications") {
       setIsVisibleMessages(false);
+      setIsVisibleProfile(false);
       setIsVisibleNotifications(true);
-      console.log("ustaw true");
     }
     if (option === "messages") {
       setIsVisibleNotifications(false);
+      setIsVisibleProfile(false);
       setIsVisibleMessages(true);
     }
-  };
 
-  console.log(isVisibleNotifications);
+    if (option === "profile") {
+      setIsVisibleNotifications(false);
+      setIsVisibleMessages(false);
+      setIsVisibleProfile(true);
+    }
+  };
 
   return (
     <header className="bg-primary w-full h-28 flexCenter justify-end">
@@ -59,7 +65,11 @@ const Header = () => {
           onClose={() => setIsVisibleNotifications(false)}
         />
       </Button>
-      <Button variant="outline" className="group m-10 ">
+      <Button
+        variant="outline"
+        className="group m-10"
+        onClick={(e) => handleDropdown("profile", e)}
+      >
         <Avatar src="/avatar.jpg" size="s4" />
         <span className="text-white text-2xl font-medium pl-3 group-hover:text-lightBlue duration-200">
           Bolesław Chrobry
@@ -69,6 +79,13 @@ const Header = () => {
           color="default"
           size="s1"
           className="mt-1 ml-1 w-5 group-hover:text-lightBlue duration-200"
+        />
+
+        <DropdownList
+          title="Profile"
+          items={SETTINGS}
+          isVisible={isVisibleProfile}
+          onClose={() => setIsVisibleProfile(false)}
         />
       </Button>
     </header>

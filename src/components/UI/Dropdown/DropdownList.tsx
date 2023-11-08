@@ -23,6 +23,15 @@ const DropdownList = ({
 }: DropdownListProps) => {
   const ref = useRef<HTMLUListElement>(null);
 
+  const c = {
+    list: cn(
+      "max-w-md shadow-2xl shadow-black absolute top-24  bg-primary rounded-md overflow-hidden cursor-default z-50",
+      className
+    ),
+    heading: "text-left ml-3 p-5 font-bold text-white",
+    textInfo: "p-6 font-medium hover:bg-navItemActive text-white text-xl",
+  };
+
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
       if (ref.current && !ref.current.contains(event.target as Node)) {
@@ -40,17 +49,15 @@ const DropdownList = ({
     <AnimatePresence>
       {isVisible && (
         <motion.ul
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
+          initial={{ y: -30, opacity: 0 }}
+          animate={{ y: 0, opacity: 1 }}
+          transition={{ duration: 0.2 }}
           exit={{ opacity: 0 }}
           ref={ref}
-          className={cn(
-            "max-w-md shadow-2xl shadow-black absolute top-24  bg-primary rounded-md overflow-hidden cursor-default delay-1000 duration-300 z-50",
-            className
-          )}
+          className={c.list}
           {...props}
         >
-          <Heading as="h3" className="text-left ml-3 p-5 font-bold text-white">
+          <Heading as="h3" className={c.heading}>
             {title}
           </Heading>
           {items.map((item) => (
@@ -58,9 +65,7 @@ const DropdownList = ({
           ))}
           <li>
             <NavLink to="/">
-              <p className="p-6 font-medium hover:bg-navItemActive text-white text-xl">
-                5 new notifications
-              </p>
+              <p className={c.textInfo}>5 new notifications</p>
             </NavLink>
           </li>
         </motion.ul>
