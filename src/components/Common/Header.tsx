@@ -2,11 +2,16 @@ import Button from "../UI/Button";
 import DropdownList from "../UI/Dropdown/DropdownList";
 import Icon from "../UI/Icons/Icon";
 import Avatar from "../transitions/Avatar";
-import { NavLink } from "react-router-dom";
+import { NavLink, Form } from "react-router-dom";
+import Heading from "../UI/Heading";
 import { DUMMY_NOTIFICATIONS, DUMMY_MESSAGES, SETTINGS } from "../transitions/dummy-items";
-import { useState } from "react";
+import { useState, type Dispatch, type SetStateAction } from "react";
 
-const Header = () => {
+type HeaderProps = {
+  setIsVisibleNav: Dispatch<SetStateAction<boolean>>;
+};
+
+const Header = ({ setIsVisibleNav }: HeaderProps) => {
   const [isVisibleNotifications, setIsVisibleNotifications] = useState(false);
   const [isVisibleMessages, setIsVisibleMessages] = useState(false);
   const [isVisibleProfile, setIsVisibleProfile] = useState(false);
@@ -32,9 +37,42 @@ const Header = () => {
     }
   };
 
+  const handleNav = () => {
+    setIsVisibleNav((prevState) => !prevState);
+  };
+
   return (
     <header className="bg-primary w-full h-28 flexCenter justify-end">
-      <NavLink to="https://pwa-crew-site-demo.vercel.app/" target="_blank" className="group px-5">
+      <Heading
+        as="h1"
+        className="w-96 pl-10 text-4xl text-white tracking-widest uppercase flex-shrink-0"
+      >
+        Pwa Crew
+      </Heading>
+
+      <Button variant="outline" className="group px-5 outline-none" onClick={handleNav}>
+        <Icon
+          iconName="menu"
+          size="s1"
+          className="group-hover:text-lightBlue duration-200 text-textPrimary"
+        />
+      </Button>
+
+      <Form className="flex m-auto w-5/12 ">
+        <input
+          className="w-full px-7 py-3 placeholder:text-textPrimary rounded-md border border-borderPrimary bg-primary outline-none"
+          placeholder="Search users"
+        />
+      </Form>
+
+      <Button variant="outline" className="group px-5 ">
+        <Icon iconName="sun" size="s1_5" className="group-hover:text-lightBlue duration-200" />
+      </Button>
+      <NavLink
+        to="https://pwa-crew-site-demo.vercel.app/"
+        target="_blank"
+        className="group px-5 border-l border-borderPrimary"
+      >
         <Icon iconName="home" size="s1_5" className="group-hover:text-lightBlue duration-200" />
       </NavLink>
       <Button

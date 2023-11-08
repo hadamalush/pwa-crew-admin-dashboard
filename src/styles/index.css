@@ -22,6 +22,11 @@ body {
   font-size: 1.6rem;
 }
 
+h1 {
+  font-family: "Nunito", sans-serif;
+  font-weight: 900;
+}
+
 @layer base {
   body {
     @apply text-textPrimary;
