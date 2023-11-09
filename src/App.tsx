@@ -13,7 +13,7 @@ function App() {
       element: <MainLayout />,
       children: [
         { index: true, element: <DashBoardPage /> },
-        { path: "/inbox", element: <InboxPage /> },
+        { path: "inbox", element: <InboxPage /> },
         { path: "/users", element: <UsersPage /> },
         { path: "/events", element: <EventsPage /> },
         { path: "/settings", element: <SettingsPage /> },
