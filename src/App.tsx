@@ -5,6 +5,8 @@ import InboxPage from "./pages/InboxPage";
 import UsersPage from "./pages/UsersPage";
 import EventsPage from "./pages/EventsPage";
 import SettingsPage from "./pages/SettingsPage";
+import { Provider as ReduxProvider } from "react-redux/es/exports";
+import { store } from "./global/store";
 
 function App() {
   const router = createBrowserRouter([
@@ -21,7 +23,11 @@ function App() {
     },
   ]);
 
-  return <RouterProvider router={router} />;
+  return (
+    <ReduxProvider store={store}>
+      <RouterProvider router={router} />
+    </ReduxProvider>
+  );
 }
 
 export default App;

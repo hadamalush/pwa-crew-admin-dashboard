@@ -5,19 +5,19 @@ import Avatar from "../transitions/Avatar";
 import { NavLink, Form } from "react-router-dom";
 import Heading from "../UI/Heading";
 import { DUMMY_NOTIFICATIONS, DUMMY_MESSAGES, SETTINGS } from "../transitions/dummy-items";
-import { useState, useEffect, type Dispatch, type SetStateAction } from "react";
+import { useState, useEffect } from "react";
 import { cn } from "../../util/utils";
 import { useMediaQuery } from "react-responsive";
+import { useGlobalDispatch, useGlobalSelector } from "../../global/hooks";
+import { handleNav } from "../../global/toggle-slice";
 
-type HeaderProps = {
-  setIsVisibleNav: Dispatch<SetStateAction<boolean>>;
-  isVisibleNav: boolean;
-};
-
-const Header = ({ setIsVisibleNav, isVisibleNav }: HeaderProps) => {
+const Header = () => {
   const [isVisibleNotifications, setIsVisibleNotifications] = useState(false);
   const [isVisibleMessages, setIsVisibleMessages] = useState(false);
   const [isVisibleProfile, setIsVisibleProfile] = useState(false);
+  const isVisibleNav = useGlobalSelector((state) => state.toggle.isVisibleNav);
+  const dispatch = useGlobalDispatch();
+
   const [theme, setTheme] = useState("dark");
   const isMdScreen = useMediaQuery({ minWidth: 1060 });
 
@@ -33,28 +33,28 @@ const Header = ({ setIsVisibleNav, isVisibleNav }: HeaderProps) => {
     e.stopPropagation();
 
     if (option === "notifications") {
-      !isMdScreen && setIsVisibleNav(false);
+      !isMdScreen && dispatch(handleNav({ isVisibleNav: false }));
       setIsVisibleMessages(false);
       setIsVisibleProfile(false);
       setIsVisibleNotifications(true);
     }
     if (option === "messages") {
-      !isMdScreen && setIsVisibleNav(false);
+      !isMdScreen && dispatch(handleNav({ isVisibleNav: false }));
       setIsVisibleNotifications(false);
       setIsVisibleProfile(false);
       setIsVisibleMessages(true);
     }
 
     if (option === "profile") {
-      !isMdScreen && setIsVisibleNav(false);
+      !isMdScreen && dispatch(handleNav({ isVisibleNav: false }));
       setIsVisibleNotifications(false);
       setIsVisibleMessages(false);
       setIsVisibleProfile(true);
     }
   };
 
-  const handleNav = () => {
-    setIsVisibleNav((prevState) => !prevState);
+  const handleNavChange = () => {
+    dispatch(handleNav({ isVisibleNav: !isVisibleNav }));
   };
 
   const handleThemeSwitch = () => {
@@ -78,7 +78,7 @@ const Header = ({ setIsVisibleNav, isVisibleNav }: HeaderProps) => {
       <Button
         variant="outline"
         className="group px-5 outline-none order-1 md:order-none"
-        onClick={handleNav}
+        onClick={handleNavChange}
         aria-label="navigation menu"
         type="button"
       >

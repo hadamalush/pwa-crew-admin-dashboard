@@ -1,12 +1,14 @@
 import { useMediaQuery } from "react-responsive";
 import { cn } from "../../../util/utils";
 import NavItem from "./NavItem";
+import { useGlobalSelector } from "../../../global/hooks";
 
-type NavbarProps = {
-  isVisibleNav: boolean;
-};
+// type NavbarProps = {
+//   isVisibleNav: boolean;
+// };
 
-const Navbar = ({ isVisibleNav }: NavbarProps) => {
+const Navbar = () => {
+  const isVisibleNav = useGlobalSelector((state) => state.toggle.isVisibleNav);
   const isMdScreen = useMediaQuery({ minWidth: 1060 });
 
   return (
