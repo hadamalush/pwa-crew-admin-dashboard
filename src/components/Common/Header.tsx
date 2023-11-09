@@ -62,7 +62,7 @@ const Header = ({ setIsVisibleNav, isVisibleNav }: HeaderProps) => {
   };
 
   return (
-    <header className="dark:bg-primary bg-white border-b border-pLight dark:border-none w-full h-28 flexCenter justify-end  drop-shadow-[0_0px_15px_rgba(0,0,0,0.1)] dark:drop-shadow-[0_0px_15px_rgba(0,0,0,0.3)]">
+    <header className="dark:bg-primary fixed z-50 bg-white border-b border-pLight dark:border-none w-full h-28 flexCenter justify-end  drop-shadow-[0_0px_15px_rgba(0,0,0,0.1)] dark:drop-shadow-[0_0px_15px_rgba(0,0,0,0.3)]">
       <Heading
         as="h1"
         className={cn(
