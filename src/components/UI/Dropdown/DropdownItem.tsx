@@ -24,10 +24,10 @@ const DropdownItem = ({ iconName, avatarSrc, title, description }: DropdownItemP
   }) as basicVariantColorType;
 
   const c = {
-    text: "overflow-hidden whitespace-nowrap text-ellipsis",
-    heading: "overflow-hidden whitespace-nowrap text-ellipsis text-white",
-    link: "flex items-center p-4 border-t border-borderPrimary hover:bg-navItemActive outline-none",
-    circle: "bg-primaryLight w-20 h-16 ml-3 p-3 rounded-full flexCenter",
+    text: "overflow-hidden whitespace-nowrap text-ellipsis dark:text-textPrimary text-gray",
+    heading: "overflow-hidden whitespace-nowrap text-ellipsis dark:text-white",
+    link: "flex items-center p-4 border-t border-pLight dark:border-borderPrimary dark:hover:bg-navItemActive hover:bg-slate-200 outline-none",
+    circle: "bg-slate-100 dark:bg-primaryLight w-20 h-16 ml-3 p-3 rounded-full flexCenter",
   };
 
   if (iconName) {

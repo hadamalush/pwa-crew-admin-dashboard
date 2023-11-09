@@ -34,7 +34,7 @@ h1 {
 
 @layer base {
   body {
-    @apply text-textPrimary;
+    @apply text-black;
   }
 }
 

@@ -8,6 +8,8 @@ export default {
 
   white: "#ffffff",
   black: "#000000",
+  gray: "#767676",
+  grayLight: "background-color: rgb(203 213 225)",
   darkPurple: "#8f5fe8",
   orangeYellow: "#ffab00",
   lightRed: "#fc424a",
@@ -17,5 +19,5 @@ export default {
   navItemActive: "#0f1015",
 
   //LIGHT
-  primaryBorderLight: "#c9c9c980",
+  pLight: "#c9c9c980",
 };

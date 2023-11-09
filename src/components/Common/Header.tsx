@@ -7,6 +7,7 @@ import Heading from "../UI/Heading";
 import { DUMMY_NOTIFICATIONS, DUMMY_MESSAGES, SETTINGS } from "../transitions/dummy-items";
 import { useState, useEffect, type Dispatch, type SetStateAction } from "react";
 import { cn } from "../../util/utils";
+import { useMediaQuery } from "react-responsive";
 
 type HeaderProps = {
   setIsVisibleNav: Dispatch<SetStateAction<boolean>>;
@@ -18,6 +19,7 @@ const Header = ({ setIsVisibleNav, isVisibleNav }: HeaderProps) => {
   const [isVisibleMessages, setIsVisibleMessages] = useState(false);
   const [isVisibleProfile, setIsVisibleProfile] = useState(false);
   const [theme, setTheme] = useState("dark");
+  const isMdScreen = useMediaQuery({ minWidth: 1060 });
 
   useEffect(() => {
     if (theme === "dark") {
@@ -31,20 +33,20 @@ const Header = ({ setIsVisibleNav, isVisibleNav }: HeaderProps) => {
     e.stopPropagation();
 
     if (option === "notifications") {
-      setIsVisibleNav(false);
+      !isMdScreen && setIsVisibleNav(false);
       setIsVisibleMessages(false);
       setIsVisibleProfile(false);
       setIsVisibleNotifications(true);
     }
     if (option === "messages") {
-      setIsVisibleNav(false);
+      !isMdScreen && setIsVisibleNav(false);
       setIsVisibleNotifications(false);
       setIsVisibleProfile(false);
       setIsVisibleMessages(true);
     }
 
     if (option === "profile") {
-      setIsVisibleNav(false);
+      !isMdScreen && setIsVisibleNav(false);
       setIsVisibleNotifications(false);
       setIsVisibleMessages(false);
       setIsVisibleProfile(true);
@@ -60,11 +62,11 @@ const Header = ({ setIsVisibleNav, isVisibleNav }: HeaderProps) => {
   };
 
   return (
-    <header className="dark:bg-primary border-b border-primaryBorderLight dark:border-none w-full h-28 flexCenter justify-end">
+    <header className="dark:bg-primary bg-white border-b border-pLight dark:border-none w-full h-28 flexCenter justify-end  drop-shadow-[0_0px_15px_rgba(0,0,0,0.1)] dark:drop-shadow-[0_0px_15px_rgba(0,0,0,0.3)]">
       <Heading
         as="h1"
         className={cn(
-          "w-96 pl-10 text-4xl dark:text-white tracking-widest uppercase flex-shrink-0 duration-200 hidden md:inline-block",
+          "w-96 pl-10 text-4xl dark:text-white text-black tracking-widest uppercase flex-shrink-0 duration-200 hidden md:inline-block",
           {
             "w-36 text-center p-0": !isVisibleNav,
           }
@@ -89,7 +91,7 @@ const Header = ({ setIsVisibleNav, isVisibleNav }: HeaderProps) => {
 
       <Form className=" m-auto w-5/12 hidden md:flex">
         <input
-          className="w-full px-7 py-3 placeholder:text-textPrimary rounded-md border border-borderPrimary bg-primary outline-none"
+          className="w-full px-7 py-3 placeholder:text-textPrimary rounded-md border border-pLight dark:border-borderPrimary dark:bg-primary outline-none"
           placeholder="Search users"
         />
       </Form>
@@ -101,24 +103,36 @@ const Header = ({ setIsVisibleNav, isVisibleNav }: HeaderProps) => {
         type="button"
         onClick={handleThemeSwitch}
       >
-        <Icon iconName="sun" size="s1_5" className="group-hover:text-lightBlue duration-200" />
+        <Icon
+          iconName="sun"
+          size="s1_5"
+          className="group-hover:text-lightBlue duration-200 text-gray dark:text-white"
+        />
       </Button>
       <NavLink
         to="https://pwa-crew-site-demo.vercel.app/"
         target="_blank"
-        className="group px-5 border-l border-borderPrimary hidden md:inline outline-none"
+        className="group px-5 border-l border-pLight dark:border-borderPrimaryhidden md:inline outline-none "
         aria-label="Main website - pwacrew"
       >
-        <Icon iconName="home" size="s1_5" className="group-hover:text-lightBlue duration-200" />
+        <Icon
+          iconName="home"
+          size="s1_5"
+          className="group-hover:text-lightBlue duration-200 text-gray dark:text-white"
+        />
       </NavLink>
       <Button
         onClick={(e) => handleDropdown("messages", e)}
         variant="outline"
-        className="group px-5 border-l border-borderPrimary ss:relative"
+        className="group px-5 border-l border-pLight dark:border-borderPrimary ss:relative"
         aria-label="messages"
         type="button"
       >
-        <Icon iconName="mail" size="s1_5" className="group-hover:text-lightBlue duration-200" />
+        <Icon
+          iconName="mail"
+          size="s1_5"
+          className="group-hover:text-lightBlue duration-200 text-gray dark:text-white"
+        />
 
         <DropdownList
           title="Notifications"
@@ -132,11 +146,15 @@ const Header = ({ setIsVisibleNav, isVisibleNav }: HeaderProps) => {
       <Button
         onClick={(e) => handleDropdown("notifications", e)}
         variant="outline"
-        className="group px-5 border-l border-borderPrimary ss:relative"
+        className="group px-5 border-l border-pLight dark:border-borderPrimary ss:relative"
         aria-label="notifications"
         type="button"
       >
-        <Icon iconName="bell" size="s1_5" className="group-hover:text-lightBlue duration-200" />
+        <Icon
+          iconName="bell"
+          size="s1_5"
+          className="group-hover:text-lightBlue duration-200 text-gray dark:text-white"
+        />
 
         <DropdownList
           title="Notifications"
@@ -155,14 +173,14 @@ const Header = ({ setIsVisibleNav, isVisibleNav }: HeaderProps) => {
         type="button"
       >
         <Avatar src="/avatar.jpg" size="s4" />
-        <span className="text-white text-2xl font-medium pl-3 group-hover:text-lightBlue duration-200 w-32 overflow-hidden whitespace-nowrap text-ellipsis hidden md:inline">
+        <span className="dark:text-white text-2xl font-medium pl-3 group-hover:text-lightBlue duration-200 w-32 overflow-hidden whitespace-nowrap text-ellipsis hidden md:inline">
           Bolesław Chrobry
         </span>
         <Icon
           iconName="miniArrowDown"
           color="default"
           size="s1"
-          className="mt-1 ml-1 w-5 group-hover:text-lightBlue duration-200 hidden md:inline-block"
+          className="mt-1 ml-1 w-5 group-hover:text-lightBlue duration-200 hidden md:inline-block dark:text-white text-black"
         />
 
         <DropdownList

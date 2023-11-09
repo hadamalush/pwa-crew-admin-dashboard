@@ -33,11 +33,12 @@ const DropdownList = ({
 
   const c = {
     list: cn(
-      "shadow-2xl shadow-black absolute top-16  bg-primary rounded-md overflow-hidden cursor-default z-50 w-screen right-0 ss:w-128 flex-shrink-0",
+      "drop-shadow-[0_0px_15px_rgba(0,0,0,0.2)] dark:drop-shadow-[0_0px_15px_rgba(0,0,0,0.9)] dark:shadow-black absolute top-16 dark:bg-primary bg-white rounded-md overflow-hidden cursor-default z-50 w-screen right-0 ss:w-128 flex-shrink-0",
       className
     ),
-    heading: "text-left ml-3 p-5 font-bold text-white",
-    textInfo: "p-6 font-medium hover:bg-navItemActive text-white text-xl",
+    heading: "text-left ml-3 p-5 font-bold dark:text-white",
+    textInfo:
+      "p-6 font-medium dark:hover:bg-navItemActive hover:bg-slate-200 dark:text-white text-xl",
   };
 
   useEffect(() => {
