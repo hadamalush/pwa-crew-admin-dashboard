@@ -24,6 +24,9 @@ export default {
         scale: "scale 0.5s ",
         spin: "spin 2s linear infinite",
       },
+      width: {
+        128: "32rem",
+      },
     },
     screens: {
       xs: "480px",

@@ -14,7 +14,8 @@ const Navbar = ({ isVisibleNav }: NavbarProps) => {
   return (
     <nav
       className={cn(
-        " bg-primary md:w-96 duration-200 md:left-0 absolute right-0 w-screen xs:w-96 h-3/4 md:h-screen translate-x-full md:translate-x-0 shadow-2xl shadow-black xs:rounded-bl-xl ",
+        ` bg-primary md:w-96 duration-200 md:left-0 absolute right-0 w-screen xs:w-96 h-3/4 md:h-screen translate-x-full
+         md:translate-x-0 shadow-2xl shadow-black xs:rounded-bl-xl md:shadow-none`,
         {
           "md:w-36": !isVisibleNav,
         },
@@ -23,7 +24,7 @@ const Navbar = ({ isVisibleNav }: NavbarProps) => {
         }
       )}
     >
-      {(isVisibleNav || !isMdScreen) && <h3 className="pl-10 mb-5 font-bold">Navigation</h3>}
+      {(isVisibleNav || !isMdScreen) && <h3 className="pl-10 mb-5 font-bold pt-5">Navigation</h3>}
       <ul>
         <NavItem
           to="/"

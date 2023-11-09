@@ -22,17 +22,20 @@ const Header = ({ setIsVisibleNav, isVisibleNav }: HeaderProps) => {
     e.stopPropagation();
 
     if (option === "notifications") {
+      setIsVisibleNav(false);
       setIsVisibleMessages(false);
       setIsVisibleProfile(false);
       setIsVisibleNotifications(true);
     }
     if (option === "messages") {
+      setIsVisibleNav(false);
       setIsVisibleNotifications(false);
       setIsVisibleProfile(false);
       setIsVisibleMessages(true);
     }
 
     if (option === "profile") {
+      setIsVisibleNav(false);
       setIsVisibleNotifications(false);
       setIsVisibleMessages(false);
       setIsVisibleProfile(true);
@@ -89,7 +92,7 @@ const Header = ({ setIsVisibleNav, isVisibleNav }: HeaderProps) => {
       <Button
         onClick={(e) => handleDropdown("messages", e)}
         variant="outline"
-        className="group px-5 border-l border-borderPrimary"
+        className="group px-5 border-l border-borderPrimary ss:relative"
       >
         <Icon iconName="mail" size="s1_5" className="group-hover:text-lightBlue duration-200" />
 
@@ -98,12 +101,14 @@ const Header = ({ setIsVisibleNav, isVisibleNav }: HeaderProps) => {
           items={DUMMY_MESSAGES}
           isVisible={isVisibleMessages}
           onClose={() => setIsVisibleMessages(false)}
+          className="top-24 ss:top-16"
+          infoBottom={{ href: "/", title: "5 new messages" }}
         />
       </Button>
       <Button
         onClick={(e) => handleDropdown("notifications", e)}
         variant="outline"
-        className="group px-5 border-l border-borderPrimary"
+        className="group px-5 border-l border-borderPrimary ss:relative"
       >
         <Icon iconName="bell" size="s1_5" className="group-hover:text-lightBlue duration-200" />
 
@@ -112,11 +117,13 @@ const Header = ({ setIsVisibleNav, isVisibleNav }: HeaderProps) => {
           items={DUMMY_NOTIFICATIONS}
           isVisible={isVisibleNotifications}
           onClose={() => setIsVisibleNotifications(false)}
+          className="top-24 ss:top-16"
+          infoBottom={{ href: "/", title: "5 new notifications" }}
         />
       </Button>
       <Button
         variant="outline"
-        className="group mr-7 ml-3"
+        className="group mr-7 ml-3 "
         onClick={(e) => handleDropdown("profile", e)}
       >
         <Avatar src="/avatar.jpg" size="s4" />
@@ -135,6 +142,7 @@ const Header = ({ setIsVisibleNav, isVisibleNav }: HeaderProps) => {
           items={SETTINGS}
           isVisible={isVisibleProfile}
           onClose={() => setIsVisibleProfile(false)}
+          className="top-24 ss:w-80"
         />
       </Button>
     </header>

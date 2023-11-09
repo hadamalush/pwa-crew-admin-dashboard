@@ -28,6 +28,10 @@ h1 {
   font-weight: 900;
 }
 
+.w110 {
+  width: 30rem;
+}
+
 @layer base {
   body {
     @apply text-textPrimary;
@@ -38,8 +42,4 @@ h1 {
   .flexCenter {
     @apply flex justify-center items-center;
   }
-
-  /* .flexRight {
-    @apply flex items-center justify-end;
-  } */
 }

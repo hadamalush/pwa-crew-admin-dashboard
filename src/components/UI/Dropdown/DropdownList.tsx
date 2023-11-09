@@ -5,10 +5,17 @@ import { useRef, useEffect, ComponentPropsWithoutRef } from "react";
 import { cn } from "../../../util/utils";
 import { motion, AnimatePresence, HTMLMotionProps } from "framer-motion";
 
+type infoBottomProps = {
+  title: string;
+  href: string;
+  className?: string;
+};
+
 type DropdownListProps = {
   title: string;
   items: DropdownItemProps[];
   isVisible: boolean;
+  infoBottom?: infoBottomProps;
   onClose: () => void;
 } & ComponentPropsWithoutRef<"ul"> &
   HTMLMotionProps<"ul">;
@@ -16,16 +23,17 @@ type DropdownListProps = {
 const DropdownList = ({
   title,
   items,
-  onClose,
   isVisible,
   className,
+  infoBottom,
+  onClose,
   ...props
 }: DropdownListProps) => {
   const ref = useRef<HTMLUListElement>(null);
 
   const c = {
     list: cn(
-      "max-w-md shadow-2xl shadow-black absolute top-24  bg-primary rounded-md overflow-hidden cursor-default z-50",
+      "shadow-2xl shadow-black absolute top-16  bg-primary rounded-md overflow-hidden cursor-default z-50 w-screen right-0 ss:w-128 flex-shrink-0",
       className
     ),
     heading: "text-left ml-3 p-5 font-bold text-white",
@@ -63,11 +71,13 @@ const DropdownList = ({
           {items.map((item) => (
             <DropdownItem key={item.id} {...item} />
           ))}
-          <li>
-            <NavLink to="/">
-              <p className={c.textInfo}>5 new notifications</p>
-            </NavLink>
-          </li>
+          {infoBottom && (
+            <li>
+              <NavLink to={infoBottom.href}>
+                <p className={cn(c.textInfo, infoBottom.className)}>{infoBottom.title}</p>
+              </NavLink>
+            </li>
+          )}
         </motion.ul>
       )}
     </AnimatePresence>
