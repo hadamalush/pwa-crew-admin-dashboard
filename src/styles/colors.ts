@@ -15,4 +15,7 @@ export default {
   lightGreen: "#00d25b",
   bluePurple: "#6152e8",
   navItemActive: "#0f1015",
+
+  //LIGHT
+  primaryBorderLight: "#c9c9c980",
 };

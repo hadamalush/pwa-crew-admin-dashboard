@@ -5,7 +5,7 @@ import Avatar from "../transitions/Avatar";
 import { NavLink, Form } from "react-router-dom";
 import Heading from "../UI/Heading";
 import { DUMMY_NOTIFICATIONS, DUMMY_MESSAGES, SETTINGS } from "../transitions/dummy-items";
-import { useState, type Dispatch, type SetStateAction } from "react";
+import { useState, useEffect, type Dispatch, type SetStateAction } from "react";
 import { cn } from "../../util/utils";
 
 type HeaderProps = {
@@ -17,6 +17,15 @@ const Header = ({ setIsVisibleNav, isVisibleNav }: HeaderProps) => {
   const [isVisibleNotifications, setIsVisibleNotifications] = useState(false);
   const [isVisibleMessages, setIsVisibleMessages] = useState(false);
   const [isVisibleProfile, setIsVisibleProfile] = useState(false);
+  const [theme, setTheme] = useState("dark");
+
+  useEffect(() => {
+    if (theme === "dark") {
+      document.documentElement.classList.add("dark");
+    } else {
+      document.documentElement.classList.remove("dark");
+    }
+  }, [theme]);
 
   const handleDropdown = (option: string, e: React.MouseEvent<HTMLButtonElement>) => {
     e.stopPropagation();
@@ -46,12 +55,16 @@ const Header = ({ setIsVisibleNav, isVisibleNav }: HeaderProps) => {
     setIsVisibleNav((prevState) => !prevState);
   };
 
+  const handleThemeSwitch = () => {
+    setTheme(theme === "dark" ? "light" : "dark");
+  };
+
   return (
-    <header className="bg-primary w-full h-28 flexCenter justify-end">
+    <header className="dark:bg-primary border-b border-primaryBorderLight dark:border-none w-full h-28 flexCenter justify-end">
       <Heading
         as="h1"
         className={cn(
-          "w-96 pl-10 text-4xl text-white tracking-widest uppercase flex-shrink-0 duration-200 hidden md:inline-block",
+          "w-96 pl-10 text-4xl dark:text-white tracking-widest uppercase flex-shrink-0 duration-200 hidden md:inline-block",
           {
             "w-36 text-center p-0": !isVisibleNav,
           }
@@ -86,6 +99,7 @@ const Header = ({ setIsVisibleNav, isVisibleNav }: HeaderProps) => {
         className="group px-5 hidden md:inline-flex"
         aria-label="theme switcher"
         type="button"
+        onClick={handleThemeSwitch}
       >
         <Icon iconName="sun" size="s1_5" className="group-hover:text-lightBlue duration-200" />
       </Button>
