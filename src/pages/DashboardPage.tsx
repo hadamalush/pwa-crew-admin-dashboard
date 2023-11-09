@@ -1,5 +1,5 @@
 const DashBoardPage = () => {
-  return <div>dsadasd</div>;
+  return <main className="bg-black w-full h-screen">dsadddddddddddddddddddddddddasd</main>;
 };
 
 export default DashBoardPage;
