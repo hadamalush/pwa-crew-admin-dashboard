@@ -4,10 +4,10 @@ import { cn } from "../../util/utils";
 
 const buttonVariant = cva("inline-flex items-center justify-center", {
   variants: {
-    variant: { outline: "bg-transparent", default: "bg-lightBlue" },
+    variant: { outline: "bg-transparent outline-none", default: "bg-lightBlue outline-none" },
     size: {
-      default: "h-10 py-2 px-4 outline-none",
-      sm: "h-9 px-2 rounded-md outline-none",
+      default: "h-10 py-2 px-4 ",
+      sm: "h-9 px-2 rounded-md ",
     },
   },
   defaultVariants: {},

@@ -64,6 +64,8 @@ const Header = ({ setIsVisibleNav, isVisibleNav }: HeaderProps) => {
         variant="outline"
         className="group px-5 outline-none order-1 md:order-none"
         onClick={handleNav}
+        aria-label="navigation menu"
+        type="button"
       >
         <Icon
           iconName="menu"
@@ -79,13 +81,19 @@ const Header = ({ setIsVisibleNav, isVisibleNav }: HeaderProps) => {
         />
       </Form>
 
-      <Button variant="outline" className="group px-5 hidden md:inline-flex">
+      <Button
+        variant="outline"
+        className="group px-5 hidden md:inline-flex"
+        aria-label="theme switcher"
+        type="button"
+      >
         <Icon iconName="sun" size="s1_5" className="group-hover:text-lightBlue duration-200" />
       </Button>
       <NavLink
         to="https://pwa-crew-site-demo.vercel.app/"
         target="_blank"
-        className="group px-5 border-l border-borderPrimary hidden md:inline"
+        className="group px-5 border-l border-borderPrimary hidden md:inline outline-none"
+        aria-label="Main website - pwacrew"
       >
         <Icon iconName="home" size="s1_5" className="group-hover:text-lightBlue duration-200" />
       </NavLink>
@@ -93,6 +101,8 @@ const Header = ({ setIsVisibleNav, isVisibleNav }: HeaderProps) => {
         onClick={(e) => handleDropdown("messages", e)}
         variant="outline"
         className="group px-5 border-l border-borderPrimary ss:relative"
+        aria-label="messages"
+        type="button"
       >
         <Icon iconName="mail" size="s1_5" className="group-hover:text-lightBlue duration-200" />
 
@@ -109,6 +119,8 @@ const Header = ({ setIsVisibleNav, isVisibleNav }: HeaderProps) => {
         onClick={(e) => handleDropdown("notifications", e)}
         variant="outline"
         className="group px-5 border-l border-borderPrimary ss:relative"
+        aria-label="notifications"
+        type="button"
       >
         <Icon iconName="bell" size="s1_5" className="group-hover:text-lightBlue duration-200" />
 
@@ -125,6 +137,8 @@ const Header = ({ setIsVisibleNav, isVisibleNav }: HeaderProps) => {
         variant="outline"
         className="group mr-7 ml-3 "
         onClick={(e) => handleDropdown("profile", e)}
+        aria-label="profil"
+        type="button"
       >
         <Avatar src="/avatar.jpg" size="s4" />
         <span className="text-white text-2xl font-medium pl-3 group-hover:text-lightBlue duration-200 w-32 overflow-hidden whitespace-nowrap text-ellipsis hidden md:inline">
