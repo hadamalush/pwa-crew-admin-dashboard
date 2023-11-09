@@ -1,18 +1,23 @@
-// import { useMediaQuery } from "react-responsive";
-// import { useGlobalSelector } from "../../global/hooks";
+import { useGlobalSelector } from "../../global/hooks";
 import { ComponentPropsWithoutRef } from "react";
 import { cn } from "../../util/utils";
 
 type MainProps = ComponentPropsWithoutRef<"main">;
 
 const Main = ({ children }: MainProps) => {
-  //   const theme = useGlobalSelector((state) => state.toggle.theme);
-  //   const isMediumScreen = useMediaQuery({ minWidth: 1060 });
+  const isVisibleNav = useGlobalSelector((state) => state.toggle.isVisibleNav);
 
-  //   console.log(theme);
+  console.log(isVisibleNav);
 
-  return <main className={cn("dark:bg-black w-full h-screen md:pl-36 pt-28")}>{children}</main>;
+  return (
+    <main
+      className={cn("dark:bg-black w-full min-h-screen md:pl-36 pt-28 duration-200", {
+        "md:pl-96": isVisibleNav,
+      })}
+    >
+      {children}
+    </main>
+  );
 };
-//md:pl-36
 
 export default Main;
