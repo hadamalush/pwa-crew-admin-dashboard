@@ -14,7 +14,7 @@ const Navbar = ({ isVisibleNav }: NavbarProps) => {
   return (
     <nav
       className={cn(
-        `drop-shadow-[0_0px_15px_rgba(0,0,0,0.1)] dark:drop-shadow-[0_0px_15px_rgba(0,0,0,0.3)]  dark:bg-primary md:w-96 duration-200 md:left-0 absolute bg-white right-0 w-screen xs:w-96 h-3/4 md:h-screen translate-x-full
+        `drop-shadow-[0_0px_15px_rgba(0,0,0,0.1)] dark:drop-shadow-[0_0px_15px_rgba(0,0,0,0.3)]  dark:bg-primary md:w-96 duration-200 md:left-0 absolute z-50 bg-white right-0 w-screen xs:w-96 h-3/4 md:h-screen translate-x-full
          md:translate-x-0 shadow-black xs:rounded-bl-xl md:shadow-none border-r border-pLight dark:border-none`,
         {
           "md:w-36": !isVisibleNav,

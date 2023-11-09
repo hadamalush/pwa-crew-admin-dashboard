@@ -5,8 +5,9 @@ import { VariantProps, cva } from "class-variance-authority";
 const containterVariant = cva("flexCenter", {
   variants: {
     variant: {
-      default: "bg-white dark:bg-primary w-10 h-10",
-      wrapper: "p-10 w-full h-full text-white",
+      default:
+        "bg-white dark:bg-primary w-10 h-10 drop-shadow-[0_0px_15px_rgba(0,0,0,0.07)] dark:drop-shadow-[0_0px_15px_rgba(0,0,0,0.9)] rounded-xl duration-200",
+      wrapper: "p-10 w-full h-full text-white items-start",
     },
   },
 });
@@ -21,10 +22,11 @@ const Container: <C extends ElementType>(props: ContainerProps<C>) => JSX.Elemen
   as: Component = "div",
   children,
   variant,
+  className,
   ...props
 }) => {
   return (
-    <Component className={cn(containterVariant({ variant }), props.className)} {...props}>
+    <Component className={cn(containterVariant({ variant }), className)} {...props}>
       {children}
     </Component>
   );
