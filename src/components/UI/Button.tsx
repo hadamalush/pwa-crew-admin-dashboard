@@ -1,9 +1,22 @@
-// import { type ComponentPropsWithoutRef, type FC } from "react";
+import { type FC, type ButtonHTMLAttributes } from "react";
+import { VariantProps, cva } from "class-variance-authority";
+import { cn } from "../../util/utils";
 
-// type ButtonProps = ComponentPropsWithoutRef<"button"> & { href?: never };
+const buttonVariant = cva("inline-flex items-center justify-center", {
+  variants: {
+    variant: { outline: "bg-transparent", default: "bg-lightBlue" },
+    size: {
+      default: "h-10 py-2 px-4 outline-none",
+      sm: "h-9 px-2 rounded-md outline-none",
+    },
+  },
+  defaultVariants: {},
+});
 
-// const Button = () => {
-//   return <button></button>;
-// };
+type ButtonProps = ButtonHTMLAttributes<HTMLButtonElement> & VariantProps<typeof buttonVariant>;
 
-// export default Button;
+const Button: FC<ButtonProps> = ({ variant, size, className, ...props }) => {
+  return <button className={cn(buttonVariant({ variant, size }), className)} {...props}></button>;
+};
+
+export default Button;

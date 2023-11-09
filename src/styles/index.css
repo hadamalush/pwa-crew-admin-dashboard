@@ -20,6 +20,16 @@ html {
 
 body {
   font-size: 1.6rem;
+  overflow-x: hidden;
+}
+
+h1 {
+  font-family: "Nunito", sans-serif;
+  font-weight: 900;
+}
+
+.w110 {
+  width: 30rem;
 }
 
 @layer base {
