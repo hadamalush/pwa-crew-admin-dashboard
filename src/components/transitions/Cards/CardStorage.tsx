@@ -1,9 +1,12 @@
 import Container from "../../UI/Container";
 import { Doughnut } from "react-chartjs-2";
 import Heading from "../../UI/Heading";
+import Select from "react-select";
 import "chart.js/auto";
+// import { useState } from "react";
 
 const CardStorage = () => {
+  // const [selectedOption, setSelectedOption] = useState(null);
   const data = {
     labels: ["Used disk space", "Free disk space"],
     datasets: [
@@ -25,6 +28,12 @@ const CardStorage = () => {
     cutout: "65%",
   };
 
+  const options1 = [
+    { value: "chocolate", label: "Chocolate" },
+    { value: "strawberry", label: "Strawberry" },
+    { value: "vanilla", label: "Vanilla" },
+  ];
+
   return (
     <Container
       as="div"
@@ -40,6 +49,12 @@ const CardStorage = () => {
         </Heading>
         <Doughnut data={data} options={options} />
       </div>
+
+      {/* <Select
+        defaultValue={selectedOption}
+        options={options1}
+        className="mt-auto mb-14 w-96 text-black"
+      /> */}
     </Container>
   );
 };
