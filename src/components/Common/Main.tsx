@@ -11,9 +11,12 @@ const Main = ({ children }: MainProps) => {
 
   return (
     <main
-      className={cn("dark:bg-black w-full min-h-screen md:pl-36 pt-28 duration-200", {
-        "md:pl-96": isVisibleNav,
-      })}
+      className={cn(
+        "dark:bg-black w-full min-h-screen xxl:m-auto md:pl-36 before:absolute beforeMain dark:before:bg-black  w-max-main pt-28 duration-200",
+        {
+          "md:pl-96": isVisibleNav,
+        }
+      )}
     >
       {children}
     </main>

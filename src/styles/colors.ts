@@ -18,6 +18,6 @@ export default {
   bluePurple: "#6152e8",
   navItemActive: "#0f1015",
 
-  //LIGHT
+  //LIGHT THEME
   pLight: "#c9c9c980",
 };

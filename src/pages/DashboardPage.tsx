@@ -1,13 +1,28 @@
 import Main from "../components/Common/Main";
 import Container from "../components/UI/Container";
+import { IconNameType } from "../components/UI/Icons/IconBase";
 import Advertisement from "../components/transitions/Advertisement";
 import Card from "../components/transitions/Card";
 
-const DUMMY_INFO = [
-  { id: "e1", title: "Page views", quantity: 959, percentages: 3.59 },
-  { id: "e2", title: "Base connections", quantity: 201, percentages: 71.59 },
-  { id: "e3", title: "Number of errors ", quantity: 2, percentages: 2.33 },
-  { id: "e4", title: "Number of users", quantity: 30, percentages: 30 },
+type DUMMY_INFOTYPE = {
+  id: string;
+  title: string;
+  quantity: number;
+  percentages: number;
+  iconName: IconNameType;
+};
+
+const DUMMY_INFO: DUMMY_INFOTYPE[] = [
+  { id: "e1", title: "Page views", iconName: "eyeUp", quantity: 959, percentages: -3.59 },
+  {
+    id: "e2",
+    title: "Base connections",
+    iconName: "cloudConnections",
+    quantity: 201,
+    percentages: 71.59,
+  },
+  { id: "e3", title: "Number of errors ", iconName: "warning", quantity: 2, percentages: -2.33 },
+  { id: "e4", title: "Number of users", iconName: "usersPlus", quantity: 30, percentages: 30 },
 ];
 const DashBoardPage = () => {
   return (
