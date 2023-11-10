@@ -2,7 +2,8 @@ import Main from "../components/Common/Main";
 import Container from "../components/UI/Container";
 import { IconNameType } from "../components/UI/Icons/IconBase";
 import Advertisement from "../components/transitions/Advertisement";
-import Card from "../components/transitions/Card";
+import CardStats from "../components/transitions/Cards/CardStats";
+import CardStorage from "../components/transitions/Cards/CardStorage";
 
 type DUMMY_INFOTYPE = {
   id: string;
@@ -35,12 +36,11 @@ const DashBoardPage = () => {
           className="grid-cols-1 gap-5 sm:grid-cols-2 xlg:grid-cols-4"
         >
           {DUMMY_INFO.map((item) => (
-            <Card {...item} />
+            <CardStats key={item.id} {...item} />
           ))}
-          {/* <Card />
-          <Card />
-          <Card />
-          <Card /> */}
+        </Container>
+        <Container as="section" variant="flex">
+          <CardStorage />
         </Container>
       </Container>
     </Main>

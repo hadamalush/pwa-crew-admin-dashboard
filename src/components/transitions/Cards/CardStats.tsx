@@ -1,18 +1,18 @@
-import Container from "../UI/Container";
-import Icon from "../UI/Icons/Icon";
-import Heading from "../UI/Heading";
+import Container from "../../UI/Container";
+import Icon from "../../UI/Icons/Icon";
+import Heading from "../../UI/Heading";
 import { ComponentPropsWithoutRef } from "react";
-import { cn } from "../../util/utils";
-import { IconNameType } from "../UI/Icons/IconBase";
+import { cn } from "../../../util/utils";
+import { IconNameType } from "../../UI/Icons/IconBase";
 
-type CardProps = {
+type CardStatsProps = {
   title: string;
   quantity: number;
   percentages: number;
   iconName: IconNameType;
 } & ComponentPropsWithoutRef<"div">;
 
-const Card = ({ title, quantity, percentages, iconName, ...props }: CardProps) => {
+const CardStats = ({ title, quantity, percentages, iconName, ...props }: CardStatsProps) => {
   const isMinusPercentage = percentages < 0 ? true : false;
 
   return (
@@ -51,4 +51,4 @@ const Card = ({ title, quantity, percentages, iconName, ...props }: CardProps) =
   );
 };
 
-export default Card;
+export default CardStats;

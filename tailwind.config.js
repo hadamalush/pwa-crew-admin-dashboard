@@ -27,6 +27,11 @@ export default {
       },
       width: {
         128: "32rem",
+        160: "50rem",
+      },
+      height: {
+        140: "40rem",
+        160: "50rem",
       },
     },
     screens: {
