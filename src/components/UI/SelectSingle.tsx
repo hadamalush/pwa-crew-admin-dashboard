@@ -1,10 +1,11 @@
 import useTheme from "../../hooks/useTheme";
 import Select from "react-select";
 import { ComponentPropsWithoutRef } from "react";
+import { cn } from "../../util/utils";
 
 type SelectSingleProps = ComponentPropsWithoutRef<typeof Select>;
 
-const SelectSingle = ({ ...props }: SelectSingleProps) => {
+const SelectSingle = ({ className, ...props }: SelectSingleProps) => {
   const { theme } = useTheme();
 
   return (
@@ -40,7 +41,7 @@ const SelectSingle = ({ ...props }: SelectSingleProps) => {
           cursor: "pointer",
         }),
       }}
-      className="mt-5 w-3/4 text-white"
+      className={cn("mt-5 w-3/4 text-white", className)}
     />
   );
 };
