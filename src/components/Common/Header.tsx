@@ -10,6 +10,7 @@ import { cn } from "../../util/utils";
 import { useMediaQuery } from "react-responsive";
 import { useGlobalDispatch, useGlobalSelector } from "../../global/hooks";
 import { handleNav } from "../../global/toggle-slice";
+import useTheme from "../../hooks/useTheme";
 
 const Header = () => {
   const [isVisibleNotifications, setIsVisibleNotifications] = useState(false);
@@ -17,8 +18,8 @@ const Header = () => {
   const [isVisibleProfile, setIsVisibleProfile] = useState(false);
   const isVisibleNav = useGlobalSelector((state) => state.toggle.isVisibleNav);
   const dispatch = useGlobalDispatch();
+  const { theme, setTheme } = useTheme();
 
-  const [theme, setTheme] = useState("dark");
   const isMdScreen = useMediaQuery({ minWidth: 1060 });
 
   useEffect(() => {
@@ -112,7 +113,7 @@ const Header = () => {
       <NavLink
         to="https://pwa-crew-site-demo.vercel.app/"
         target="_blank"
-        className="group px-5 border-l border-pLight dark:border-borderPrimaryhidden md:inline outline-none "
+        className="group px-5 border-l border-pLight dark:border-borderPrimary hidden md:inline outline-none "
         aria-label="Main website - pwacrew"
       >
         <Icon

@@ -2,10 +2,12 @@ import { createSlice, type PayloadAction } from "@reduxjs/toolkit";
 
 type ToggleState = {
   isVisibleNav: boolean;
+  theme: "dark" | "light";
 };
 
 const initialState: ToggleState = {
   isVisibleNav: false,
+  theme: "dark",
 };
 
 export const toggleSlice = createSlice({
@@ -15,7 +17,10 @@ export const toggleSlice = createSlice({
     handleNav(state, action: PayloadAction<{ isVisibleNav: boolean }>) {
       state.isVisibleNav = action.payload.isVisibleNav;
     },
+    handleTheme(state, action: PayloadAction<{ theme: "dark" | "light" }>) {
+      state.theme = action.payload.theme;
+    },
   },
 });
 
-export const { handleNav } = toggleSlice.actions;
+export const { handleNav, handleTheme } = toggleSlice.actions;

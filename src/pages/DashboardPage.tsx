@@ -4,6 +4,7 @@ import { IconNameType } from "../components/UI/Icons/IconBase";
 import Advertisement from "../components/transitions/Advertisement";
 import CardStats from "../components/transitions/Cards/CardStats";
 import CardStorage from "../components/transitions/Cards/CardStorage";
+import { DUMMY_STORAGE } from "../components/transitions/dummy-items";
 
 type DUMMY_INFOTYPE = {
   id: string;
@@ -40,7 +41,7 @@ const DashBoardPage = () => {
           ))}
         </Container>
         <Container as="section" variant="flex">
-          <CardStorage />
+          <CardStorage dataStorage={DUMMY_STORAGE} />
         </Container>
       </Container>
     </Main>

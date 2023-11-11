@@ -12,6 +12,14 @@ type SETTINGSTYPE = {
   title: string;
 };
 
+export type DUMMY_STORAGETYPE = {
+  [key: string]: {
+    labels: string;
+    data: number[];
+    color: string;
+  };
+};
+
 export const DUMMY_MESSAGES: DUMMY_MESSAGESTYPE[] = [
   {
     id: "e1",
@@ -78,3 +86,21 @@ export const SETTINGS: SETTINGSTYPE[] = [
     title: "Sign out",
   },
 ];
+
+export const DUMMY_STORAGE: DUMMY_STORAGETYPE = {
+  cloudinary: {
+    labels: "cloudinary",
+    data: [37, 7],
+    color: "#0090e7",
+  },
+  mega: {
+    labels: "mega",
+    data: [389, 300],
+    color: "#fc424a",
+  },
+  vercelblob: {
+    labels: "vercelblob",
+    data: [9, 22],
+    color: "#eb904d",
+  },
+};
