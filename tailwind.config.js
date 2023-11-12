@@ -1,5 +1,6 @@
 /** @type {import('tailwindcss').Config} */
 import colors from "./src/styles/colors";
+import scrollbar from "tailwind-scrollbar";
 
 export default {
   content: ["./src/**/*.{js,jsx,ts,tsx}"],
@@ -27,9 +28,18 @@ export default {
       },
       width: {
         128: "32rem",
+        160: "50rem",
+      },
+      height: {
+        140: "40rem",
+        160: "50rem",
+      },
+      maxWidth: {
+        125: "11.5rem",
       },
     },
     screens: {
+      mxs: "320px",
       xs: "480px",
       ss: "620px",
       sm: "768px",
@@ -37,7 +47,8 @@ export default {
       lg: "1200px",
       xlg: "1400px",
       xl: "1700px",
+      xxl: "2300px",
     },
   },
-  plugins: [],
+  plugins: [scrollbar({ nocompatible: true })],
 };

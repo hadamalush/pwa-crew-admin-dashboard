@@ -1,3 +1,5 @@
+@import url("https://fonts.googleapis.com/css2?family=Nunito:wght@300;400;500;700;800&display=swap");
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -21,6 +23,8 @@ html {
 body {
   font-size: 1.6rem;
   overflow-x: hidden;
+  min-height: 100vh;
+  font-family: "Nunito", sans-serif;
 }
 
 h1 {
@@ -30,6 +34,18 @@ h1 {
 
 .w110 {
   width: 30rem;
+}
+
+.w-max-main {
+  max-width: 2300px;
+}
+
+.beforeMain::before {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  right: 0;
+  left: 0;
 }
 
 @layer base {
