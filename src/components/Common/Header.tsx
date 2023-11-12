@@ -173,7 +173,7 @@ const Header = () => {
         aria-label="profil"
         type="button"
       >
-        <Avatar src="/avatar.jpg" size="s4" />
+        <Avatar src="/avatar.webp" size="s4" />
         <span className="dark:text-white text-2xl font-medium pl-3 group-hover:text-lightBlue duration-200 w-32 overflow-hidden whitespace-nowrap text-ellipsis hidden md:inline">
           Bolesław Chrobry
         </span>

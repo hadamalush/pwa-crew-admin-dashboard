@@ -6,12 +6,13 @@ import { cn } from "../../../util/utils";
 import { type DUMMY_STORAGETYPE } from "../dummy-items";
 import SelectSingle from "../../UI/SelectSingle";
 import "chart.js/auto";
+import { memo } from "react";
 
 type CardStorageProps = {
   dataStorage: DUMMY_STORAGETYPE;
 } & ComponentPropsWithoutRef<"div">;
 
-const CardStorage = ({ dataStorage, className, ...props }: CardStorageProps) => {
+const CardStorage = memo(({ dataStorage, className, ...props }: CardStorageProps) => {
   const [selectedOption, setSelectedOption] = useState("Cloudinary");
   const transformedOption = selectedOption.toLocaleLowerCase();
 
@@ -76,6 +77,6 @@ const CardStorage = ({ dataStorage, className, ...props }: CardStorageProps) => 
       />
     </Container>
   );
-};
+});
 
 export default CardStorage;

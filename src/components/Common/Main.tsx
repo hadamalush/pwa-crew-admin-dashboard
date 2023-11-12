@@ -7,8 +7,6 @@ type MainProps = ComponentPropsWithoutRef<"main">;
 const Main = ({ children }: MainProps) => {
   const isVisibleNav = useGlobalSelector((state) => state.toggle.isVisibleNav);
 
-  console.log(isVisibleNav);
-
   return (
     <main
       className={cn(

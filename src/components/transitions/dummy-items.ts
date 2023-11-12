@@ -62,7 +62,7 @@ export const DUMMY_NOTIFICATIONS = [
   },
   {
     id: "a3",
-    avatarSrc: "/avatar.jpg",
+    avatarSrc: "/avatar.webp",
     title: "Mattew Ovenbake sent you message",
     description: "Lorem Ipsum has been the industry's standard dummy text ever since the 1500s",
   },

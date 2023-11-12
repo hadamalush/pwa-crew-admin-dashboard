@@ -15,7 +15,6 @@ const SelectSingle = ({ className, ...props }: SelectSingleProps) => {
       menuPortalTarget={document.body}
       styles={{
         control: (base, state) => {
-          console.log(state);
           state.theme.colors = {
             ...state.theme.colors,
             primary: theme === "dark" ? "#2a2d3a" : "#e2e8f0", //option hover

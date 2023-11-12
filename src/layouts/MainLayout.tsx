@@ -1,6 +1,10 @@
 import { Outlet } from "react-router";
 import Header from "../components/Common/Header";
 import Navbar from "../components/Common/Navigation/Navbar";
+// import { lazy } from "react";
+
+// const Header = lazy(() => import("../components/Common/Header"));
+// const Navbar = lazy(() => import("../components/Common/Navigation/Navbar"));
 
 const MainLayout = () => {
   return (

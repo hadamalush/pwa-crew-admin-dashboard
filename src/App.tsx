@@ -1,12 +1,17 @@
 import { RouterProvider, createBrowserRouter } from "react-router-dom";
-import MainLayout from "./layouts/MainLayout";
-import DashBoardPage from "./pages/DashboardPage";
+// import MainLayout from "./layouts/MainLayout";
+// import DashBoardPage from "./pages/DashboardPage";
 import InboxPage from "./pages/InboxPage";
 import UsersPage from "./pages/UsersPage";
 import EventsPage from "./pages/EventsPage";
 import SettingsPage from "./pages/SettingsPage";
 import { Provider as ReduxProvider } from "react-redux/es/exports";
 import { store } from "./global/store";
+
+const MainLayout = lazy(() => import("./layouts/MainLayout"));
+const DashBoardPage = lazy(() => import("./pages/DashboardPage"));
+
+import { lazy } from "react";
 
 function App() {
   const router = createBrowserRouter([
