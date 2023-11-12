@@ -55,7 +55,7 @@ const CardStorage = ({ dataStorage, className, ...props }: CardStorageProps) => 
       as="div"
       variant="default"
       className={cn(
-        "w-full h-160 flex flex-col justify-start dark:text-white text-black",
+        "w-full h-160 flex flex-col justify-start dark:text-white text-black ",
         className
       )}
       {...props}
@@ -72,7 +72,7 @@ const CardStorage = ({ dataStorage, className, ...props }: CardStorageProps) => 
       <SelectSingle
         options={optionsSelect}
         onChange={changeSelectHandler}
-        className="md:w-3/5 xlg:w-2/5  "
+        className="md:w-3/5 xlg:w-2/5  mt-auto mb-14"
       />
     </Container>
   );

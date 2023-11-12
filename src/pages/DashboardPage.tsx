@@ -49,7 +49,10 @@ const DashBoardPage = () => {
         <Container
           as="section"
           variant="default"
-          className="w-full h-160 block overflow-x-auto overflow-y-hidden"
+          className="w-full h-160 block overflow-x-auto overflow-y-hidden dark:scrollbar-track-primary scrollbar-thin dark:scrollbar-thumb-borderPrimary
+          scrollbar-thumb-slate-200
+          scrollbar-thumb-rounded-3xl
+          scrollbar-track-rounded-full scrollbar-track"
         >
           <UsersList />
         </Container>

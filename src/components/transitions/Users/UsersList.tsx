@@ -7,11 +7,11 @@ const UsersList: FC<ComponentPropsWithoutRef<"ul">> = () => {
   return (
     <ul className="min-w-max">
       <li>
-        <ul className="flex w-full  mt-10 mx-auto font-semibold justify-between text-black dark:text-white px-10 border-pLight dark:border-borderPrimary border-b pb-10 ">
+        <ul className="flex w-full  mt-10 mx-auto font-semibold justify-between text-black dark:text-textPrimary px-10 border-pLight dark:border-borderPrimary border-b pb-10 ">
           <li className="w-56">
             <Heading as="h4">User Name</Heading>
           </li>
-          <li className="w-56">
+          <li className="w-56 pl-5">
             <Heading as="h4">User Email</Heading>
           </li>
           <li className="w-56  text-center">
@@ -26,9 +26,9 @@ const UsersList: FC<ComponentPropsWithoutRef<"ul">> = () => {
         </ul>
       </li>
 
-      {DUMMY_USERS.map((user) => (
-        <UsersItem {...user} />
-      ))}
+      {DUMMY_USERS.map((user, index) => {
+        return <UsersItem {...user} className={`${index === 4 && "border-none"}`} />;
+      })}
     </ul>
   );
 };
