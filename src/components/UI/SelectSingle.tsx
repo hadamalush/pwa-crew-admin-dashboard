@@ -41,7 +41,7 @@ const SelectSingle = ({ className, ...props }: SelectSingleProps) => {
           cursor: "pointer",
         }),
       }}
-      className={cn("mt-5 w-3/4 text-white", className)}
+      className={cn("mt-5 w-3/4 text-white z-50", className)}
     />
   );
 };

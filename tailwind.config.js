@@ -33,6 +33,9 @@ export default {
         140: "40rem",
         160: "50rem",
       },
+      maxWidth: {
+        125: "11.5rem",
+      },
     },
     screens: {
       mxs: "320px",

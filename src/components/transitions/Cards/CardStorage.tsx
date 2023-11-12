@@ -69,7 +69,11 @@ const CardStorage = ({ dataStorage, className, ...props }: CardStorageProps) => 
         </Heading>
         <Doughnut data={data} options={options} />
       </div>
-      <SelectSingle options={optionsSelect} onChange={changeSelectHandler} className="md:w-2/5" />
+      <SelectSingle
+        options={optionsSelect}
+        onChange={changeSelectHandler}
+        className="md:w-3/5 xlg:w-2/5  "
+      />
     </Container>
   );
 };
