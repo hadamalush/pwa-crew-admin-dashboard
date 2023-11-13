@@ -14,6 +14,7 @@ export default {
   orangeYellow: "#ffab00",
   lightRed: "#fc424a",
   lightBlue: "#0090e7",
+  darkBlue: "#0078c1",
   lightGreen: "#00d25b",
   bluePurple: "#6152e8",
   navItemActive: "#0f1015",
