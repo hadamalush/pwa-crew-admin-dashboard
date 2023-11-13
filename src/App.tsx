@@ -7,11 +7,10 @@ import EventsPage from "./pages/EventsPage";
 import SettingsPage from "./pages/SettingsPage";
 import { Provider as ReduxProvider } from "react-redux/es/exports";
 import { store } from "./global/store";
+import { lazy } from "react";
 
 const MainLayout = lazy(() => import("./layouts/MainLayout"));
 const DashBoardPage = lazy(() => import("./pages/DashboardPage"));
-
-import { lazy } from "react";
 
 function App() {
   const router = createBrowserRouter([
