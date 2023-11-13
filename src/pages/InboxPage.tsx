@@ -1,5 +1,7 @@
+import Main from "../components/Common/Main";
+
 const InboxPage = () => {
-  return <div>InboxPage</div>;
+  return <Main></Main>;
 };
 
 export default InboxPage;
