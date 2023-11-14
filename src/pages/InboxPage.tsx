@@ -1,7 +1,7 @@
 const InboxPage = () => {
   return (
     <>
-      <ul></ul>
+      <ul>dddddddddddddddddddddddd</ul>
     </>
   );
 };
