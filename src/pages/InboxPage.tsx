@@ -1,5 +1,9 @@
 const InboxPage = () => {
-  return <></>;
+  return (
+    <>
+      <ul></ul>
+    </>
+  );
 };
 
 export default InboxPage;

@@ -5,7 +5,7 @@ import { NavLink, useLocation } from "react-router-dom";
 import { cn } from "../../../util/utils";
 import Icon from "../../UI/Icons/Icon";
 
-type NavItemProps = {
+export type NavItemProps = {
   icon: IconNameType;
   to: string;
   title?: string;

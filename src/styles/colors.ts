@@ -3,6 +3,7 @@ export default {
   borderPrimary: "#2c2e33",
 
   primary: "#191c24",
+  primaryDarkBrighter: "#20242e",
   primaryLight: "#2a2d3a",
   secondary: "#00f6ff",
 

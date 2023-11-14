@@ -5,7 +5,8 @@ import { cn } from "../../util/utils";
 const buttonVariant = cva("inline-flex items-center justify-center", {
   variants: {
     variant: {
-      default: "bg-lightBlue outline-none",
+      default:
+        "bg-lightBlue hover:bg-darkBlue duration-200 py-4 text-center rounded-md block text-white font-semiBold outline-none",
       outline: "bg-transparent outline-none",
       pill: "font-semibold text-base py-2 px-5 border-pLight rounded-full border hover:bg-gray-slate-200 hover:bg-lightBlue/[0.3] duration-200",
     },

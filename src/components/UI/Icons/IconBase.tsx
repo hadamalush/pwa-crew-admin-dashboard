@@ -400,4 +400,70 @@ export const IconsBase = {
       <path d="M6 6l12 12"></path>
     </svg>
   ),
+  inbox: (
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      className="icon icon-tabler icon-tabler-inbox"
+      viewBox="0 0 24 24"
+      strokeWidth="2"
+      stroke="currentColor"
+      fill="none"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    >
+      <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+      <path d="M4 4m0 2a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v12a2 2 0 0 1 -2 2h-12a2 2 0 0 1 -2 -2z"></path>
+      <path d="M4 13h3l3 3h4l3 -3h3"></path>
+    </svg>
+  ),
+  sent: (
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      className="icon icon-tabler icon-tabler-send"
+      viewBox="0 0 24 24"
+      strokeWidth="2"
+      stroke="currentColor"
+      fill="none"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    >
+      <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+      <path d="M10 14l11 -11"></path>
+      <path d="M21 3l-6.5 18a.55 .55 0 0 1 -1 0l-3.5 -7l-7 -3.5a.55 .55 0 0 1 0 -1l18 -6.5"></path>
+    </svg>
+  ),
+  flame: (
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      className="icon icon-tabler icon-tabler-flame"
+      viewBox="0 0 24 24"
+      strokeWidth="2"
+      stroke="currentColor"
+      fill="none"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    >
+      <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+      <path d="M12 12c2 -2.96 0 -7 -1 -8c0 3.038 -1.773 4.741 -3 6c-1.226 1.26 -2 3.24 -2 5a6 6 0 1 0 12 0c0 -1.532 -1.056 -3.94 -2 -5c-1.786 3 -2.791 3 -4 2z"></path>
+    </svg>
+  ),
+  trash: (
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      className="icon icon-tabler icon-tabler-trash"
+      viewBox="0 0 24 24"
+      strokeWidth="2"
+      stroke="currentColor"
+      fill="none"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    >
+      <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+      <path d="M4 7l16 0"></path>
+      <path d="M10 11l0 6"></path>
+      <path d="M14 11l0 6"></path>
+      <path d="M5 7l1 12a2 2 0 0 0 2 2h8a2 2 0 0 0 2 -2l1 -12"></path>
+      <path d="M9 7v-3a1 1 0 0 1 1 -1h4a1 1 0 0 1 1 1v3"></path>
+    </svg>
+  ),
 };
