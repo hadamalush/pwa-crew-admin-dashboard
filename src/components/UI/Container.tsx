@@ -1,12 +1,12 @@
 import { type ElementType, type ReactNode, type ComponentPropsWithoutRef } from "react";
 import { cn } from "../../util/utils";
 import { VariantProps, cva } from "class-variance-authority";
+import { basicVariant } from "../variants/variants";
 
 const containterVariant = cva("flexCenter", {
   variants: {
     variant: {
-      default:
-        "bg-white dark:bg-primary w-10 h-10 drop-shadow-[0_0px_15px_rgba(0,0,0,0.07)] dark:drop-shadow-[0_0px_15px_rgba(0,0,0,0.9)] rounded-xl duration-200",
+      default: basicVariant({ box: "default" }),
       flex: "flex w-full",
       grid: "grid w-full",
       wrapper: "p-10 w-full h-full text-white justify-start flex-col gap-y-10",

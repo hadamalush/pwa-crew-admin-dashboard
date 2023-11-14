@@ -144,7 +144,7 @@ const Header = () => {
           items={DUMMY_MESSAGES}
           isVisible={isVisibleMessages}
           onClose={() => setIsVisibleMessages(false)}
-          className="top-24 ss:top-16"
+          className="top-24 ss:top-16 z-50"
           infoBottom={{ href: "/", title: "5 new messages" }}
         />
       </Button>

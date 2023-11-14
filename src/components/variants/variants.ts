@@ -30,6 +30,10 @@ export const basicVariant = cva("w-10 h-10", {
       s10: "w-96 h-96",
       sFull: "w-full h-full",
     },
+    box: {
+      default:
+        "bg-white dark:bg-primary w-10 h-10 drop-shadow-[0_0px_15px_rgba(0,0,0,0.07)] dark:drop-shadow-[0_0px_15px_rgba(0,0,0,0.9)] rounded-xl duration-200",
+    },
   },
   defaultVariants: {
     color: "default",
