@@ -1,8 +1,10 @@
+import Container from "../components/UI/Container";
+
 const InboxPage = () => {
   return (
-    <>
-      <ul>dddddddddddddddddddddddd</ul>
-    </>
+    <Container>
+      <ul>ddddddddddddddddddd</ul>
+    </Container>
   );
 };
 

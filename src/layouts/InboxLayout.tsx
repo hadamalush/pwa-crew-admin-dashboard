@@ -1,4 +1,4 @@
-import { Outlet } from "react-router-dom";
+import { Outlet, useLocation } from "react-router-dom";
 import { InboxNavbarItems } from "../components/Common/Navigation/NavigationData";
 import { useGlobalSelector } from "../global/hooks";
 import { cn } from "../util/utils";
@@ -9,6 +9,8 @@ import ToolbarInbox from "../components/transitions/ToolbarInbox";
 const InboxLayout = () => {
   const isVisibleMainNav = useGlobalSelector((state) => state.toggle.isVisibleNav);
   const isVisibleInboxNav = useGlobalSelector((state) => state.toggle.isVisibleInboxNav);
+  const pathname = useLocation().pathname;
+  const isInboxPage = pathname.includes("inbox");
 
   return (
     <>
@@ -24,7 +26,11 @@ const InboxLayout = () => {
         )}
       />
       <ToolbarInbox />
-      <Main className="md:pl-[29rem]">
+      <Main
+        className={cn("md:pl-[29rem] pt-48 ", {
+          "md:pl-[44rem]": isInboxPage && isVisibleMainNav,
+        })}
+      >
         <Outlet />
       </Main>
     </>
