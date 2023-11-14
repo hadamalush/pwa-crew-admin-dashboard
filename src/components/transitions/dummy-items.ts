@@ -1,4 +1,5 @@
 import { IconNameType } from "../UI/Icons/IconBase";
+import { messageItemProps } from "./Inbox/MessageItem";
 
 type DUMMY_MESSAGESTYPE = {
   id: string;
@@ -143,5 +144,55 @@ export const DUMMY_USERS = [
     accountActive: true,
     newsletter: true,
     createdAccount: "19.06.2017",
+  },
+];
+
+export const DUMMY_INBOXMESSAGES: messageItemProps[] = [
+  {
+    id: "mes1",
+    owner: "Bogdan Szermanc",
+    email: "bogdanSzermanc@o2.pl",
+    avatarSrc: "laptop.webp",
+    subject:
+      "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec justo dolor, aliquet vitae efficitur a, pretium vel metus. Sed sapien ligula, iaculis quis erat in, bibendum consectetur sapien.",
+    description:
+      "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec justo dolor, aliquet vitae efficitur a, pretium vel metus. Sed sapien ligula, iaculis quis erat in, bibendum consectetur sapien. Cras tincidunt hendrerit orci, ac sodales risus pellentesque eget. Curabitur elementum consequat finibus. Pellentesque finibus lorem sapien, ut lobortis purus blandit non. Maecenas est tellus, condimentum sed erat vel, ullamcorper feugiat dolor. Suspendisse consequat luctus erat, ac fermentum metus aliquet vel. Nunc tincidunt nisl vel scelerisque molestie. Proin eu leo consectetur, bibendum mi ornare, finibus libero. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia curae; Suspendisse efficitur rhoncus nunc, nec tincidunt turpis.",
+    isFeatured: false,
+    date: new Date(),
+  },
+  {
+    id: "mes2",
+    owner: "Magdalena Guzdro",
+    email: "magdalena.guzdro@gmail.com",
+    avatarSrc: "/woman.webp",
+    subject:
+      "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec justo dolor, aliquet vitae efficitur.",
+    description:
+      "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec justo dolor, aliquet vitae efficitur a, pretium vel metus. Sed sapien ligula, iaculis quis erat in, bibendum consectetur sapien. Cras tincidunt hendrerit orci, ac sodales risus pellentesque eget. Curabitur elementum consequat finibus. Pellentesque finibus lorem sapien, ut lobortis purus blandit non. Maecenas est tellus, condimentum sed erat vel, ullamcorper feugiat dolor. Suspendisse consequat luctus erat, ac fermentum metus aliquet vel. Nunc tincidunt nisl vel scelerisque molestie. Proin eu leo consectetur, bibendum mi ornare, finibus libero. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia curae; Suspendisse efficitur rhoncus nunc, nec tincidunt turpis.",
+    isFeatured: false,
+    date: new Date(),
+  },
+  {
+    id: "mes3",
+    owner: "Monden Welm",
+    email: "muskanna@twitter.com",
+    avatarSrc: "cosmita.webp",
+    subject: "Lorem ipsum dolor sit amet.",
+    description:
+      "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec justo dolor, aliquet vitae efficitur a, pretium vel metus. Sed sapien ligula, iaculis quis erat in, bibendum consectetur sapien. Cras tincidunt hendrerit orci, ac sodales risus pellentesque eget. Curabitur elementum consequat finibus. .",
+    isFeatured: true,
+    date: new Date(),
+  },
+  {
+    id: "mes4",
+    owner: "Anna Musk",
+    email: "annamusk@twitter.com",
+    avatarSrc: "laptop.webp",
+    subject:
+      "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec justo dolor, aliquet vitae efficitur a, pretium vel metus. ",
+    description:
+      "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec justo dolor, aliquet vitae efficitur a, pretium vel metus. Sed sapien ligula, iaculis quis erat in, bibendum consectetur sapien. Cras tincidunt hendrerit orci, ac sodales risus pellentesque eget. Curabitur elementum consequat finibus. Pellentesque finibus lorem sapien, ut lobortis purus blandit non. Maecenas est tellus, condimentum sed erat vel, ullamcorper feugiat dolor. Suspendisse consequat luctus erat, ac fermentum metus aliquet vel. Nunc tincidunt nisl vel scelerisque molestie. Proin eu leo consectetur, bibendum mi ornare, finibus libero. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia curae; Suspendisse efficitur rhoncus nunc, nec tincidunt turpis.",
+    isFeatured: false,
+    date: new Date(),
   },
 ];
