@@ -34,7 +34,7 @@ const MessageItem = ({ dataMessage }: dataMessage) => {
       className={cn(
         `flex w-full mx-auto  text-xl xlg:text-2xl text-black dark:text-textPrimary px-5 border-pLight dark:border-borderPrimary border-b
    md:py-3 md:px-10`,
-        { "dark:bg-primaryDarkBrighter bg-slate-200": !isRead }
+        { "dark:bg-messageItemActive bg-slate-200": !isRead }
       )}
     >
       <input
@@ -76,7 +76,12 @@ const MessageItem = ({ dataMessage }: dataMessage) => {
       </Container>
       <Container as="div" className="flex-col mx-auto">
         <time>{formattedDate}</time>
-        <Button variant="outline" className="h-max self-center" onClick={handleFeatured}>
+        <Button
+          variant="outline"
+          className="h-max self-center"
+          onClick={handleFeatured}
+          aria-label="Mark as featured"
+        >
           <Icon
             iconName={isFeatured ? "starFilled" : "star"}
             size="s1"

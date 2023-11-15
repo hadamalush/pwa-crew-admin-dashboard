@@ -50,10 +50,40 @@ export const messageSlice = createSlice({
             date: new Date(date).toISOString(),
           }));
 
-        console.log(inboxMessages);
-        console.log("inboxMessagesState: ", state.inboxMessages);
-
         state.inboxMessages = inboxMessages;
+        console.log("inbox");
+      }
+      if (action.payload.pageName === "spam") {
+        console.log("spam");
+        const spamMessages = state.allMessages
+          .filter((message) => message.isInSpam)
+          .map(({ id, owner, subject, avatarSrc, isFeatured, isRead, date }) => ({
+            id,
+            owner,
+            subject,
+            avatarSrc,
+            isFeatured,
+            isRead,
+            date: new Date(date).toISOString(),
+          }));
+
+        state.spamMessages = spamMessages;
+      }
+      if (action.payload.pageName === "trash") {
+        console.log("trash");
+        const trashMessages = state.allMessages
+          .filter((message) => message.isInTrash)
+          .map(({ id, owner, subject, avatarSrc, isFeatured, isRead, date }) => ({
+            id,
+            owner,
+            subject,
+            avatarSrc,
+            isFeatured,
+            isRead,
+            date: new Date(date).toISOString(),
+          }));
+
+        state.trashMessages = trashMessages;
       }
     },
   },

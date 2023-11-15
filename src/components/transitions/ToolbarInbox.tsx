@@ -18,7 +18,7 @@ const ToolbarInbox = () => {
   return (
     <Container
       className={cn(
-        "rounded-none bg-slate-100 dark:bg-primaryDarkBrighter h-20 fixed top-28 right-0 md:left-[29rem] left-0 justify-end duration-200 z-40",
+        "rounded-none bg-slate-50 dark:bg-primaryDarkBrighter h-20 fixed top-28 right-0 md:left-[29rem] left-0 justify-end duration-200 z-40",
         { "md:left-[44rem]": isVisibleMainNav }
       )}
       as="div"

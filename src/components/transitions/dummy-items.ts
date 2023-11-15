@@ -151,7 +151,7 @@ export const DUMMY_INBOXMESSAGES = [
     id: "mes1",
     owner: "Bogdan Szermanc",
     email: "bogdanSzermanc@o2.pl",
-    avatarSrc: "laptop.webp",
+    avatarSrc: "/laptop.webp",
     subject:
       "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec justo dolor, aliquet vitae efficitur a, pretium vel metus. Sed sapien ligula, iaculis quis erat in, bibendum consectetur sapien.",
     description:
@@ -181,7 +181,7 @@ export const DUMMY_INBOXMESSAGES = [
     id: "mes3",
     owner: "Monden Welm",
     email: "muskanna@twitter.com",
-    avatarSrc: "cosmita.webp",
+    avatarSrc: "/cosmita.webp",
     subject: "Lorem ipsum dolor sit amet.",
     description:
       "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec justo dolor, aliquet vitae efficitur a, pretium vel metus. Sed sapien ligula, iaculis quis erat in, bibendum consectetur sapien. Cras tincidunt hendrerit orci, ac sodales risus pellentesque eget. Curabitur elementum consequat finibus. .",
@@ -195,7 +195,7 @@ export const DUMMY_INBOXMESSAGES = [
     id: "mes4",
     owner: "Anna Musk",
     email: "annamusk@twitter.com",
-    avatarSrc: "laptop.webp",
+    avatarSrc: "/laptop.webp",
     subject:
       "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec justo dolor, aliquet vitae efficitur a, pretium vel metus. ",
     description:
@@ -203,6 +203,36 @@ export const DUMMY_INBOXMESSAGES = [
     isFeatured: false,
     isInSpam: true,
     isInTrash: false,
+    isRead: false,
+    date: new Date().toISOString(),
+  },
+  {
+    id: "mes5",
+    owner: "Wiola Gebrnor",
+    email: "wiola@twitter.com",
+    avatarSrc: "/woman.webp",
+    subject:
+      "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec justo dolor, aliquet vitae efficitur a, pretium vel metus. ",
+    description:
+      "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec justo dolor, aliquet vitae efficitur a, pretium vel metus. Sed sapien ligula, iaculis quis erat in, bibendum consectetur sapien. Cras tincidunt hendrerit orci, ac sodales risus pellentesque eget. Curabitur elementum consequat finibus. Pellentesque finibus lorem sapien, ut lobortis purus blandit non. Maecenas est tellus, condimentum sed erat vel, ullamcorper feugiat dolor. Suspendisse consequat luctus erat, ac fermentum metus aliquet vel. Nunc tincidunt nisl vel scelerisque molestie. Proin eu leo consectetur, bibendum mi ornare, finibus libero. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia curae; Suspendisse efficitur rhoncus nunc, nec tincidunt turpis.",
+    isFeatured: false,
+    isInSpam: false,
+    isInTrash: true,
+    isRead: false,
+    date: new Date().toISOString(),
+  },
+  {
+    id: "mes6",
+    owner: "Mate Mok",
+    email: "dasdasdsad@twitter.com",
+    avatarSrc: "/laptop.webp",
+    subject:
+      "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec justo dolor, aliquet vitae efficitur a, pretium vel metus. ",
+    description:
+      "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec justo dolor, aliquet vitae efficitur a, pretium vel metus. Sed sapien ligula, iaculis quis erat in, bibendum consectetur sapien. Cras tincidunt hendrerit orci, ac sodales risus pellentesque eget. Curabitur elementum consequat finibus. Pellentesque finibus lorem sapien, ut lobortis purus blandit non. Maecenas est tellus, condimentum sed erat vel, ullamcorper feugiat dolor. Suspendisse consequat luctus erat, ac fermentum metus aliquet vel. Nunc tincidunt nisl vel scelerisque molestie. Proin eu leo consectetur, bibendum mi ornare, finibus libero. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia curae; Suspendisse efficitur rhoncus nunc, nec tincidunt turpis.",
+    isFeatured: false,
+    isInSpam: false,
+    isInTrash: true,
     isRead: false,
     date: new Date().toISOString(),
   },

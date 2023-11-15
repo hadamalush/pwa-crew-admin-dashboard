@@ -1,19 +1,20 @@
 import { cn } from "../../../util/utils";
 import { basicVariant } from "../../variants/variants";
-// import { DUMMY_INBOXMESSAGES } from "../dummy-items";
 import MessageItem from "./MessageItem";
 import { useGlobalSelector } from "../../../global/hooks";
 import { useDispatch } from "react-redux";
 import { useCallback, useEffect } from "react";
 import { filterMessages } from "../../../global/message-slice";
 
-const MessagesList = () => {
+type MessagesListProps = { pageName: "spam" | "trash" | "inbox" };
+
+const MessagesList = ({ pageName }: MessagesListProps) => {
   const dispatch = useDispatch();
-  const messages = useGlobalSelector((state) => state.messages.inboxMessages);
+  const messages = useGlobalSelector((state) => state.messages[`${pageName}${"Messages"}`]);
 
   const dipatchFilterMessages = useCallback(() => {
-    dispatch(filterMessages({ pageName: "inbox" }));
-  }, [dispatch]);
+    dispatch(filterMessages({ pageName: pageName }));
+  }, [dispatch, pageName]);
 
   useEffect(() => {
     dipatchFilterMessages();

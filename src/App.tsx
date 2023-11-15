@@ -6,6 +6,9 @@ import { Provider as ReduxProvider } from "react-redux/es/exports";
 import { store } from "./global/store";
 import { lazy, Suspense } from "react";
 import MainLayout from "./layouts/MainLayout";
+import InboxSent from "./pages/Inbox/InboxSent";
+import InboxSpam from "./pages/Inbox/InboxSpam";
+import InboxTrash from "./pages/Inbox/InboxTrash";
 
 const DashBoardPage = lazy(() => import("./pages/DashboardPage"));
 const InboxLayout = lazy(() => import("./layouts/InboxLayout"));
@@ -40,7 +43,30 @@ function App() {
                   <InboxPage />
                 </Suspense>
               ),
-              id: "received",
+            },
+            {
+              path: "sent",
+              element: (
+                <Suspense fallback={<div>Loading...</div>}>
+                  <InboxSent />
+                </Suspense>
+              ),
+            },
+            {
+              path: "spam",
+              element: (
+                <Suspense fallback={<div>Loading...</div>}>
+                  <InboxSpam />
+                </Suspense>
+              ),
+            },
+            {
+              path: "trash",
+              element: (
+                <Suspense fallback={<div>Loading...</div>}>
+                  <InboxTrash />
+                </Suspense>
+              ),
             },
           ],
         },
