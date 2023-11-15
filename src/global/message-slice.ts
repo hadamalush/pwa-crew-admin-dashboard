@@ -37,54 +37,34 @@ export const messageSlice = createSlice({
   initialState: initialState,
   reducers: {
     filterMessages(state, action: PayloadAction<{ pageName: "trash" | "spam" | "inbox" }>) {
-      if (action.payload.pageName === "inbox") {
-        const inboxMessages = state.allMessages
-          .filter((message) => !message.isInSpam && !message.isInTrash)
-          .map(({ id, owner, subject, avatarSrc, isFeatured, isRead, date }) => ({
-            id,
-            owner,
-            subject,
-            avatarSrc,
-            isFeatured,
-            isRead,
-            date: new Date(date).toISOString(),
-          }));
+      const pageName = action.payload.pageName;
+      let filteredMessages: messageDetailsType[] = [];
 
-        state.inboxMessages = inboxMessages;
-        console.log("inbox");
+      if (action.payload.pageName === "inbox") {
+        filteredMessages = state.allMessages.filter(
+          (message) => !message.isInSpam && !message.isInTrash
+        );
       }
       if (action.payload.pageName === "spam") {
-        console.log("spam");
-        const spamMessages = state.allMessages
-          .filter((message) => message.isInSpam)
-          .map(({ id, owner, subject, avatarSrc, isFeatured, isRead, date }) => ({
-            id,
-            owner,
-            subject,
-            avatarSrc,
-            isFeatured,
-            isRead,
-            date: new Date(date).toISOString(),
-          }));
-
-        state.spamMessages = spamMessages;
+        filteredMessages = state.allMessages.filter((message) => message.isInSpam);
       }
       if (action.payload.pageName === "trash") {
-        console.log("trash");
-        const trashMessages = state.allMessages
-          .filter((message) => message.isInTrash)
-          .map(({ id, owner, subject, avatarSrc, isFeatured, isRead, date }) => ({
-            id,
-            owner,
-            subject,
-            avatarSrc,
-            isFeatured,
-            isRead,
-            date: new Date(date).toISOString(),
-          }));
-
-        state.trashMessages = trashMessages;
+        filteredMessages = state.allMessages.filter((message) => message.isInTrash);
       }
+
+      const destructionMessages = filteredMessages.map(
+        ({ id, owner, subject, avatarSrc, isFeatured, isRead, date }) => ({
+          id,
+          owner,
+          subject,
+          avatarSrc,
+          isFeatured,
+          isRead,
+          date: new Date(date).toISOString(),
+        })
+      );
+
+      state[`${pageName}Messages`] = destructionMessages;
     },
   },
 });
