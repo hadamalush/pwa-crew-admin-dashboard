@@ -27,7 +27,11 @@ function App() {
         },
         {
           path: "inbox",
-          element: <InboxLayout />,
+          element: (
+            <Suspense fallback={<div>Loading...</div>}>
+              <InboxLayout />
+            </Suspense>
+          ),
           children: [
             {
               index: true,
