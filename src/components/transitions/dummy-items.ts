@@ -1,5 +1,4 @@
 import { IconNameType } from "../UI/Icons/IconBase";
-import { messageItemProps } from "./Inbox/MessageItem";
 
 type DUMMY_MESSAGESTYPE = {
   id: string;
@@ -147,7 +146,7 @@ export const DUMMY_USERS = [
   },
 ];
 
-export const DUMMY_INBOXMESSAGES: messageItemProps[] = [
+export const DUMMY_INBOXMESSAGES = [
   {
     id: "mes1",
     owner: "Bogdan Szermanc",
@@ -158,7 +157,10 @@ export const DUMMY_INBOXMESSAGES: messageItemProps[] = [
     description:
       "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec justo dolor, aliquet vitae efficitur a, pretium vel metus. Sed sapien ligula, iaculis quis erat in, bibendum consectetur sapien. Cras tincidunt hendrerit orci, ac sodales risus pellentesque eget. Curabitur elementum consequat finibus. Pellentesque finibus lorem sapien, ut lobortis purus blandit non. Maecenas est tellus, condimentum sed erat vel, ullamcorper feugiat dolor. Suspendisse consequat luctus erat, ac fermentum metus aliquet vel. Nunc tincidunt nisl vel scelerisque molestie. Proin eu leo consectetur, bibendum mi ornare, finibus libero. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia curae; Suspendisse efficitur rhoncus nunc, nec tincidunt turpis.",
     isFeatured: false,
-    date: new Date(),
+    isInSpam: false,
+    isInTrash: false,
+    isRead: false,
+    date: new Date().toDateString(),
   },
   {
     id: "mes2",
@@ -170,7 +172,10 @@ export const DUMMY_INBOXMESSAGES: messageItemProps[] = [
     description:
       "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec justo dolor, aliquet vitae efficitur a, pretium vel metus. Sed sapien ligula, iaculis quis erat in, bibendum consectetur sapien. Cras tincidunt hendrerit orci, ac sodales risus pellentesque eget. Curabitur elementum consequat finibus. Pellentesque finibus lorem sapien, ut lobortis purus blandit non. Maecenas est tellus, condimentum sed erat vel, ullamcorper feugiat dolor. Suspendisse consequat luctus erat, ac fermentum metus aliquet vel. Nunc tincidunt nisl vel scelerisque molestie. Proin eu leo consectetur, bibendum mi ornare, finibus libero. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia curae; Suspendisse efficitur rhoncus nunc, nec tincidunt turpis.",
     isFeatured: false,
-    date: new Date(),
+    isInSpam: false,
+    isInTrash: false,
+    isRead: true,
+    date: new Date().toISOString(),
   },
   {
     id: "mes3",
@@ -181,7 +186,10 @@ export const DUMMY_INBOXMESSAGES: messageItemProps[] = [
     description:
       "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec justo dolor, aliquet vitae efficitur a, pretium vel metus. Sed sapien ligula, iaculis quis erat in, bibendum consectetur sapien. Cras tincidunt hendrerit orci, ac sodales risus pellentesque eget. Curabitur elementum consequat finibus. .",
     isFeatured: true,
-    date: new Date(),
+    isInSpam: false,
+    isInTrash: false,
+    isRead: true,
+    date: new Date().toISOString(),
   },
   {
     id: "mes4",
@@ -193,6 +201,9 @@ export const DUMMY_INBOXMESSAGES: messageItemProps[] = [
     description:
       "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec justo dolor, aliquet vitae efficitur a, pretium vel metus. Sed sapien ligula, iaculis quis erat in, bibendum consectetur sapien. Cras tincidunt hendrerit orci, ac sodales risus pellentesque eget. Curabitur elementum consequat finibus. Pellentesque finibus lorem sapien, ut lobortis purus blandit non. Maecenas est tellus, condimentum sed erat vel, ullamcorper feugiat dolor. Suspendisse consequat luctus erat, ac fermentum metus aliquet vel. Nunc tincidunt nisl vel scelerisque molestie. Proin eu leo consectetur, bibendum mi ornare, finibus libero. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia curae; Suspendisse efficitur rhoncus nunc, nec tincidunt turpis.",
     isFeatured: false,
-    date: new Date(),
+    isInSpam: true,
+    isInTrash: false,
+    isRead: false,
+    date: new Date().toISOString(),
   },
 ];
