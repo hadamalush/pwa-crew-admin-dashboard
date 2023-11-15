@@ -37,9 +37,20 @@ const MessageItem = ({ dataMessage }: dataMessage) => {
         { "dark:bg-primaryDarkBrighter bg-slate-200": !isRead }
       )}
     >
-      <input type="checkbox" id={id} onClick={handleCheckbox} className="cursor-pointer" />
+      <input
+        type="checkbox"
+        id={id}
+        onClick={handleCheckbox}
+        className="cursor-pointer"
+        aria-label="Mark the message"
+      />
 
-      <Button variant="outline" className="h-max self-center" onClick={handleFeatured}>
+      <Button
+        variant="outline"
+        className="h-max self-center"
+        onClick={handleFeatured}
+        aria-label="Mark as featured"
+      >
         <Icon
           iconName={isFeatured ? "starFilled" : "star"}
           size="s1"
