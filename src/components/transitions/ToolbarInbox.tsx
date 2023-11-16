@@ -4,15 +4,21 @@ import Container from "../UI/Container";
 import Icon from "../UI/Icons/Icon";
 import Button from "../UI/Button";
 import { handleInboxNav, handleNav } from "../../global/toggle-slice";
+import { setIsSelectedMessages } from "../../global/message-slice";
 
 const ToolbarInbox = () => {
   const isVisibleMainNav = useGlobalSelector((state) => state.toggle.isVisibleNav);
   const isVisibleInboxNav = useGlobalSelector((state) => state.toggle.isVisibleInboxNav);
+  const isSelectedMessages = useGlobalSelector((state) => state.messages.isSelectedMessages);
   const dispatch = useGlobalDispatch();
 
   const handleInboxNavChange = () => {
     dispatch(handleNav({ isVisibleNav: false }));
     dispatch(handleInboxNav({ isVisibleInboxNav: !isVisibleInboxNav }));
+  };
+
+  const handleMessagesCheckbox = () => {
+    dispatch(setIsSelectedMessages({ selectedMessages: !isSelectedMessages }));
   };
 
   return (
@@ -27,6 +33,7 @@ const ToolbarInbox = () => {
         type="checkbox"
         className="cursor-pointer ml-5 mr-2 md:ml-20"
         aria-label="Mark the message"
+        onChange={handleMessagesCheckbox}
       />
       <label className="dark:text-textPrimary mr-auto w-max text-xl md:text-2xl">Select all</label>
 

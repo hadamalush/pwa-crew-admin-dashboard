@@ -1,4 +1,3 @@
-// import { useState, type MouseEvent } from "react";
 import Button from "../../UI/Button";
 import Icon from "../../UI/Icons/Icon";
 import Avatar from "../Avatar";
@@ -6,7 +5,7 @@ import Container from "../../UI/Container";
 import { cn } from "../../../util/utils";
 import { actionCheckedMessage, messageProps } from "../../../global/message-slice";
 import { format } from "date-fns";
-import { useGlobalDispatch, useGlobalSelector } from "../../../global/hooks";
+import { useGlobalDispatch } from "../../../global/hooks";
 import { ChangeEvent, forwardRef } from "react";
 import InputRef from "../../UI/Input/InputRef";
 
@@ -17,8 +16,6 @@ type dataMessage = {
 const MessageItem = forwardRef<HTMLInputElement, dataMessage>(({ dataMessage }, ref) => {
   //   const [isFeatured, setIsFeatured] = useState(false);
   const dispatch = useGlobalDispatch();
-  const checkedMessagelist = useGlobalSelector((state) => state.messages.checkedMessages);
-  console.log(checkedMessagelist);
 
   const { id, owner, subject, avatarSrc, isFeatured, isRead, date } = dataMessage;
   const newDate = new Date(date);
@@ -26,6 +23,7 @@ const MessageItem = forwardRef<HTMLInputElement, dataMessage>(({ dataMessage }, 
 
   const handleCheckbox = (e: ChangeEvent<HTMLInputElement>) => {
     const action = e.target.checked ? "add" : "remove";
+
     dispatch(actionCheckedMessage({ id, action: action }));
   };
 

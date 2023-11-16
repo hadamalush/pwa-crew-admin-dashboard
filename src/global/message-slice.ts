@@ -24,6 +24,7 @@ type initialStateType = {
   spamMessages: messageProps[];
   inboxMessages: messageProps[];
   checkedMessages: string[];
+  isSelectedMessages: boolean;
 };
 
 const initialState: initialStateType = {
@@ -32,6 +33,7 @@ const initialState: initialStateType = {
   spamMessages: [],
   inboxMessages: [],
   checkedMessages: [],
+  isSelectedMessages: false,
 };
 
 export const messageSlice = createSlice({
@@ -84,7 +86,12 @@ export const messageSlice = createSlice({
     setCheckedMessages(state, action: PayloadAction<{ checkedMessages: string[] }>) {
       state.checkedMessages = action.payload.checkedMessages;
     },
+
+    setIsSelectedMessages(state, action: PayloadAction<{ selectedMessages: boolean }>) {
+      state.isSelectedMessages = action.payload.selectedMessages;
+    },
   },
 });
 
-export const { filterMessages, actionCheckedMessage, setCheckedMessages } = messageSlice.actions;
+export const { filterMessages, actionCheckedMessage, setCheckedMessages, setIsSelectedMessages } =
+  messageSlice.actions;
