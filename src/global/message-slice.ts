@@ -80,7 +80,11 @@ export const messageSlice = createSlice({
         );
       }
     },
+
+    setCheckedMessages(state, action: PayloadAction<{ checkedMessages: string[] }>) {
+      state.checkedMessages = action.payload.checkedMessages;
+    },
   },
 });
 
-export const { filterMessages, actionCheckedMessage } = messageSlice.actions;
+export const { filterMessages, actionCheckedMessage, setCheckedMessages } = messageSlice.actions;

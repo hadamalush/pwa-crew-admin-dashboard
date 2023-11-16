@@ -7,13 +7,14 @@ import { cn } from "../../../util/utils";
 import { actionCheckedMessage, messageProps } from "../../../global/message-slice";
 import { format } from "date-fns";
 import { useGlobalDispatch, useGlobalSelector } from "../../../global/hooks";
-import { ChangeEvent } from "react";
+import { ChangeEvent, forwardRef } from "react";
+import InputRef from "../../UI/Input/InputRef";
 
 type dataMessage = {
   dataMessage: messageProps;
 };
 
-const MessageItem = ({ dataMessage }: dataMessage) => {
+const MessageItem = forwardRef<HTMLInputElement, dataMessage>(({ dataMessage }, ref) => {
   //   const [isFeatured, setIsFeatured] = useState(false);
   const dispatch = useGlobalDispatch();
   const checkedMessagelist = useGlobalSelector((state) => state.messages.checkedMessages);
@@ -40,12 +41,13 @@ const MessageItem = ({ dataMessage }: dataMessage) => {
         { "dark:bg-messageItemActive bg-slate-200": !isRead }
       )}
     >
-      <input
-        type="checkbox"
+      <InputRef
         id={id}
+        type="checkbox"
         onChange={(e) => handleCheckbox(e)}
         className="cursor-pointer"
         aria-label="Mark the message"
+        ref={ref}
       />
 
       <Button
@@ -97,6 +99,6 @@ const MessageItem = ({ dataMessage }: dataMessage) => {
       </Container>
     </li>
   );
-};
+});
 
 export default MessageItem;
