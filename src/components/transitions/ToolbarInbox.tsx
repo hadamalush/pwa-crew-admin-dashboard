@@ -23,11 +23,18 @@ const ToolbarInbox = () => {
       )}
       as="div"
     >
-      <p className="dark:text-textPrimary mr-5">1-32 of 512</p>
+      <input
+        type="checkbox"
+        className="cursor-pointer ml-5 mr-2 md:ml-20"
+        aria-label="Mark the message"
+      />
+      <label className="dark:text-textPrimary mr-auto w-max text-xl md:text-2xl">Select all</label>
+
+      <p className="dark:text-textPrimary mr-5 text-xl">1-32 of 512</p>
 
       <Button
         variant="outline"
-        className="group p-5 outline-none order-1 md:order-none"
+        className="group p-2 md:p-5 outline-none order-1 md:order-none"
         aria-label="Previous page"
         type="button"
       >
@@ -41,7 +48,7 @@ const ToolbarInbox = () => {
 
       <Button
         variant="outline"
-        className="group p-5 outline-none order-1 md:order-none"
+        className="group p-2 md:p-5 outline-none order-1 md:order-none"
         aria-label="Next page"
         type="button"
       >

@@ -23,6 +23,7 @@ type initialStateType = {
   trashMessages: messageProps[];
   spamMessages: messageProps[];
   inboxMessages: messageProps[];
+  checkedMessages: string[];
 };
 
 const initialState: initialStateType = {
@@ -30,10 +31,11 @@ const initialState: initialStateType = {
   trashMessages: [],
   spamMessages: [],
   inboxMessages: [],
+  checkedMessages: [],
 };
 
 export const messageSlice = createSlice({
-  name: "toggle",
+  name: "message",
   initialState: initialState,
   reducers: {
     filterMessages(state, action: PayloadAction<{ pageName: "trash" | "spam" | "inbox" }>) {
@@ -66,7 +68,19 @@ export const messageSlice = createSlice({
 
       state[`${pageName}Messages`] = destructionMessages;
     },
+
+    actionCheckedMessage(state, action: PayloadAction<{ id: string; action: "add" | "remove" }>) {
+      if (action.payload.action === "add") {
+        state.checkedMessages.push(action.payload.id);
+        return;
+      }
+      if (action.payload.action === "remove") {
+        state.checkedMessages = state.checkedMessages.filter(
+          (message) => message !== action.payload.id
+        );
+      }
+    },
   },
 });
 
-export const { filterMessages } = messageSlice.actions;
+export const { filterMessages, actionCheckedMessage } = messageSlice.actions;

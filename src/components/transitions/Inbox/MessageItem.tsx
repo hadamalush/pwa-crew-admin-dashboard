@@ -4,8 +4,10 @@ import Icon from "../../UI/Icons/Icon";
 import Avatar from "../Avatar";
 import Container from "../../UI/Container";
 import { cn } from "../../../util/utils";
-import { messageProps } from "../../../global/message-slice";
+import { actionCheckedMessage, messageProps } from "../../../global/message-slice";
 import { format } from "date-fns";
+import { useGlobalDispatch, useGlobalSelector } from "../../../global/hooks";
+import { ChangeEvent } from "react";
 
 type dataMessage = {
   dataMessage: messageProps;
@@ -13,16 +15,17 @@ type dataMessage = {
 
 const MessageItem = ({ dataMessage }: dataMessage) => {
   //   const [isFeatured, setIsFeatured] = useState(false);
+  const dispatch = useGlobalDispatch();
+  const checkedMessagelist = useGlobalSelector((state) => state.messages.checkedMessages);
+  console.log(checkedMessagelist);
+
   const { id, owner, subject, avatarSrc, isFeatured, isRead, date } = dataMessage;
   const newDate = new Date(date);
   const formattedDate = format(newDate, "dd MMM");
 
-  const handleCheckbox = () => {
-    // const messageId = e.target.id;
-
-    console.log(id);
-
-    // console.log(messageId);
+  const handleCheckbox = (e: ChangeEvent<HTMLInputElement>) => {
+    const action = e.target.checked ? "add" : "remove";
+    dispatch(actionCheckedMessage({ id, action: action }));
   };
 
   const handleFeatured = () => {
@@ -40,7 +43,7 @@ const MessageItem = ({ dataMessage }: dataMessage) => {
       <input
         type="checkbox"
         id={id}
-        onClick={handleCheckbox}
+        onChange={(e) => handleCheckbox(e)}
         className="cursor-pointer"
         aria-label="Mark the message"
       />
