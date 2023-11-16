@@ -90,8 +90,29 @@ export const messageSlice = createSlice({
     setIsSelectedMessages(state, action: PayloadAction<{ selectedMessages: boolean }>) {
       state.isSelectedMessages = action.payload.selectedMessages;
     },
+
+    moveMessages(state, action: PayloadAction<{ moveTo: "trash" | "inbox" | "spam" }>) {
+      const moveTo = action.payload.moveTo;
+      const isTrash = moveTo === "trash";
+      const isSpam = moveTo === "spam";
+
+      const newArray = state.allMessages.map((item) => {
+        if (state.checkedMessages.includes(item.id)) {
+          return { ...item, isInTrash: isTrash, isInSpam: isSpam };
+        }
+        return item;
+      });
+
+      state.allMessages = newArray;
+      state.checkedMessages = [];
+    },
   },
 });
 
-export const { filterMessages, actionCheckedMessage, setCheckedMessages, setIsSelectedMessages } =
-  messageSlice.actions;
+export const {
+  filterMessages,
+  actionCheckedMessage,
+  setCheckedMessages,
+  setIsSelectedMessages,
+  moveMessages,
+} = messageSlice.actions;

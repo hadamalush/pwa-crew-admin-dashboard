@@ -18,16 +18,17 @@ const MessagesList = ({ pageName }: MessagesListProps) => {
   const isSelectedAllMess = useGlobalSelector((state) => state.messages.isSelectedMessages);
   const inputRefs = useRef<Array<RefObject<HTMLInputElement>>>([]);
   const messages = useGlobalSelector((state) => state.messages[`${pageName}${"Messages"}`]);
+  const checkedMessages = useGlobalSelector((state) => state.messages.checkedMessages);
 
   const { changedPath } = usePage();
 
-  const dipatchFilterMessages = useCallback(() => {
+  const dispatchFilterMessages = useCallback(() => {
     dispatch(filterMessages({ pageName: pageName }));
   }, [dispatch, pageName]);
 
   useEffect(() => {
-    dipatchFilterMessages();
-  }, [dipatchFilterMessages]);
+    dispatchFilterMessages();
+  }, [dispatchFilterMessages, checkedMessages]);
 
   const handleMessagesCheckbox = useCallback(() => {
     const checkedMessages: string[] = [];
@@ -68,7 +69,8 @@ const MessagesList = ({ pageName }: MessagesListProps) => {
     <ul
       className={cn(
         basicVariant({ box: "default" }),
-        "w-full h-screen rounded-none md:rounded-xl overflow-hidden"
+        "w-full h-screen rounded-none md:rounded-xl overflow-hidden sm:mt-0 duration-200",
+        { "mt-16": checkedMessages.length > 0 }
       )}
     >
       {messages.map((message, index) => {

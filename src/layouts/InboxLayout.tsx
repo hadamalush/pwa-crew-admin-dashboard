@@ -18,7 +18,7 @@ const InboxLayout = () => {
         data={InboxNavbarItems}
         id="inboxNav"
         className={cn(
-          " md:left-36 md:w-80 pt-5 bg-slate-50 dark:bg-primaryDarkBrighter duration-200 z-40",
+          " md:left-36 md:w-80 pt-5 bg-slate-50 dark:bg-primaryDarkBrighter duration-200 z-40 mt-20 md:mt-0",
           { "md:left-96": isVisibleMainNav },
           {
             "translate-x-0": isVisibleInboxNav,

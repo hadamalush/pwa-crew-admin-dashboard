@@ -3,17 +3,17 @@ import { useLocation } from "react-router-dom";
 
 export const usePage = () => {
   const location = useLocation();
-  const [prevPath, setPrevPath] = useState("");
+  const [path, setPath] = useState("");
   const [changedPath, setChangedPath] = useState(false);
 
   useEffect(() => {
-    if (location.pathname !== prevPath) {
+    if (location.pathname !== path) {
       setChangedPath(true);
-      setPrevPath(location.pathname);
+      setPath(location.pathname);
     }
-  }, [location, prevPath]);
+  }, [location, path]);
 
-  return { changedPath, prevPath };
+  return { changedPath, path };
 };
 
 export default usePage;
