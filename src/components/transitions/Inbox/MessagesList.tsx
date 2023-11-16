@@ -9,6 +9,7 @@ import {
   setCheckedMessages,
   setIsSelectedMessages,
 } from "../../../global/message-slice";
+import { usePage } from "../../../hooks/usePage";
 
 type MessagesListProps = { pageName: "spam" | "trash" | "inbox" };
 
@@ -17,6 +18,8 @@ const MessagesList = ({ pageName }: MessagesListProps) => {
   const isSelectedAllMess = useGlobalSelector((state) => state.messages.isSelectedMessages);
   const inputRefs = useRef<Array<RefObject<HTMLInputElement>>>([]);
   const messages = useGlobalSelector((state) => state.messages[`${pageName}${"Messages"}`]);
+
+  const { changedPath } = usePage();
 
   const dipatchFilterMessages = useCallback(() => {
     dispatch(filterMessages({ pageName: pageName }));
@@ -28,6 +31,13 @@ const MessagesList = ({ pageName }: MessagesListProps) => {
 
   const handleMessagesCheckbox = useCallback(() => {
     const checkedMessages: string[] = [];
+    if (!changedPath) {
+      return;
+    }
+    if (changedPath) {
+      dispatch(setIsSelectedMessages({ selectedMessages: false }));
+    }
+
     if (!isSelectedAllMess) {
       inputRefs.current.forEach((ref) => {
         if (ref.current !== null) {
@@ -50,7 +60,7 @@ const MessagesList = ({ pageName }: MessagesListProps) => {
     });
     dispatch(setCheckedMessages({ checkedMessages: [] }));
     dispatch(setIsSelectedMessages({ selectedMessages: false }));
-  }, [isSelectedAllMess, dispatch, inputRefs]);
+  }, [isSelectedAllMess, dispatch, inputRefs, changedPath]);
 
   useEffect(() => handleMessagesCheckbox, [isSelectedAllMess, handleMessagesCheckbox]);
 

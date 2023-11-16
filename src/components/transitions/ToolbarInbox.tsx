@@ -34,6 +34,7 @@ const ToolbarInbox = () => {
         className="cursor-pointer ml-5 mr-2 md:ml-20"
         aria-label="Mark the message"
         onChange={handleMessagesCheckbox}
+        checked={isSelectedMessages}
       />
       <label className="dark:text-textPrimary mr-auto w-max text-xl md:text-2xl">Select all</label>
 
