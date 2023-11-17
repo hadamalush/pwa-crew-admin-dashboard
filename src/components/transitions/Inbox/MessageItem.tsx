@@ -3,7 +3,7 @@ import Icon from "../../UI/Icons/Icon";
 import Avatar from "../Avatar";
 import Container from "../../UI/Container";
 import { cn } from "../../../util/utils";
-import { actionCheckedMessage, messageProps } from "../../../global/message-slice";
+import { markSingleMessage, messageProps } from "../../../global/message-slice";
 import { format } from "date-fns";
 import { useGlobalDispatch } from "../../../global/hooks";
 import { ChangeEvent, forwardRef } from "react";
@@ -28,11 +28,11 @@ const MessageItem = forwardRef<HTMLInputElement, dataMessage>(({ dataMessage, pa
 
   const handleCheckbox = (e: ChangeEvent<HTMLInputElement>) => {
     const action = e.target.checked ? "add" : "remove";
-    dispatch(actionCheckedMessage({ id, action: action, pageName: pageName }));
+    dispatch(markSingleMessage({ id, action: action, pageName: pageName }));
   };
 
   const handleFeatured = () => {
-    dispatch(actionCheckedMessage({ id, action: "featured", pageName: pageName }));
+    dispatch(markSingleMessage({ id, action: "featured", pageName: pageName }));
     setIsFeaturedMess((prev) => !prev);
   };
 

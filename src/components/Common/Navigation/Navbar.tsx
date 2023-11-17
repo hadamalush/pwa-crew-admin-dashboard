@@ -7,9 +7,10 @@ import Button from "../../UI/Button";
 
 type NavbarProps = {
   data: NavItemProps[];
+  isAdditionalInfo?: boolean;
 } & ComponentPropsWithoutRef<"nav">;
 
-const Navbar = ({ className, data, id, ...props }: NavbarProps) => {
+const Navbar = ({ className, data, id, isAdditionalInfo, ...props }: NavbarProps) => {
   const isVisibleNav = useGlobalSelector((state) => state.toggle.isVisibleNav);
   const isMdScreen = useMediaQuery({ minWidth: 1060 });
   const isInboxNav = id === "inboxNav";
@@ -43,6 +44,7 @@ const Navbar = ({ className, data, id, ...props }: NavbarProps) => {
         {data.map((item) => (
           <NavItem
             key={item.id}
+            isAdditionalInfo={isAdditionalInfo}
             {...item}
             title={isVisibleNav || !isMdScreen || id === "inboxNav" ? item.title : ""}
             aria-label={item.title}

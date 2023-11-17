@@ -4,11 +4,7 @@ import MessageItem from "./MessageItem";
 import { useGlobalSelector } from "../../../global/hooks";
 import { useDispatch } from "react-redux";
 import { useCallback, useEffect, useRef, type RefObject, createRef, useState } from "react";
-import {
-  filterMessages,
-  setCheckedMessages,
-  markAllMessageAsSelect,
-} from "../../../global/message-slice";
+import { filterMessages, setCheckedMessages, markAllMessage } from "../../../global/message-slice";
 import { usePage } from "../../../hooks/usePage";
 import Icon from "../../UI/Icons/Icon";
 import Heading from "../../UI/Heading";
@@ -20,7 +16,7 @@ type MessagesListProps = {
 
 const MessagesList = ({ pageName }: MessagesListProps) => {
   const dispatch = useDispatch();
-  const isSelectedAllMess = useGlobalSelector((state) => state.messages.areAllMessagesMarked);
+  const isSelectedAllMess = useGlobalSelector((state) => state.messages.areMarkedAllMessages);
   const inputRefs = useRef<Array<RefObject<HTMLInputElement>>>([]);
   const messages = useGlobalSelector((state) => state.messages[`${pageName}${"Messages"}`]);
   const checkedMessages = useGlobalSelector((state) => state.messages.checkedMessages);
@@ -43,7 +39,7 @@ const MessagesList = ({ pageName }: MessagesListProps) => {
       return;
     }
     if (changedPath) {
-      dispatch(markAllMessageAsSelect({ allMessagesMarked: false }));
+      dispatch(markAllMessage({ allMessagesMarked: false }));
     }
 
     if (!isSelectedAllMess) {
@@ -56,7 +52,7 @@ const MessagesList = ({ pageName }: MessagesListProps) => {
 
       if (checkedMessages.length > 0) {
         dispatch(setCheckedMessages({ checkedMessages }));
-        dispatch(markAllMessageAsSelect({ allMessagesMarked: true }));
+        dispatch(markAllMessage({ allMessagesMarked: true }));
       }
 
       return;
@@ -67,7 +63,7 @@ const MessagesList = ({ pageName }: MessagesListProps) => {
       }
     });
     dispatch(setCheckedMessages({ checkedMessages: [] }));
-    dispatch(markAllMessageAsSelect({ allMessagesMarked: false }));
+    dispatch(markAllMessage({ allMessagesMarked: false }));
   }, [isSelectedAllMess, dispatch, inputRefs, changedPath]);
 
   useEffect(() => handleMessagesCheckbox, [isSelectedAllMess, handleMessagesCheckbox]);

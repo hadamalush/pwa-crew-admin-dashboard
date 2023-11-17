@@ -4,14 +4,14 @@ import Container from "../UI/Container";
 import Icon from "../UI/Icons/Icon";
 import Button from "../UI/Button";
 import { handleInboxNav, handleNav } from "../../global/toggle-slice";
-import { moveMessages, markAllMessageAsSelect } from "../../global/message-slice";
+import { moveMessages, markAllMessage } from "../../global/message-slice";
 import usePage from "../../hooks/usePage";
 
 const ToolbarInbox = () => {
   const isVisibleMainNav = useGlobalSelector((state) => state.toggle.isVisibleNav);
   const isVisibleInboxNav = useGlobalSelector((state) => state.toggle.isVisibleInboxNav);
-  const areAllMessagesMarked = useGlobalSelector((state) => state.messages.areAllMessagesMarked);
-  const inputAllIsSelected = useGlobalSelector((state) => state.messages.inputAllIsSelected);
+  const areAllMessagesMarked = useGlobalSelector((state) => state.messages.areMarkedAllMessages);
+  const isMarkedCheckboxAll = useGlobalSelector((state) => state.messages.isMarkedCheckboxAll);
   const isCheckedMessage = useGlobalSelector((state) => state.messages.checkedMessages).length > 0;
   const { path } = usePage();
 
@@ -23,12 +23,12 @@ const ToolbarInbox = () => {
   };
 
   const handleMessagesCheckbox = () => {
-    dispatch(markAllMessageAsSelect({ allMessagesMarked: !areAllMessagesMarked }));
+    dispatch(markAllMessage({ allMessagesMarked: !areAllMessagesMarked }));
   };
 
   const handleMessagesMove = (moveTo: "trash" | "spam" | "inbox") => {
     dispatch(moveMessages({ moveTo: moveTo }));
-    dispatch(markAllMessageAsSelect({ allMessagesMarked: false }));
+    dispatch(markAllMessage({ allMessagesMarked: false }));
   };
 
   return (
@@ -43,12 +43,12 @@ const ToolbarInbox = () => {
         type="checkbox"
         className="cursor-pointer ml-5 mr-2 md:ml-20"
         onChange={handleMessagesCheckbox}
-        checked={inputAllIsSelected}
-        name="selectMessage"
-        id="selectMessage"
+        checked={isMarkedCheckboxAll}
+        name="checkboxAll"
+        id="checkboxAll"
       />
       <label
-        htmlFor="selectMessage"
+        htmlFor="checkboxAll"
         className="dark:text-textPrimary w-max text-xl md:text-2xl mr-auto sm:mr-0"
       >
         Select all

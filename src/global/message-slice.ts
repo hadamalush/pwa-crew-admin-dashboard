@@ -25,8 +25,8 @@ type initialStateType = {
   spamMessages: messageProps[];
   inboxMessages: messageProps[];
   checkedMessages: string[];
-  areAllMessagesMarked: boolean;
-  inputAllIsSelected: boolean;
+  areMarkedAllMessages: boolean;
+  isMarkedCheckboxAll: boolean;
 };
 
 const initialState: initialStateType = {
@@ -36,8 +36,8 @@ const initialState: initialStateType = {
   spamMessages: [],
   inboxMessages: [],
   checkedMessages: [],
-  areAllMessagesMarked: false,
-  inputAllIsSelected: false,
+  areMarkedAllMessages: false,
+  isMarkedCheckboxAll: false,
 };
 
 export const messageSlice = createSlice({
@@ -81,7 +81,7 @@ export const messageSlice = createSlice({
       state[`${pageName}Messages`] = destructionMessages;
     },
 
-    actionCheckedMessage(
+    markSingleMessage(
       state,
       action: PayloadAction<{
         id: string;
@@ -96,21 +96,21 @@ export const messageSlice = createSlice({
         state.checkedMessages.push(messageId);
 
         if (state[`${pageName}Messages`].length === state.checkedMessages.length) {
-          state.areAllMessagesMarked = true;
-          state.inputAllIsSelected = true;
+          state.areMarkedAllMessages = true;
+          state.isMarkedCheckboxAll = true;
         }
         return;
       }
       if (action.payload.action === "remove") {
         state.checkedMessages = state.checkedMessages.filter((message) => message !== messageId);
 
-        if (state.areAllMessagesMarked) {
-          state.inputAllIsSelected = false;
+        if (state.areMarkedAllMessages) {
+          state.isMarkedCheckboxAll = false;
         }
 
         if (state.checkedMessages.length === 0) {
-          state.areAllMessagesMarked = false;
-          state.inputAllIsSelected = false;
+          state.areMarkedAllMessages = false;
+          state.isMarkedCheckboxAll = false;
         }
       }
       if (action.payload.action === "featured") {
@@ -129,13 +129,13 @@ export const messageSlice = createSlice({
       state.checkedMessages = action.payload.checkedMessages;
     },
 
-    markAllMessageAsSelect(state, action: PayloadAction<{ allMessagesMarked: boolean }>) {
-      state.areAllMessagesMarked = action.payload.allMessagesMarked;
-      state.inputAllIsSelected = action.payload.allMessagesMarked;
+    markAllMessage(state, action: PayloadAction<{ allMessagesMarked: boolean }>) {
+      state.areMarkedAllMessages = action.payload.allMessagesMarked;
+      state.isMarkedCheckboxAll = action.payload.allMessagesMarked;
     },
 
     changeCheckboxAll(state, action: PayloadAction<{ checkbox: boolean }>) {
-      state.inputAllIsSelected = action.payload.checkbox;
+      state.isMarkedCheckboxAll = action.payload.checkbox;
     },
 
     moveMessages(state, action: PayloadAction<{ moveTo: "trash" | "inbox" | "spam" }>) {
@@ -158,9 +158,9 @@ export const messageSlice = createSlice({
 
 export const {
   filterMessages,
-  actionCheckedMessage,
+  markSingleMessage,
   setCheckedMessages,
-  markAllMessageAsSelect,
+  markAllMessage,
   moveMessages,
   changeCheckboxAll,
 } = messageSlice.actions;
