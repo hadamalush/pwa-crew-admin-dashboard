@@ -90,10 +90,13 @@ const MessagesList = ({ pageName }: MessagesListProps) => {
               className={cn(" w-1/2 h-1/2 z-[-1]  duration-300 mx-auto sm:w-1/4 sm:h-1/4 sm:mt-40")}
             />
 
-            <Heading as="h2" className="text-center  text-3xl sm:mt-14 font-semibold pt-14">
+            <Heading
+              as="h2"
+              className="text-center  text-3xl sm:mt-14 font-semibold pt-14 text-black dark:text-white"
+            >
               YOU HAVE NO MESSAGES
             </Heading>
-            <p className="text-center p-5 ">Your inbox is empty.</p>
+            <p className="text-center p-5 text-black dark:text-white">Your inbox is empty.</p>
           </motion.div>
         )}
       </AnimatePresence>

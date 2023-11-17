@@ -7,6 +7,7 @@ import Icon from "../../UI/Icons/Icon";
 import { useGlobalSelector } from "../../../global/hooks";
 import { messageDetailsType } from "../../../global/message-slice";
 import { useEffect, useState } from "react";
+import { AnimatePresence, motion } from "framer-motion";
 
 type handleAdditionalInfoProps = {
   pageName: "Trash" | "Inbox" | "Featured" | "Spam" | null;
@@ -66,11 +67,20 @@ const NavItem = ({
         <span className="dark:bg-primaryLight  w-14 h-14 mr-4 rounded-full flexCenter">
           <Icon iconName={icon} color={iconColor} size="s1" className="w-36 h-8" />
         </span>
-        {isAdditionalInfo && quantity > 0 && (
-          <span className="dark:bg-primaryLight  w-10 h-10 mr-4 rounded-full flexCenter absolute right-0">
-            {quantity}
-          </span>
-        )}
+
+        <AnimatePresence>
+          {isAdditionalInfo && quantity > 0 && (
+            <motion.span
+              initial={{ y: -20, opacity: 0 }}
+              animate={{ y: 0, opacity: 1 }}
+              transition={{ duration: 0.2 }}
+              exit={{ y: 20, opacity: 0 }}
+              className="dark:bg-primaryLight  w-10 h-10 mr-4 rounded-full flexCenter absolute right-0"
+            >
+              {quantity}
+            </motion.span>
+          )}
+        </AnimatePresence>
 
         {title && <span className="animate-scale">{title}</span>}
       </NavLink>
