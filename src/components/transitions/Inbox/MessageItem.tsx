@@ -12,9 +12,10 @@ import { useState, useEffect } from "react";
 
 type dataMessage = {
   dataMessage: messageProps;
+  pageName: "spam" | "trash" | "inbox" | "featured";
 };
 
-const MessageItem = forwardRef<HTMLInputElement, dataMessage>(({ dataMessage }, ref) => {
+const MessageItem = forwardRef<HTMLInputElement, dataMessage>(({ dataMessage, pageName }, ref) => {
   const dispatch = useGlobalDispatch();
   const { id, owner, subject, avatarSrc, isFeatured, isRead, date } = dataMessage;
   const [isFeaturedMess, setIsFeaturedMess] = useState(isFeatured);
@@ -27,11 +28,11 @@ const MessageItem = forwardRef<HTMLInputElement, dataMessage>(({ dataMessage }, 
 
   const handleCheckbox = (e: ChangeEvent<HTMLInputElement>) => {
     const action = e.target.checked ? "add" : "remove";
-    dispatch(actionCheckedMessage({ id, action: action }));
+    dispatch(actionCheckedMessage({ id, action: action, pageName: pageName }));
   };
 
   const handleFeatured = () => {
-    dispatch(actionCheckedMessage({ id, action: "featured" }));
+    dispatch(actionCheckedMessage({ id, action: "featured", pageName: pageName }));
     setIsFeaturedMess((prev) => !prev);
   };
 

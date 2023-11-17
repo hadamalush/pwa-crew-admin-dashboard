@@ -7,7 +7,7 @@ import { useCallback, useEffect, useRef, type RefObject, createRef, useState } f
 import {
   filterMessages,
   setCheckedMessages,
-  setIsSelectedMessages,
+  markAllMessageAsSelect,
 } from "../../../global/message-slice";
 import { usePage } from "../../../hooks/usePage";
 import Icon from "../../UI/Icons/Icon";
@@ -20,7 +20,7 @@ type MessagesListProps = {
 
 const MessagesList = ({ pageName }: MessagesListProps) => {
   const dispatch = useDispatch();
-  const isSelectedAllMess = useGlobalSelector((state) => state.messages.isSelectedMessages);
+  const isSelectedAllMess = useGlobalSelector((state) => state.messages.areAllMessagesMarked);
   const inputRefs = useRef<Array<RefObject<HTMLInputElement>>>([]);
   const messages = useGlobalSelector((state) => state.messages[`${pageName}${"Messages"}`]);
   const checkedMessages = useGlobalSelector((state) => state.messages.checkedMessages);
@@ -43,7 +43,7 @@ const MessagesList = ({ pageName }: MessagesListProps) => {
       return;
     }
     if (changedPath) {
-      dispatch(setIsSelectedMessages({ selectedMessages: false }));
+      dispatch(markAllMessageAsSelect({ allMessagesMarked: false }));
     }
 
     if (!isSelectedAllMess) {
@@ -56,7 +56,7 @@ const MessagesList = ({ pageName }: MessagesListProps) => {
 
       if (checkedMessages.length > 0) {
         dispatch(setCheckedMessages({ checkedMessages }));
-        dispatch(setIsSelectedMessages({ selectedMessages: true }));
+        dispatch(markAllMessageAsSelect({ allMessagesMarked: true }));
       }
 
       return;
@@ -67,7 +67,7 @@ const MessagesList = ({ pageName }: MessagesListProps) => {
       }
     });
     dispatch(setCheckedMessages({ checkedMessages: [] }));
-    dispatch(setIsSelectedMessages({ selectedMessages: false }));
+    dispatch(markAllMessageAsSelect({ allMessagesMarked: false }));
   }, [isSelectedAllMess, dispatch, inputRefs, changedPath]);
 
   useEffect(() => handleMessagesCheckbox, [isSelectedAllMess, handleMessagesCheckbox]);
@@ -106,7 +106,12 @@ const MessagesList = ({ pageName }: MessagesListProps) => {
         inputRefs.current[index] = createRef<HTMLInputElement>();
 
         return (
-          <MessageItem key={message.id} dataMessage={message} ref={inputRefs.current[index]} />
+          <MessageItem
+            key={message.id}
+            dataMessage={message}
+            ref={inputRefs.current[index]}
+            pageName={pageName}
+          />
         );
       })}
     </ul>

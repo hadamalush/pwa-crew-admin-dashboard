@@ -4,13 +4,14 @@ import Container from "../UI/Container";
 import Icon from "../UI/Icons/Icon";
 import Button from "../UI/Button";
 import { handleInboxNav, handleNav } from "../../global/toggle-slice";
-import { moveMessages, setIsSelectedMessages } from "../../global/message-slice";
+import { moveMessages, markAllMessageAsSelect } from "../../global/message-slice";
 import usePage from "../../hooks/usePage";
 
 const ToolbarInbox = () => {
   const isVisibleMainNav = useGlobalSelector((state) => state.toggle.isVisibleNav);
   const isVisibleInboxNav = useGlobalSelector((state) => state.toggle.isVisibleInboxNav);
-  const isSelectedMessages = useGlobalSelector((state) => state.messages.isSelectedMessages);
+  const areAllMessagesMarked = useGlobalSelector((state) => state.messages.areAllMessagesMarked);
+  const inputAllIsSelected = useGlobalSelector((state) => state.messages.inputAllIsSelected);
   const isCheckedMessage = useGlobalSelector((state) => state.messages.checkedMessages).length > 0;
   const { path } = usePage();
 
@@ -22,12 +23,12 @@ const ToolbarInbox = () => {
   };
 
   const handleMessagesCheckbox = () => {
-    dispatch(setIsSelectedMessages({ selectedMessages: !isSelectedMessages }));
+    dispatch(markAllMessageAsSelect({ allMessagesMarked: !areAllMessagesMarked }));
   };
 
   const handleMessagesMove = (moveTo: "trash" | "spam" | "inbox") => {
     dispatch(moveMessages({ moveTo: moveTo }));
-    dispatch(setIsSelectedMessages({ selectedMessages: false }));
+    dispatch(markAllMessageAsSelect({ allMessagesMarked: false }));
   };
 
   return (
@@ -42,7 +43,7 @@ const ToolbarInbox = () => {
         type="checkbox"
         className="cursor-pointer ml-5 mr-2 md:ml-20"
         onChange={handleMessagesCheckbox}
-        checked={isSelectedMessages}
+        checked={inputAllIsSelected}
         name="selectMessage"
         id="selectMessage"
       />
