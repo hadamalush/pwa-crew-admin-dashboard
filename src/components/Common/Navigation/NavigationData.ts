@@ -61,13 +61,20 @@ export const InboxNavbarItems: NavItemProps[] = [
   },
   {
     id: "inboxNav3",
+    to: "/inbox/featured",
+    icon: "star",
+    iconColor: "yellow",
+    title: "Featured",
+  },
+  {
+    id: "inboxNav4",
     to: "/inbox/spam",
     icon: "flame",
     iconColor: "green",
     title: "Spam",
   },
   {
-    id: "inboxNav4",
+    id: "inboxNav5",
     to: "/inbox/trash",
     icon: "trash",
     iconColor: "yellow",

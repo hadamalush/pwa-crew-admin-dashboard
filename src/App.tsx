@@ -9,6 +9,7 @@ import MainLayout from "./layouts/MainLayout";
 import InboxSent from "./pages/Inbox/InboxSent";
 import InboxSpam from "./pages/Inbox/InboxSpam";
 import InboxTrash from "./pages/Inbox/InboxTrash";
+import InboxFeatured from "./pages/Inbox/InboxFeatured";
 
 const DashBoardPage = lazy(() => import("./pages/DashboardPage"));
 const InboxLayout = lazy(() => import("./layouts/InboxLayout"));
@@ -49,6 +50,14 @@ function App() {
               element: (
                 <Suspense fallback={<div>Loading...</div>}>
                   <InboxSent />
+                </Suspense>
+              ),
+            },
+            {
+              path: "featured",
+              element: (
+                <Suspense fallback={<div>Loading...</div>}>
+                  <InboxFeatured />
                 </Suspense>
               ),
             },

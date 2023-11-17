@@ -11,7 +11,7 @@ import {
 } from "../../../global/message-slice";
 import { usePage } from "../../../hooks/usePage";
 
-type MessagesListProps = { pageName: "spam" | "trash" | "inbox" };
+type MessagesListProps = { pageName: "spam" | "trash" | "inbox" | "featured" };
 
 const MessagesList = ({ pageName }: MessagesListProps) => {
   const dispatch = useDispatch();

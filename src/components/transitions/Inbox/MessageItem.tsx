@@ -8,29 +8,33 @@ import { format } from "date-fns";
 import { useGlobalDispatch } from "../../../global/hooks";
 import { ChangeEvent, forwardRef } from "react";
 import InputRef from "../../UI/Input/InputRef";
+import { useState, useEffect } from "react";
 
 type dataMessage = {
   dataMessage: messageProps;
 };
 
 const MessageItem = forwardRef<HTMLInputElement, dataMessage>(({ dataMessage }, ref) => {
-  //   const [isFeatured, setIsFeatured] = useState(false);
   const dispatch = useGlobalDispatch();
-
   const { id, owner, subject, avatarSrc, isFeatured, isRead, date } = dataMessage;
+  const [isFeaturedMess, setIsFeaturedMess] = useState(isFeatured);
   const newDate = new Date(date);
   const formattedDate = format(newDate, "dd MMM");
 
+  useEffect(() => {
+    setIsFeaturedMess(isFeatured);
+  }, [isFeatured]);
+
   const handleCheckbox = (e: ChangeEvent<HTMLInputElement>) => {
     const action = e.target.checked ? "add" : "remove";
-
     dispatch(actionCheckedMessage({ id, action: action }));
   };
 
   const handleFeatured = () => {
-    // setIsFeatured((prev) => !prev);
-    console.log(isFeatured);
+    dispatch(actionCheckedMessage({ id, action: "featured" }));
+    setIsFeaturedMess((prev) => !prev);
   };
+
   return (
     <li
       className={cn(
@@ -55,11 +59,11 @@ const MessageItem = forwardRef<HTMLInputElement, dataMessage>(({ dataMessage }, 
         aria-label="Mark as featured"
       >
         <Icon
-          iconName={isFeatured ? "starFilled" : "star"}
+          iconName={isFeaturedMess ? "starFilled" : "star"}
           size="s1"
           color="gray"
           className={cn("mx-5 hidden md:block duration-200", {
-            "text-orangeYellow": isFeatured,
+            "text-orangeYellow": isFeaturedMess,
           })}
         />
       </Button>
@@ -86,11 +90,11 @@ const MessageItem = forwardRef<HTMLInputElement, dataMessage>(({ dataMessage }, 
           aria-label="Mark as featured"
         >
           <Icon
-            iconName={isFeatured ? "starFilled" : "star"}
+            iconName={isFeaturedMess ? "starFilled" : "star"}
             size="s1"
             color="gray"
             className={cn("mt-2 md:hidden duration-200", {
-              "text-orangeYellow": isFeatured,
+              "text-orangeYellow": isFeaturedMess,
             })}
           />
         </Button>

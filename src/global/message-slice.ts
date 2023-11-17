@@ -21,6 +21,7 @@ export interface messageDetailsType extends messageProps {
 type initialStateType = {
   allMessages: messageDetailsType[];
   trashMessages: messageProps[];
+  featuredMessages: messageProps[];
   spamMessages: messageProps[];
   inboxMessages: messageProps[];
   checkedMessages: string[];
@@ -30,6 +31,7 @@ type initialStateType = {
 const initialState: initialStateType = {
   allMessages: DUMMY_INBOXMESSAGES,
   trashMessages: [],
+  featuredMessages: [],
   spamMessages: [],
   inboxMessages: [],
   checkedMessages: [],
@@ -40,7 +42,10 @@ export const messageSlice = createSlice({
   name: "message",
   initialState: initialState,
   reducers: {
-    filterMessages(state, action: PayloadAction<{ pageName: "trash" | "spam" | "inbox" }>) {
+    filterMessages(
+      state,
+      action: PayloadAction<{ pageName: "trash" | "spam" | "inbox" | "featured" }>
+    ) {
       const pageName = action.payload.pageName;
       let filteredMessages: messageDetailsType[] = [];
 
@@ -54,6 +59,9 @@ export const messageSlice = createSlice({
       }
       if (action.payload.pageName === "trash") {
         filteredMessages = state.allMessages.filter((message) => message.isInTrash);
+      }
+      if (action.payload.pageName === "featured") {
+        filteredMessages = state.allMessages.filter((message) => message.isFeatured);
       }
 
       const destructionMessages = filteredMessages.map(
@@ -71,15 +79,27 @@ export const messageSlice = createSlice({
       state[`${pageName}Messages`] = destructionMessages;
     },
 
-    actionCheckedMessage(state, action: PayloadAction<{ id: string; action: "add" | "remove" }>) {
+    actionCheckedMessage(
+      state,
+      action: PayloadAction<{ id: string; action: "add" | "remove" | "featured" }>
+    ) {
+      const messageId = action.payload.id;
       if (action.payload.action === "add") {
-        state.checkedMessages.push(action.payload.id);
+        state.checkedMessages.push(messageId);
         return;
       }
       if (action.payload.action === "remove") {
-        state.checkedMessages = state.checkedMessages.filter(
-          (message) => message !== action.payload.id
-        );
+        state.checkedMessages = state.checkedMessages.filter((message) => message !== messageId);
+      }
+      if (action.payload.action === "featured") {
+        const newMessages = state.allMessages.map((message) => {
+          if (message.id === messageId) {
+            return { ...message, isFeatured: !message.isFeatured };
+          }
+          return message;
+        });
+
+        state.allMessages = newMessages;
       }
     },
 
@@ -96,14 +116,14 @@ export const messageSlice = createSlice({
       const isTrash = moveTo === "trash";
       const isSpam = moveTo === "spam";
 
-      const newArray = state.allMessages.map((item) => {
+      const newMessages = state.allMessages.map((item) => {
         if (state.checkedMessages.includes(item.id)) {
           return { ...item, isInTrash: isTrash, isInSpam: isSpam };
         }
         return item;
       });
 
-      state.allMessages = newArray;
+      state.allMessages = newMessages;
       state.checkedMessages = [];
     },
   },
