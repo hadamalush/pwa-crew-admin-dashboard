@@ -3,15 +3,20 @@ import { basicVariant } from "../../variants/variants";
 import MessageItem from "./MessageItem";
 import { useGlobalSelector } from "../../../global/hooks";
 import { useDispatch } from "react-redux";
-import { useCallback, useEffect, useRef, type RefObject, createRef } from "react";
+import { useCallback, useEffect, useRef, type RefObject, createRef, useState } from "react";
 import {
   filterMessages,
   setCheckedMessages,
   setIsSelectedMessages,
 } from "../../../global/message-slice";
 import { usePage } from "../../../hooks/usePage";
+import Icon from "../../UI/Icons/Icon";
+import Heading from "../../UI/Heading";
+import { AnimatePresence, motion } from "framer-motion";
 
-type MessagesListProps = { pageName: "spam" | "trash" | "inbox" | "featured" };
+type MessagesListProps = {
+  pageName: "spam" | "trash" | "inbox" | "featured";
+};
 
 const MessagesList = ({ pageName }: MessagesListProps) => {
   const dispatch = useDispatch();
@@ -19,6 +24,7 @@ const MessagesList = ({ pageName }: MessagesListProps) => {
   const inputRefs = useRef<Array<RefObject<HTMLInputElement>>>([]);
   const messages = useGlobalSelector((state) => state.messages[`${pageName}${"Messages"}`]);
   const checkedMessages = useGlobalSelector((state) => state.messages.checkedMessages);
+  const [isLoading, setIsLoading] = useState(true);
 
   const { changedPath } = usePage();
 
@@ -28,6 +34,7 @@ const MessagesList = ({ pageName }: MessagesListProps) => {
 
   useEffect(() => {
     dispatchFilterMessages();
+    setIsLoading(false);
   }, [dispatchFilterMessages, checkedMessages]);
 
   const handleMessagesCheckbox = useCallback(() => {
@@ -73,6 +80,28 @@ const MessagesList = ({ pageName }: MessagesListProps) => {
         { "mt-16": checkedMessages.length > 0 }
       )}
     >
+      <AnimatePresence>
+        {messages.length === 0 && !isLoading && (
+          <motion.div
+            initial={{ y: -500, opacity: 0 }}
+            animate={{ y: 0, opacity: 1 }}
+            transition={{ duration: 0.2 }}
+            exit={{ opacity: 0 }}
+            className="mt-28"
+          >
+            <Icon
+              iconName="spiderWeb"
+              className={cn(" w-1/2 h-1/2 z-[-1]  duration-300 mx-auto sm:w-1/4 sm:h-1/4 sm:mt-40")}
+            />
+
+            <Heading as="h2" className="text-center  text-3xl sm:mt-14 font-semibold pt-14">
+              YOU HAVE NO MESSAGES
+            </Heading>
+            <p className="text-center p-5 ">Your inbox is empty.</p>
+          </motion.div>
+        )}
+      </AnimatePresence>
+
       {messages.map((message, index) => {
         inputRefs.current[index] = createRef<HTMLInputElement>();
 

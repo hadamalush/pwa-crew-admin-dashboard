@@ -530,4 +530,44 @@ export const IconsBase = {
       <path d="M12 17.75l-6.172 3.245l1.179 -6.873l-5 -4.867l6.9 -1l3.086 -6.253l3.086 6.253l6.9 1l-5 4.867l1.179 6.873z"></path>
     </svg>
   ),
+  spiderWeb: (
+    <svg
+      version="1.1"
+      id="Layer_1"
+      xmlns="http://www.w3.org/2000/svg"
+      xmlnsXlink="http://www.w3.org/1999/xlink"
+      viewBox="0 0 505 505"
+      xmlSpace="preserve"
+      fill="#000000"
+    >
+      <g id="SVGRepo_bgCarrier" strokeWidth="0"></g>
+      <g id="SVGRepo_tracerCarrier" strokeLinecap="round" strokeLinejoin="round"></g>
+      <g id="SVGRepo_iconCarrier">
+        <circle fill="#3c78aa" cx="252.5" cy="252.5" r="252.5"></circle>
+        <path
+          fill="#FFD05B"
+          d="M242.4,306.7V505c-14-0.6-27.7-2.3-41.1-5c-10.9-2.2-21.5-5.2-31.8-8.8V306.7H242.4z"
+        ></path>
+        <path fill="#F9B54C;" d="M242.4,306.7V505c-14-0.6-27.7-2.3-41.1-5V306.7H242.4z"></path>
+        <path fill="#584280" d="M307.2,125v204H61.6V208.8c0-46.2,37.5-83.8,83.8-83.8H307.2z"></path>
+        <path
+          fill="#8f5fe8"
+          d="M391,329H223.5V208.8c0-46.3,37.5-83.8,83.8-83.8l0,0c46.3,0,83.8,37.5,83.8,83.8V329H391z"
+        ></path>
+        <path
+          fill="#E6E9EE"
+          d="M443.4,185v84.1c0,4.4-1.8,8.4-4.8,11.2c-2.8,2.7-6.7,4.4-10.8,4.4H281.9c-4.2,0-8-1.7-10.8-4.4 c-3-2.8-4.8-6.8-4.8-11.2V185c0-4.4,1.8-8.4,4.8-11.2c2.8-2.7,6.6-4.4,10.8-4.4h145.9c4.2,0,8,1.7,10.8,4.4 C441.6,176.6,443.4,180.6,443.4,185z"
+        ></path>
+        <path
+          fill="#CED5E0"
+          d="M438.6,280.3c-2.8,2.7-6.7,4.4-10.8,4.4H281.9c-4.2,0-8-1.7-10.8-4.4l83.8-76.9L438.6,280.3z"
+        ></path>
+        <path
+          fill="#FFFFFF"
+          d="M438.6,173.7l-83.8,76.8L271,173.7c2.8-2.7,6.6-4.4,10.8-4.4h145.9C432,169.4,435.8,171,438.6,173.7z "
+        ></path>
+        <rect x="107.3" y="210" fill="#E6E9EE" width="94.1" height="27.6"></rect>
+      </g>
+    </svg>
+  ),
 };
