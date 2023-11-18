@@ -7,8 +7,8 @@ import Button from "../../UI/Button";
 import { lazy, Suspense } from "react";
 import { useState } from "react";
 import { AnimatePresence } from "framer-motion";
-import TextEditor from "../../transitions/Editor/TextEditor";
 
+const TextEditor = lazy(() => import("../../transitions/Editor/TextEditor"));
 const Modal = lazy(() => import("../../transitions/Modal"));
 
 type NavbarProps = {
