@@ -7,6 +7,7 @@ import Button from "../../UI/Button";
 import { lazy, Suspense } from "react";
 import { useState } from "react";
 import { AnimatePresence } from "framer-motion";
+import TextEditor from "../../transitions/Editor/TextEditor";
 
 const Modal = lazy(() => import("../../transitions/Modal"));
 
@@ -34,8 +35,8 @@ const Navbar = ({ className, data, id, isAdditionalInfo, ...props }: NavbarProps
       <AnimatePresence>
         {isOpenEditor && (
           <Suspense fallback={<div>Loading...</div>}>
-            <Modal onClose={handleNewMessageclose}>
-              <div>dsadasd</div>
+            <Modal onClose={handleNewMessageclose} className="sm:w-[70rem] md:w-[80rem]">
+              <TextEditor />
             </Modal>
           </Suspense>
         )}
