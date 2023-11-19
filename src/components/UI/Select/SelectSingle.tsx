@@ -1,7 +1,7 @@
-import useTheme from "../../hooks/useTheme";
+import useTheme from "../../../hooks/useTheme";
 import Select from "react-select";
 import { ComponentPropsWithoutRef } from "react";
-import { cn } from "../../util/utils";
+import { cn } from "../../../util/utils";
 
 type SelectSingleProps = ComponentPropsWithoutRef<typeof Select>;
 

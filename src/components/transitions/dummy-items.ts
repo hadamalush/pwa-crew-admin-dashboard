@@ -12,6 +12,15 @@ type SETTINGSTYPE = {
   title: string;
 };
 
+// type DUMMY_USERSTYPE = {
+//   name: string;
+//   email: string;
+//   avatarSrc: "laptop.webp";
+//   accountActive: true;
+//   newsletter: true;
+//   createdAccount: "10.12.2019";
+// };
+
 export type DUMMY_STORAGETYPE = {
   [key: string]: {
     labels: string;
