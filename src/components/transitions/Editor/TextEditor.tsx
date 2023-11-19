@@ -2,7 +2,6 @@ import { useState, type FC } from "react";
 import ReactQuill, { ReactQuillProps } from "react-quill";
 import "react-quill/dist/quill.snow.css";
 import "./TextEditor.css";
-import { cn } from "../../../util/utils";
 
 const TextEditor: FC<ReactQuillProps> = (props) => {
   const [value, setValue] = useState("");
@@ -36,7 +35,7 @@ const TextEditor: FC<ReactQuillProps> = (props) => {
       theme="snow"
       value={value}
       onChange={setValue}
-      className={cn("editor", props.className)}
+      className="editor"
       {...props}
     />
   );
