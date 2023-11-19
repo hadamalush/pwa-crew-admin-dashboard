@@ -37,7 +37,7 @@ const Navbar = ({ className, data, id, isAdditionalInfo, ...props }: NavbarProps
           <Suspense fallback={<div>Loading...</div>}>
             <Modal
               onClose={handleNewMessageclose}
-              className="sm:w-[70rem] md:w-[80rem]"
+              className="sm:w-[70rem] md:w-[80rem] h-full sm:h-auto overflow-y-auto rounded-none sm:rounded-xl"
               title="New message"
             >
               <NewMessage />
