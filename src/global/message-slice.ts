@@ -138,10 +138,28 @@ export const messageSlice = createSlice({
       state.isMarkedCheckboxAll = action.payload.checkbox;
     },
 
-    moveMessages(state, action: PayloadAction<{ moveTo: "trash" | "inbox" | "spam" }>) {
+    moveMessages(
+      state,
+      action: PayloadAction<{ moveTo: "trash" | "inbox" | "spam"; id?: string }>
+    ) {
       const moveTo = action.payload.moveTo;
+      const id = action.payload.id;
       const isTrash = moveTo === "trash";
       const isSpam = moveTo === "spam";
+
+      if (id) {
+        const foundMessage = state.allMessages.map((message) => {
+          if (message.id === id) {
+            return { ...message, isInSpam: isSpam, isInTrash: isTrash };
+          }
+
+          return message;
+        });
+
+        if (foundMessage) state.allMessages = foundMessage;
+
+        return;
+      }
 
       const newMessages = state.allMessages.map((item) => {
         if (state.checkedMessages.includes(item.id)) {

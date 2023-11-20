@@ -6,6 +6,7 @@ import Button from "../UI/Button";
 import { handleInboxNav, handleNav } from "../../global/toggle-slice";
 import { moveMessages, markAllMessage } from "../../global/message-slice";
 import usePage from "../../hooks/usePage";
+import { useParams } from "react-router";
 
 const ToolbarInbox = () => {
   const isVisibleMainNav = useGlobalSelector((state) => state.toggle.isVisibleNav);
@@ -14,6 +15,7 @@ const ToolbarInbox = () => {
   const isMarkedCheckboxAll = useGlobalSelector((state) => state.messages.isMarkedCheckboxAll);
   const isCheckedMessage = useGlobalSelector((state) => state.messages.checkedMessages).length > 0;
   const { path } = usePage();
+  const { messageId } = useParams();
 
   const dispatch = useGlobalDispatch();
 
@@ -39,20 +41,24 @@ const ToolbarInbox = () => {
       )}
       as="div"
     >
-      <input
-        type="checkbox"
-        className="cursor-pointer ml-5 mr-2 md:ml-20"
-        onChange={handleMessagesCheckbox}
-        checked={isMarkedCheckboxAll}
-        name="checkboxAll"
-        id="checkboxAll"
-      />
-      <label
-        htmlFor="checkboxAll"
-        className="dark:text-textPrimary w-max text-xl md:text-2xl mr-auto sm:mr-0"
-      >
-        Select all
-      </label>
+      {!messageId && (
+        <>
+          <input
+            type="checkbox"
+            className="cursor-pointer ml-5 mr-2 md:ml-20"
+            onChange={handleMessagesCheckbox}
+            checked={isMarkedCheckboxAll}
+            name="checkboxAll"
+            id="checkboxAll"
+          />
+          <label
+            htmlFor="checkboxAll"
+            className="dark:text-textPrimary w-max text-xl md:text-2xl mr-auto sm:mr-0"
+          >
+            Select all
+          </label>{" "}
+        </>
+      )}
       <Container
         as="div"
         className={cn(
@@ -64,7 +70,7 @@ const ToolbarInbox = () => {
           <Button
             variant="outline"
             className="group pl-3 pr-3 outline-none order-1 md:order-none block"
-            aria-label="navigation inbox menu"
+            aria-label="Move to trash"
             type="button"
             onClick={() => handleMessagesMove("trash")}
           >
@@ -80,7 +86,7 @@ const ToolbarInbox = () => {
           <Button
             variant="outline"
             className="group p-5 pr-3 outline-none order-1 md:order-none block"
-            aria-label="navigation inbox menu"
+            aria-label="Move to spam"
             type="button"
             onClick={() => handleMessagesMove("spam")}
           >
@@ -96,7 +102,7 @@ const ToolbarInbox = () => {
           <Button
             variant="outline"
             className="group p-5 pr-3 outline-none order-1 md:order-none block"
-            aria-label="navigation inbox menu"
+            aria-label="Move to inbox"
             type="button"
             onClick={() => handleMessagesMove("inbox")}
           >
@@ -143,7 +149,7 @@ const ToolbarInbox = () => {
       <Button
         variant="outline"
         className="group p-5 pr-3 outline-none order-1 md:order-none md:hidden block"
-        aria-label="navigation inbox menu"
+        aria-label="Mark as featured"
         type="button"
         onClick={handleInboxNavChange}
       >
