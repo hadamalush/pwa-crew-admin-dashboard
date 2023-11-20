@@ -1,11 +1,9 @@
-import { useState, type FC } from "react";
+import { type FC } from "react";
 import ReactQuill, { ReactQuillProps } from "react-quill";
 import "react-quill/dist/quill.snow.css";
 import "./TextEditor.css";
 
 const TextEditor: FC<ReactQuillProps> = (props) => {
-  const [value, setValue] = useState("");
-
   const toolbarOptions = [
     ["bold", "italic", "underline", "strike"],
     ["blockquote", "code-block"],
@@ -29,16 +27,7 @@ const TextEditor: FC<ReactQuillProps> = (props) => {
     toolbar: toolbarOptions,
   };
 
-  return (
-    <ReactQuill
-      modules={module}
-      theme="snow"
-      value={value}
-      onChange={setValue}
-      className="editor"
-      {...props}
-    />
-  );
+  return <ReactQuill modules={module} theme="snow" className="editor" {...props} />;
 };
 
 export default TextEditor;

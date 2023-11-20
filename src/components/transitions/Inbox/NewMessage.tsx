@@ -18,11 +18,23 @@ const validateEmail = (email: string) => {
 
 const NewMessage = () => {
   const [emailOptions, setEmailOptions] = useState<OptionType[]>([]);
+  const [text, setText] = useState("");
+  const [emails, setEmails] = useState<string[]>([]);
+
+  console.log(emails);
 
   useEffect(() => {
     const emails = getEmailAddresses(DUMMY_USERS);
     setEmailOptions(emails);
   }, []);
+
+  const handleChangeEmails = (newValue: unknown) => {
+    const newEmails = newValue as OptionType[];
+
+    if (newEmails) {
+      setEmails(newEmails.map((option) => option.value));
+    }
+  };
 
   return (
     <>
@@ -30,8 +42,9 @@ const NewMessage = () => {
         className="mx-6 mt-5"
         options={emailOptions}
         isValidNewOption={validateEmail}
+        onChange={handleChangeEmails}
       />
-      <TextEditor />
+      <TextEditor onChange={setText} value={text} />
     </>
   );
 };
