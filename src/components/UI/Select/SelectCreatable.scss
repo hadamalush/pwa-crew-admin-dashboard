@@ -14,10 +14,6 @@
     color: #989cb3;
   }
 
-  &__placeholder {
-    color: #989cb3;
-  }
-
   .own__multi-value {
     background-color: #0f1216;
     cursor: pointer;
@@ -69,6 +65,10 @@
 
   &__menu {
     border-radius: 5px !important;
+  }
+
+  .own__placeholder {
+    color: #989cb3;
   }
 
   &__option {

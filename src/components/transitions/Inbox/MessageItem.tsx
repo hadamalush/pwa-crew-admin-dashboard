@@ -9,6 +9,7 @@ import { useGlobalDispatch } from "../../../global/hooks";
 import { ChangeEvent, forwardRef } from "react";
 import InputRef from "../../UI/Input/InputRef";
 import { useState, useEffect } from "react";
+import { NavLink } from "react-router-dom";
 
 type dataMessage = {
   dataMessage: messageProps;
@@ -27,11 +28,14 @@ const MessageItem = forwardRef<HTMLInputElement, dataMessage>(({ dataMessage, pa
   }, [isFeatured]);
 
   const handleCheckbox = (e: ChangeEvent<HTMLInputElement>) => {
+    e.stopPropagation();
     const action = e.target.checked ? "add" : "remove";
+
     dispatch(markSingleMessage({ id, action: action, pageName: pageName }));
   };
 
-  const handleFeatured = () => {
+  const handleFeatured = (e: React.MouseEvent<HTMLButtonElement>) => {
+    e.preventDefault();
     dispatch(markSingleMessage({ id, action: "featured", pageName: pageName }));
     setIsFeaturedMess((prev) => !prev);
   };
@@ -39,7 +43,7 @@ const MessageItem = forwardRef<HTMLInputElement, dataMessage>(({ dataMessage, pa
   return (
     <li
       className={cn(
-        `flex w-full mx-auto  text-xl xlg:text-2xl text-black dark:text-textPrimary px-5 border-pLight dark:border-borderPrimary border-b
+        `flex w-full mx-auto text-xl xlg:text-2xl text-black dark:text-textPrimary px-5 border-pLight dark:border-borderPrimary border-b
    md:py-3 md:px-10`,
         { "dark:bg-messageItemActive bg-slate-200": !isRead }
       )}
@@ -56,7 +60,7 @@ const MessageItem = forwardRef<HTMLInputElement, dataMessage>(({ dataMessage, pa
       <Button
         variant="outline"
         className="h-max self-center"
-        onClick={handleFeatured}
+        onClick={(e) => handleFeatured(e)}
         aria-label="Mark as featured"
       >
         <Icon
@@ -71,9 +75,9 @@ const MessageItem = forwardRef<HTMLInputElement, dataMessage>(({ dataMessage, pa
 
       <Avatar src={avatarSrc} size="s2" className="hidden md:block self-center" />
 
-      <Container
-        as="div"
-        className="w-9/12 xs:w-10/12 md:w-9/12 xlg:w-10/12 xxl:w-11/12 flex-col p-5 items-start"
+      <NavLink
+        to={id}
+        className="w-9/12 xs:w-10/12 md:w-9/12 xlg:w-9/12  xxl:w-11/12 flex-col p-5 items-start"
       >
         <p className="text-ellipsis whitespace-nowrap overflow-hidden w-full font-semibold">
           {owner}
@@ -81,7 +85,7 @@ const MessageItem = forwardRef<HTMLInputElement, dataMessage>(({ dataMessage, pa
         <Container as="div" className="w-full">
           <p className="text-ellipsis whitespace-nowrap overflow-hidden w-full">{subject}</p>
         </Container>
-      </Container>
+      </NavLink>
       <Container as="div" className="flex-col mx-auto">
         <time>{formattedDate}</time>
         <Button

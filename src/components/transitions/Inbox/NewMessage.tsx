@@ -1,8 +1,10 @@
+import { useForm } from "react-hook-form";
 import SelectCreatable from "../../UI/Select/SelectCreatable";
 import TextEditor from "../Editor/TextEditor";
 import { DUMMY_USERS } from "../dummy-items";
 import { useState, useEffect } from "react";
 import * as yup from "yup";
+import Button from "../../UI/Button";
 
 type OptionType = { label: string; value: string };
 
@@ -17,11 +19,14 @@ const validateEmail = (email: string) => {
 };
 
 const NewMessage = () => {
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm();
   const [emailOptions, setEmailOptions] = useState<OptionType[]>([]);
   const [text, setText] = useState("");
   const [emails, setEmails] = useState<string[]>([]);
-
-  console.log(emails);
 
   useEffect(() => {
     const emails = getEmailAddresses(DUMMY_USERS);
@@ -36,16 +41,46 @@ const NewMessage = () => {
     }
   };
 
+  const handleSendMessage = () => {
+    if (emails.length <= 0) {
+      // errors = { ...errors };
+    }
+
+    //backend handling..
+  };
+
   return (
-    <>
+    <form className=" overflow-x-hidden" onSubmit={handleSubmit(handleSendMessage)}>
       <SelectCreatable
         className="mx-6 mt-5"
         options={emailOptions}
         isValidNewOption={validateEmail}
         onChange={handleChangeEmails}
       />
+      <div className="bg-transparent mx-6 overflow-hidden mt-6 ">
+        <input
+          {...register("subject", {
+            required: "Subject is required",
+            minLength: { value: 4, message: "The subject should contain at least 4 characters" },
+          })}
+          placeholder="Subject"
+          autoComplete="off"
+          className="block w-full py-2 px-4 rounded-md dark:bg-primary border dark:border-borderPrimary border-secondaryLight dark:text-textPrimary  overflow-hidden
+           placeholder-textPrimary outline-none focus:border-blueFocus focus:border-2 dark:focus:border-blueFocus dark:focus:border"
+        />
+      </div>
+
+      <p className="px-7 text-lightRed py-2">
+        {errors.subject?.message &&
+          typeof errors.subject.message === "string" &&
+          errors.subject.message}
+      </p>
+
       <TextEditor onChange={setText} value={text} />
-    </>
+      <Button type="submit" variant="default" className="w-72 py-2 ml-6 mb-5">
+        Send
+      </Button>
+    </form>
   );
 };
 

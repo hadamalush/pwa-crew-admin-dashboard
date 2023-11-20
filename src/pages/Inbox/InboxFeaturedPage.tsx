@@ -1,7 +1,7 @@
 import Container from "../../components/UI/Container";
 import MessagesList from "../../components/transitions/Inbox/MessagesList";
 
-const InboxFeatured = () => {
+const InboxFeaturedPage = () => {
   return (
     <Container variant="wrapper" as="section" className="p-0 md:p-10 ">
       <MessagesList pageName="featured" />
@@ -9,4 +9,4 @@ const InboxFeatured = () => {
   );
 };
 
-export default InboxFeatured;
+export default InboxFeaturedPage;

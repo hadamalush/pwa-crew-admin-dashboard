@@ -6,10 +6,11 @@ import { Provider as ReduxProvider } from "react-redux/es/exports";
 import { store } from "./global/store";
 import { lazy, Suspense } from "react";
 import MainLayout from "./layouts/MainLayout";
-import InboxSent from "./pages/Inbox/InboxSent";
-import InboxSpam from "./pages/Inbox/InboxSpam";
-import InboxTrash from "./pages/Inbox/InboxTrash";
-import InboxFeatured from "./pages/Inbox/InboxFeatured";
+import InboxSentPage from "./pages/Inbox/InboxSentPage";
+import InboxSpamPage from "./pages/Inbox/InboxSpamPage";
+import InboxTrashPage from "./pages/Inbox/InboxTrashPage";
+import InboxFeaturedPage from "./pages/Inbox/InboxFeaturedPage";
+import InboxMessageDetailsPage from "./pages/Inbox/InboxMessageDetailsPage";
 
 const DashBoardPage = lazy(() => import("./pages/DashboardPage"));
 const InboxLayout = lazy(() => import("./layouts/InboxLayout"));
@@ -46,10 +47,14 @@ function App() {
               ),
             },
             {
+              path: ":messageId",
+              element: <InboxMessageDetailsPage />,
+            },
+            {
               path: "sent",
               element: (
                 <Suspense fallback={<div>Loading...</div>}>
-                  <InboxSent />
+                  <InboxSentPage />
                 </Suspense>
               ),
             },
@@ -57,7 +62,7 @@ function App() {
               path: "featured",
               element: (
                 <Suspense fallback={<div>Loading...</div>}>
-                  <InboxFeatured />
+                  <InboxFeaturedPage />
                 </Suspense>
               ),
             },
@@ -65,7 +70,7 @@ function App() {
               path: "spam",
               element: (
                 <Suspense fallback={<div>Loading...</div>}>
-                  <InboxSpam />
+                  <InboxSpamPage />
                 </Suspense>
               ),
             },
@@ -73,7 +78,7 @@ function App() {
               path: "trash",
               element: (
                 <Suspense fallback={<div>Loading...</div>}>
-                  <InboxTrash />
+                  <InboxTrashPage />
                 </Suspense>
               ),
             },

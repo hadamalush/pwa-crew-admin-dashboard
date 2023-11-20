@@ -1,7 +1,7 @@
 import Container from "../../components/UI/Container";
 import MessagesList from "../../components/transitions/Inbox/MessagesList";
 
-const InboxSpam = () => {
+const InboxSentPage = () => {
   return (
     <Container variant="wrapper" as="section" className="p-0 md:p-10 ">
       <MessagesList pageName="spam" />
@@ -9,4 +9,4 @@ const InboxSpam = () => {
   );
 };
 
-export default InboxSpam;
+export default InboxSentPage;

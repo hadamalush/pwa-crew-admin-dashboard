@@ -17,6 +17,7 @@ export default {
   lightRed: "#fc424a",
   blue: "#037ec8",
   lightBlue: "#006daf",
+  blueFocus: "#2684FF",
   darkBlue: "#0078c1",
   lightGreen: "#00d25b",
   bluePurple: "#6152e8",
@@ -25,4 +26,5 @@ export default {
 
   //LIGHT THEME
   pLight: "#c9c9c980",
+  secondaryLight: "#cdcdcd",
 };

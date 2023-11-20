@@ -9,6 +9,7 @@ const SelectCreatable = ({ className, ...props }: CreatableSelectProps) => {
   return (
     <CreatableSelect
       isMulti
+      required
       openMenuOnFocus
       classNamePrefix="own"
       placeholder="Choose an email from the list or enter some email"
