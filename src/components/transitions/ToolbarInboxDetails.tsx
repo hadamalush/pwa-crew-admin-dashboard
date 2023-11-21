@@ -3,31 +3,29 @@ import Icon from "../UI/Icons/Icon";
 import { useNavigate } from "react-router-dom";
 import { ComponentPropsWithoutRef } from "react";
 import { useGlobalDispatch } from "../../global/hooks";
-import { moveMessages } from "../../global/message-slice";
-import usePage from "../../hooks/usePage";
+import { messageDetailsType, moveMessages } from "../../global/message-slice";
 
 type ToolbarInboxDetailsType = {
-  messageId: string | undefined;
+  message: messageDetailsType;
 } & ComponentPropsWithoutRef<"li">;
 
-const ToolbarInboxDetails = ({ messageId }: ToolbarInboxDetailsType) => {
+const ToolbarInboxDetails = ({ message }: ToolbarInboxDetailsType) => {
   const navigate = useNavigate();
   const dispatch = useGlobalDispatch();
-  const { path } = usePage();
 
   const handleMessagesMove = (moveTo: "trash" | "spam" | "inbox") => {
-    dispatch(moveMessages({ moveTo: moveTo, id: messageId }));
+    dispatch(moveMessages({ moveTo: moveTo, id: message.id }));
   };
 
   return (
-    <li className="px-10 py-5 dark:bg-navItemActive bg-slate-200 flex items-center">
+    <li className="px-10 py-2 dark:bg-navItemActive bg-slate-200 flex items-center">
       <Button
         onClick={() => navigate(-1)}
         className="mr-14 rounded-full hover:dark:bg-primaryLight hover:bg-slate-100 p-2 duration-200"
       >
         <Icon iconName="arrowLeft" className="dark:text-textPrimary text-gray" />
       </Button>
-      {!path.includes("trash") && (
+      {!message.isInTrash && (
         <Button
           variant="outline"
           className="group pl-3 pr-3 outline-none order-1 md:order-none block"
@@ -43,7 +41,7 @@ const ToolbarInboxDetails = ({ messageId }: ToolbarInboxDetailsType) => {
           />
         </Button>
       )}
-      {!path.includes("inbox") && (
+      {(message.isInSpam || message.isInTrash) && (
         <Button
           variant="outline"
           className="group p-5 pr-3 outline-none order-1 md:order-none block"
@@ -60,7 +58,7 @@ const ToolbarInboxDetails = ({ messageId }: ToolbarInboxDetailsType) => {
         </Button>
       )}
 
-      {!path.includes("spam") && (
+      {!message.isInSpam && (
         <Button
           variant="outline"
           className="group p-5 pr-3 outline-none order-1 md:order-none block"
