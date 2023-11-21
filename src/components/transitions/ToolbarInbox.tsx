@@ -4,20 +4,34 @@ import Container from "../UI/Container";
 import Icon from "../UI/Icons/Icon";
 import Button from "../UI/Button";
 import { handleInboxNav, handleNav } from "../../global/toggle-slice";
-import { moveMessages, markAllMessage } from "../../global/message-slice";
+import {
+  moveMessages,
+  markAllMessage,
+  getNumberOfMessagesByPage,
+} from "../../global/message-slice";
 import usePage from "../../hooks/usePage";
 import { useParams } from "react-router";
 
 const ToolbarInbox = () => {
-  const isVisibleMainNav = useGlobalSelector((state) => state.toggle.isVisibleNav);
-  const isVisibleInboxNav = useGlobalSelector((state) => state.toggle.isVisibleInboxNav);
-  const areAllMessagesMarked = useGlobalSelector((state) => state.messages.areMarkedAllMessages);
-  const isMarkedCheckboxAll = useGlobalSelector((state) => state.messages.isMarkedCheckboxAll);
-  const isCheckedMessage = useGlobalSelector((state) => state.messages.checkedMessages).length > 0;
+  const dispatch = useGlobalDispatch();
+  const toggleState = useGlobalSelector((state) => state.toggle);
+  const messagesState = useGlobalSelector((state) => state.messages);
   const { path } = usePage();
   const { messageId } = useParams();
 
-  const dispatch = useGlobalDispatch();
+  const isVisibleMainNav = toggleState.isVisibleNav;
+  const isVisibleInboxNav = toggleState.isVisibleInboxNav;
+  const areAllMessagesMarked = messagesState.areMarkedAllMessages;
+  const isMarkedCheckboxAll = messagesState.isMarkedCheckboxAll;
+  const isCheckedMessage = messagesState.checkedMessages.length > 0;
+
+  const allowedPages = ["trash", "spam", "featured", "inbox"];
+  const pageName = path.slice(path.lastIndexOf("/") + 1) as "trash" | "spam" | "featured" | "inbox";
+
+  const quantityMessages = getNumberOfMessagesByPage(
+    messagesState,
+    allowedPages.includes(pageName) ? pageName : null
+  );
 
   const handleInboxNavChange = () => {
     dispatch(handleNav({ isVisibleNav: false }));
@@ -116,7 +130,9 @@ const ToolbarInbox = () => {
         )}
       </Container>
 
-      <p className="dark:text-textPrimary mr-5 text-xl">1-32 of 512</p>
+      <p className="dark:text-textPrimary mr-5 text-xl">
+        1 - {quantityMessages} of {quantityMessages}
+      </p>
 
       <Button
         variant="outline"

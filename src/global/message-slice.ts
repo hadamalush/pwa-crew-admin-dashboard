@@ -18,7 +18,7 @@ export interface messageDetailsType extends messageProps {
   isInTrash: boolean;
 }
 
-type initialStateType = {
+export type initialStateType = {
   allMessages: messageDetailsType[];
   trashMessages: messageProps[];
   featuredMessages: messageProps[];
@@ -173,6 +173,27 @@ export const messageSlice = createSlice({
     },
   },
 });
+
+export const getNumberOfMessagesByPage = (
+  state: initialStateType,
+  page: "inbox" | "spam" | "featured" | "trash" | null
+) => {
+  let numberMessages;
+
+  if (page === "spam") {
+    numberMessages = state.allMessages.filter((item) => item.isInSpam === true).length;
+  } else if (page === "trash") {
+    numberMessages = state.allMessages.filter((item) => item.isInTrash === true).length;
+  } else if (page === "inbox") {
+    numberMessages = state.allMessages.filter(
+      (item) => item.isInTrash === false && item.isInSpam === false
+    ).length;
+  } else if (page === "featured") {
+    numberMessages = state.allMessages.filter((item) => item.isFeatured === true).length;
+  }
+
+  return numberMessages;
+};
 
 export const {
   filterMessages,
