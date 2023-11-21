@@ -76,7 +76,7 @@ const NewMessage = ({ subject, email, ...props }: NewMessageProps) => {
           placeholder="Subject"
           autoComplete="off"
           defaultValue={subject}
-          className="block w-full py-2 px-4 rounded-md dark:bg-primary border dark:border-borderPrimary border-secondaryLight dark:text-textPrimary  overflow-hidden
+          className="block w-full py-2 px-4 rounded-md dark:bg-primary border dark:border-borderPrimary border-secondaryLight dark:text-textPrimary text-black overflow-hidden
            placeholder-textPrimary outline-none focus:border-blueFocus focus:border-2 dark:focus:border-blueFocus dark:focus:border"
         />
       </div>

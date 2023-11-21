@@ -10,11 +10,11 @@ import InboxSentPage from "./pages/Inbox/InboxSentPage";
 import InboxSpamPage from "./pages/Inbox/InboxSpamPage";
 import InboxTrashPage from "./pages/Inbox/InboxTrashPage";
 import InboxFeaturedPage from "./pages/Inbox/InboxFeaturedPage";
-import InboxMessageDetailsPage from "./pages/Inbox/InboxMessageDetailsPage";
 
 const DashBoardPage = lazy(() => import("./pages/DashboardPage"));
 const InboxLayout = lazy(() => import("./layouts/InboxLayout"));
 const InboxPage = lazy(() => import("./pages/InboxPage"));
+const InboxMessageDetailsPage = lazy(() => import("./pages/Inbox/InboxMessageDetailsPage"));
 
 function App() {
   const router = createBrowserRouter([
@@ -48,7 +48,11 @@ function App() {
             },
             {
               path: ":messageId",
-              element: <InboxMessageDetailsPage />,
+              element: (
+                <Suspense fallback={<div>Loading...</div>}>
+                  <InboxMessageDetailsPage />
+                </Suspense>
+              ),
             },
             {
               path: "sent",

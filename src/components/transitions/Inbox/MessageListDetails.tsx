@@ -7,7 +7,6 @@ import MessageItemDetails from "./MessageItemDetails";
 import { DUMMY_SENTMESSAGES } from "../dummy-items";
 import NewMessage from "./NewMessage";
 import Avatar from "../Avatar";
-// import TextEditor from "../Editor/TextEditor";
 
 const MessageListDetails = () => {
   const { messageId } = useParams();
@@ -35,7 +34,7 @@ const MessageListDetails = () => {
     <ul
       className={cn(
         basicVariant({ box: "default" }),
-        "w-full h-screen rounded-none md:rounded-xl overflow-hidden sm:mt-0 duration-200 overflow-y-auto"
+        "w-full min-h-screen rounded-none md:rounded-xl overflow-hidden sm:mt-0 duration-200 h-auto relative pb-10"
       )}
     >
       <ToolbarInboxDetails message={messageItem} />
@@ -67,9 +66,9 @@ const MessageListDetails = () => {
         );
       })}
 
-      <li className="flex ml-10">
+      <li className="flex ml-4 md:ml-10">
         <Avatar src="/avatar.webp" size="s5" />
-        <NewMessage subject={messageItem.subject} email={messageItem.email} />
+        <NewMessage subject={messageItem.subject} email={messageItem.email} className="w-10/12 " />
       </li>
     </ul>
   );
