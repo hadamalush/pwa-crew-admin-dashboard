@@ -5,12 +5,24 @@ import { cn } from "../util/utils";
 import Main from "../components/Common/Main";
 import Navbar from "../components/Common/Navigation/Navbar";
 import ToolbarInbox from "../components/transitions/ToolbarInbox";
+import usePage from "../hooks/usePage";
+import { useDispatch } from "react-redux";
+import { resetCurrentPage } from "../global/message-slice";
+import { useEffect } from "react";
 
 const InboxLayout = () => {
   const isVisibleMainNav = useGlobalSelector((state) => state.toggle.isVisibleNav);
   const isVisibleInboxNav = useGlobalSelector((state) => state.toggle.isVisibleInboxNav);
+  const dispatch = useDispatch();
   const pathname = useLocation().pathname;
   const isInboxPage = pathname.includes("inbox");
+  const { changePath } = usePage();
+
+  useEffect(() => {
+    if (changePath) {
+      dispatch(resetCurrentPage());
+    }
+  }, [dispatch, changePath]);
 
   return (
     <>

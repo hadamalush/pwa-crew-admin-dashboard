@@ -9,20 +9,23 @@ import { usePage } from "../../../hooks/usePage";
 import Icon from "../../UI/Icons/Icon";
 import Heading from "../../UI/Heading";
 import { AnimatePresence, motion } from "framer-motion";
+import { getCurrentMess } from "../../../global/message-action";
 
 type MessagesListProps = {
   pageName: "spam" | "trash" | "inbox" | "featured";
 };
 
 const MessagesList = ({ pageName }: MessagesListProps) => {
-  const dispatch = useDispatch();
-  const isSelectedAllMess = useGlobalSelector((state) => state.messages.areMarkedAllMessages);
-  const inputRefs = useRef<Array<RefObject<HTMLInputElement>>>([]);
-  const messages = useGlobalSelector((state) => state.messages[`${pageName}${"Messages"}`]);
-  const checkedMessages = useGlobalSelector((state) => state.messages.checkedMessages);
   const [isLoading, setIsLoading] = useState(true);
+  const dispatch = useDispatch();
+  const messState = useGlobalSelector((state) => state.messages);
+  const isSelectedAllMess = messState.areMarkedAllMessages;
+  const checkedMessages = messState.checkedMessages;
+  const messages = messState[`${pageName}${"Messages"}`];
+  const inputRefs = useRef<Array<RefObject<HTMLInputElement>>>([]);
+  const currentMess = getCurrentMess(messState, messages);
 
-  const { changedPath } = usePage();
+  const { changedPathMess } = usePage();
 
   const dispatchFilterMessages = useCallback(() => {
     dispatch(filterMessages({ pageName: pageName }));
@@ -35,10 +38,11 @@ const MessagesList = ({ pageName }: MessagesListProps) => {
 
   const handleMessagesCheckbox = useCallback(() => {
     const checkedMessages: string[] = [];
-    if (!changedPath) {
+    if (!changedPathMess) {
+      dispatch(markAllMessage({ allMessagesMarked: false }));
       return;
     }
-    if (changedPath) {
+    if (changedPathMess) {
       dispatch(markAllMessage({ allMessagesMarked: false }));
     }
 
@@ -64,7 +68,7 @@ const MessagesList = ({ pageName }: MessagesListProps) => {
     });
     dispatch(setCheckedMessages({ checkedMessages: [] }));
     dispatch(markAllMessage({ allMessagesMarked: false }));
-  }, [isSelectedAllMess, dispatch, inputRefs, changedPath]);
+  }, [isSelectedAllMess, dispatch, inputRefs, changedPathMess]);
 
   useEffect(() => handleMessagesCheckbox, [isSelectedAllMess, handleMessagesCheckbox]);
 
@@ -72,8 +76,12 @@ const MessagesList = ({ pageName }: MessagesListProps) => {
     <ul
       className={cn(
         basicVariant({ box: "default" }),
-        "w-full h-screen rounded-none md:rounded-xl overflow-hidden sm:mt-0 duration-200",
-        { "mt-16": checkedMessages.length > 0 }
+        "w-full h-auto  rounded-none md:rounded-xl overflow-hidden sm:mt-0 duration-200",
+        {
+          "mt-16": checkedMessages.length > 0,
+          "min-h-screen": currentMess.length < 10,
+        },
+        {}
       )}
     >
       <AnimatePresence>
@@ -101,7 +109,7 @@ const MessagesList = ({ pageName }: MessagesListProps) => {
         )}
       </AnimatePresence>
 
-      {messages.map((message, index) => {
+      {currentMess.map((message, index) => {
         inputRefs.current[index] = createRef<HTMLInputElement>();
 
         return (

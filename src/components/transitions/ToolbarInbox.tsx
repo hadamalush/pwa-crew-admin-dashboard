@@ -8,9 +8,12 @@ import {
   moveMessages,
   markAllMessage,
   getNumberOfMessagesByPage,
+  getInboxPage,
+  changeCurrentPage,
 } from "../../global/message-slice";
 import usePage from "../../hooks/usePage";
 import { useParams } from "react-router";
+import { getMessIndex } from "../../global/message-action";
 
 const ToolbarInbox = () => {
   const dispatch = useGlobalDispatch();
@@ -24,14 +27,14 @@ const ToolbarInbox = () => {
   const areAllMessagesMarked = messagesState.areMarkedAllMessages;
   const isMarkedCheckboxAll = messagesState.isMarkedCheckboxAll;
   const isCheckedMessage = messagesState.checkedMessages.length > 0;
+  const lastIndexMess = getMessIndex(messagesState, "last");
+  const firstIndexMess = getMessIndex(messagesState, "first");
 
-  const allowedPages = ["trash", "spam", "featured", "inbox"];
-  const pageName = path.slice(path.lastIndexOf("/") + 1) as "trash" | "spam" | "featured" | "inbox";
+  const quantityMessages = getNumberOfMessagesByPage(messagesState, getInboxPage(path));
 
-  const quantityMessages = getNumberOfMessagesByPage(
-    messagesState,
-    allowedPages.includes(pageName) ? pageName : null
-  );
+  console.log(quantityMessages);
+
+  console.log("lastindex ", lastIndexMess);
 
   const handleInboxNavChange = () => {
     dispatch(handleNav({ isVisibleNav: false }));
@@ -45,6 +48,18 @@ const ToolbarInbox = () => {
   const handleMessagesMove = (moveTo: "trash" | "spam" | "inbox") => {
     dispatch(moveMessages({ moveTo: moveTo }));
     dispatch(markAllMessage({ allMessagesMarked: false }));
+  };
+
+  const handleChangePage = (action: "previous" | "next") => {
+    if (
+      (lastIndexMess &&
+        quantityMessages &&
+        lastIndexMess > quantityMessages &&
+        action === "next") ||
+      quantityMessages === 0
+    )
+      return;
+    dispatch(changeCurrentPage({ page: action }));
   };
 
   return (
@@ -131,7 +146,11 @@ const ToolbarInbox = () => {
       </Container>
 
       <p className="dark:text-textPrimary mr-5 text-xl">
-        1 - {quantityMessages} of {quantityMessages}
+        {(firstIndexMess && firstIndexMess + 1) || (!firstIndexMess && 1)} &nbsp;- &nbsp;
+        {lastIndexMess && quantityMessages && lastIndexMess > quantityMessages
+          ? quantityMessages
+          : lastIndexMess}{" "}
+        of {quantityMessages}
       </p>
 
       <Button
@@ -139,6 +158,7 @@ const ToolbarInbox = () => {
         className="group p-2 md:p-5 outline-none order-1 md:order-none"
         aria-label="Previous page"
         type="button"
+        onClick={() => handleChangePage("previous")}
       >
         <Icon
           iconName="arrowLeftMini"
@@ -153,6 +173,7 @@ const ToolbarInbox = () => {
         className="group p-2 md:p-5 outline-none order-1 md:order-none"
         aria-label="Next page"
         type="button"
+        onClick={() => handleChangePage("next")}
       >
         <Icon
           iconName="arrowRightMini"

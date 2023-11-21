@@ -18,8 +18,14 @@ export interface messageDetailsType extends messageProps {
   isInTrash: boolean;
 }
 
+type CurrentPagePagType = {
+  currentPage: number;
+  messPerPage: number;
+};
+
 export type initialStateType = {
   allMessages: messageDetailsType[];
+  currentPagePag: CurrentPagePagType;
   trashMessages: messageProps[];
   featuredMessages: messageProps[];
   spamMessages: messageProps[];
@@ -29,8 +35,14 @@ export type initialStateType = {
   isMarkedCheckboxAll: boolean;
 };
 
+const initialCurrentPage = {
+  currentPage: 1,
+  messPerPage: 10,
+};
+
 const initialState: initialStateType = {
   allMessages: DUMMY_INBOXMESSAGES,
+  currentPagePag: initialCurrentPage,
   trashMessages: [],
   featuredMessages: [],
   spamMessages: [],
@@ -171,8 +183,31 @@ export const messageSlice = createSlice({
       state.allMessages = newMessages;
       state.checkedMessages = [];
     },
+    changeCurrentPage(state, action: PayloadAction<{ page: "previous" | "next" }>) {
+      const page = action.payload.page;
+      if (page === "previous" && state.currentPagePag.currentPage === 1) return;
+      if (page === "next") {
+        state.currentPagePag.currentPage++;
+      }
+      if (page === "previous") {
+        state.currentPagePag.currentPage--;
+      }
+    },
+    resetCurrentPage(state) {
+      console.log("brawooo");
+      state.currentPagePag = initialCurrentPage;
+    },
   },
 });
+
+export const getInboxPage = (path: string) => {
+  const allowedPages = ["trash", "spam", "featured", "inbox"];
+  const pageName = path.slice(path.lastIndexOf("/") + 1) as "trash" | "spam" | "featured" | "inbox";
+
+  const receivedPage = allowedPages.includes(pageName) ? pageName : null;
+
+  return receivedPage;
+};
 
 export const getNumberOfMessagesByPage = (
   state: initialStateType,
@@ -202,4 +237,6 @@ export const {
   markAllMessage,
   moveMessages,
   changeCheckboxAll,
+  changeCurrentPage,
+  resetCurrentPage,
 } = messageSlice.actions;
