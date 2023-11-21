@@ -71,6 +71,14 @@ function App() {
               ),
             },
             {
+              path: "featured/:messageId",
+              element: (
+                <Suspense fallback={<div>Loading...</div>}>
+                  <InboxMessageDetailsPage />
+                </Suspense>
+              ),
+            },
+            {
               path: "spam",
               element: (
                 <Suspense fallback={<div>Loading...</div>}>
@@ -79,10 +87,26 @@ function App() {
               ),
             },
             {
+              path: "spam/:messageId",
+              element: (
+                <Suspense fallback={<div>Loading...</div>}>
+                  <InboxMessageDetailsPage />
+                </Suspense>
+              ),
+            },
+            {
               path: "trash",
               element: (
                 <Suspense fallback={<div>Loading...</div>}>
                   <InboxTrashPage />
+                </Suspense>
+              ),
+            },
+            {
+              path: "trash/:messageId",
+              element: (
+                <Suspense fallback={<div>Loading...</div>}>
+                  <InboxMessageDetailsPage />
                 </Suspense>
               ),
             },

@@ -2,6 +2,7 @@ import Container from "../../components/UI/Container";
 import MessageListDetails from "../../components/transitions/Inbox/MessageListDetails";
 
 const InboxMessageDetailsPage = () => {
+  console.log("brawoo");
   return (
     <Container variant="wrapper" as="section" className="p-0 md:p-10 ">
       <MessageListDetails />
