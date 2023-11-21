@@ -26,7 +26,7 @@ const Modal = ({ onClose, title, className, ...props }: ModalProps) => {
         className="fixed z-[999] top-[0] bottom-[0] left-[0] right-[0] bg-[rgba(0,0,0,0.8)] from-transparent"
       ></div>
       <motion.dialog
-        initial={{ y: "-200%", x: "-50%", opacity: 0 }}
+        initial={{ y: "-100%", x: "-50%", opacity: 0 }}
         animate={{ y: "-50%", opacity: 1 }}
         exit={{ opacity: 0 }}
         className={cn(

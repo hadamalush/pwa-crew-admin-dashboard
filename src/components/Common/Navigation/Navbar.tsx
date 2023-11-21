@@ -34,7 +34,7 @@ const Navbar = ({ className, data, id, isAdditionalInfo, ...props }: NavbarProps
     <>
       <AnimatePresence>
         {isOpenEditor && (
-          <Suspense fallback={<div>Loading...</div>}>
+          <Suspense fallback={<div className="absolute ">Loading...</div>}>
             <Modal
               onClose={handleNewMessageclose}
               className="sm:w-[70rem] md:w-[80rem] h-full sm:h-auto overflow-y-auto rounded-none sm:rounded-xl"

@@ -141,7 +141,7 @@ const ToolbarInbox = () => {
         )}
       </Container>
 
-      {!messageId && (
+      {!messageId && quantityMessages !== 0 && (
         <p className="dark:text-textPrimary mr-5 text-xl">
           {(firstIndexMess && firstIndexMess + 1) || (!firstIndexMess && 1)} &nbsp;- &nbsp;
           {lastIndexMess && quantityMessages && lastIndexMess > quantityMessages
@@ -151,7 +151,7 @@ const ToolbarInbox = () => {
         </p>
       )}
 
-      {!messageId && (
+      {(!messageId && quantityMessages) !== 0 && (
         <>
           <Button
             variant="outline"
