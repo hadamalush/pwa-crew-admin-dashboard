@@ -27,7 +27,7 @@ const UsersList: FC<ComponentPropsWithoutRef<"ul">> = () => {
       </li>
 
       {DUMMY_USERS.map((user, index) => {
-        return <UsersItem {...user} className={`${index === 4 && "border-none"}`} />;
+        return <UsersItem key={index} {...user} className={`${index === 4 && "border-none"}`} />;
       })}
     </ul>
   );

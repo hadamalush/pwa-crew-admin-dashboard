@@ -9,7 +9,7 @@ import { useState, useEffect } from "react";
 import { cn } from "../../util/utils";
 import { useMediaQuery } from "react-responsive";
 import { useGlobalDispatch, useGlobalSelector } from "../../global/hooks";
-import { handleNav } from "../../global/toggle-slice";
+import { handleInboxNav, handleNav } from "../../global/toggle-slice";
 import useTheme from "../../hooks/useTheme";
 
 const Header = () => {
@@ -35,12 +35,14 @@ const Header = () => {
 
     if (option === "notifications") {
       !isMdScreen && dispatch(handleNav({ isVisibleNav: false }));
+      dispatch(handleInboxNav({ isVisibleInboxNav: false }));
       setIsVisibleMessages(false);
       setIsVisibleProfile(false);
       setIsVisibleNotifications(true);
     }
     if (option === "messages") {
       !isMdScreen && dispatch(handleNav({ isVisibleNav: false }));
+      dispatch(handleInboxNav({ isVisibleInboxNav: false }));
       setIsVisibleNotifications(false);
       setIsVisibleProfile(false);
       setIsVisibleMessages(true);
@@ -48,6 +50,7 @@ const Header = () => {
 
     if (option === "profile") {
       !isMdScreen && dispatch(handleNav({ isVisibleNav: false }));
+      dispatch(handleInboxNav({ isVisibleInboxNav: false }));
       setIsVisibleNotifications(false);
       setIsVisibleMessages(false);
       setIsVisibleProfile(true);
@@ -55,6 +58,7 @@ const Header = () => {
   };
 
   const handleNavChange = () => {
+    dispatch(handleInboxNav({ isVisibleInboxNav: false }));
     dispatch(handleNav({ isVisibleNav: !isVisibleNav }));
   };
 
@@ -140,7 +144,7 @@ const Header = () => {
           items={DUMMY_MESSAGES}
           isVisible={isVisibleMessages}
           onClose={() => setIsVisibleMessages(false)}
-          className="top-24 ss:top-16"
+          className="top-24 ss:top-16 z-50"
           infoBottom={{ href: "/", title: "5 new messages" }}
         />
       </Button>

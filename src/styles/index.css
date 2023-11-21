@@ -23,7 +23,9 @@ html {
 body {
   font-size: 1.6rem;
   overflow-x: hidden;
-  min-height: 100vh;
+
+  height: 100%;
+  width: 100vw;
   font-family: "Nunito", sans-serif;
 }
 
@@ -46,6 +48,10 @@ h1 {
   bottom: 0;
   right: 0;
   left: 0;
+}
+
+.bodyhidden {
+  overflow-y: hidden;
 }
 
 @layer base {

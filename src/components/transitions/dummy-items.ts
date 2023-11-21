@@ -6,11 +6,21 @@ type DUMMY_MESSAGESTYPE = {
   title: string;
   description: string;
 };
+
 type SETTINGSTYPE = {
   id: string;
   iconName: IconNameType;
   title: string;
 };
+
+// type DUMMY_USERSTYPE = {
+//   name: string;
+//   email: string;
+//   avatarSrc: "laptop.webp";
+//   accountActive: true;
+//   newsletter: true;
+//   createdAccount: "10.12.2019";
+// };
 
 export type DUMMY_STORAGETYPE = {
   [key: string]: {
@@ -143,5 +153,303 @@ export const DUMMY_USERS = [
     accountActive: true,
     newsletter: true,
     createdAccount: "19.06.2017",
+  },
+];
+
+export const DUMMY_INBOXMESSAGES = [
+  {
+    id: "mes1",
+    owner: "Bogdan Szermanc",
+    email: "bogdanSzermanc@o2.pl",
+    avatarSrc: "/laptop.webp",
+    subject:
+      "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec justo dolor, aliquet vitae efficitur a, pretium vel metus. Sed sapien ligula, iaculis quis erat in, bibendum consectetur sapien.",
+    description:
+      "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec justo dolor, aliquet vitae efficitur a, pretium vel metus. Sed sapien ligula, iaculis quis erat in, bibendum consectetur sapien. Cras tincidunt hendrerit orci, ac sodales risus pellentesque eget. Curabitur elementum consequat finibus. Pellentesque finibus lorem sapien, ut lobortis purus blandit non. Maecenas est tellus, condimentum sed erat vel, ullamcorper feugiat dolor. Suspendisse consequat luctus erat, ac fermentum metus aliquet vel. Nunc tincidunt nisl vel scelerisque molestie. Proin eu leo consectetur, bibendum mi ornare, finibus libero. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia curae; Suspendisse efficitur rhoncus nunc, nec tincidunt turpis.",
+    isFeatured: false,
+    isInSpam: false,
+    isInTrash: false,
+    isRead: false,
+    date: new Date().toDateString(),
+  },
+  {
+    id: "mes2",
+    owner: "Magdalena Guzdro",
+    email: "magdalena.guzdro@gmail.com",
+    avatarSrc: "/woman.webp",
+    subject:
+      "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec justo dolor, aliquet vitae efficitur.",
+    description:
+      "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec justo dolor, aliquet vitae efficitur a, pretium vel metus. Sed sapien ligula, iaculis quis erat in, bibendum consectetur sapien. Cras tincidunt hendrerit orci, ac sodales risus pellentesque eget. Curabitur elementum consequat finibus. Pellentesque finibus lorem sapien, ut lobortis purus blandit non. Maecenas est tellus, condimentum sed erat vel, ullamcorper feugiat dolor. Suspendisse consequat luctus erat, ac fermentum metus aliquet vel. Nunc tincidunt nisl vel scelerisque molestie. Proin eu leo consectetur, bibendum mi ornare, finibus libero. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia curae; Suspendisse efficitur rhoncus nunc, nec tincidunt turpis.",
+    isFeatured: false,
+    isInSpam: false,
+    isInTrash: false,
+    isRead: true,
+    date: new Date().toISOString(),
+  },
+  {
+    id: "mes3",
+    owner: "Monden Welm",
+    email: "muskanna@twitter.com",
+    avatarSrc: "/cosmita.webp",
+    subject: "Lorem ipsum dolor sit amet.",
+    description:
+      "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec justo dolor, aliquet vitae efficitur a, pretium vel metus. Sed sapien ligula, iaculis quis erat in, bibendum consectetur sapien. Cras tincidunt hendrerit orci, ac sodales risus pellentesque eget. Curabitur elementum consequat finibus. .",
+    isFeatured: true,
+    isInSpam: false,
+    isInTrash: false,
+    isRead: true,
+    date: new Date().toISOString(),
+  },
+  {
+    id: "mes4",
+    owner: "Anna Musk",
+    email: "annamusk@twitter.com",
+    avatarSrc: "/laptop.webp",
+    subject:
+      "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec justo dolor, aliquet vitae efficitur a, pretium vel metus. ",
+    description:
+      "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec justo dolor, aliquet vitae efficitur a, pretium vel metus. Sed sapien ligula, iaculis quis erat in, bibendum consectetur sapien. Cras tincidunt hendrerit orci, ac sodales risus pellentesque eget. Curabitur elementum consequat finibus. Pellentesque finibus lorem sapien, ut lobortis purus blandit non. Maecenas est tellus, condimentum sed erat vel, ullamcorper feugiat dolor. Suspendisse consequat luctus erat, ac fermentum metus aliquet vel. Nunc tincidunt nisl vel scelerisque molestie. Proin eu leo consectetur, bibendum mi ornare, finibus libero. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia curae; Suspendisse efficitur rhoncus nunc, nec tincidunt turpis.",
+    isFeatured: false,
+    isInSpam: true,
+    isInTrash: false,
+    isRead: false,
+    date: new Date().toISOString(),
+  },
+  {
+    id: "mes5",
+    owner: "Wiola Gebrnor",
+    email: "wiola@twitter.com",
+    avatarSrc: "/woman.webp",
+    subject:
+      "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec justo dolor, aliquet vitae efficitur a, pretium vel metus. ",
+    description:
+      "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec justo dolor, aliquet vitae efficitur a, pretium vel metus. Sed sapien ligula, iaculis quis erat in, bibendum consectetur sapien. Cras tincidunt hendrerit orci, ac sodales risus pellentesque eget. Curabitur elementum consequat finibus. Pellentesque finibus lorem sapien, ut lobortis purus blandit non. Maecenas est tellus, condimentum sed erat vel, ullamcorper feugiat dolor. Suspendisse consequat luctus erat, ac fermentum metus aliquet vel. Nunc tincidunt nisl vel scelerisque molestie. Proin eu leo consectetur, bibendum mi ornare, finibus libero. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia curae; Suspendisse efficitur rhoncus nunc, nec tincidunt turpis.",
+    isFeatured: false,
+    isInSpam: false,
+    isInTrash: true,
+    isRead: false,
+    date: new Date().toISOString(),
+  },
+  {
+    id: "mes6",
+    owner: "Mate Mok",
+    email: "dasdasdsad@twitter.com",
+    avatarSrc: "/laptop.webp",
+    subject:
+      "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec justo dolor, aliquet vitae efficitur a, pretium vel metus. ",
+    description:
+      "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec justo dolor, aliquet vitae efficitur a, pretium vel metus. Sed sapien ligula, iaculis quis erat in, bibendum consectetur sapien. Cras tincidunt hendrerit orci, ac sodales risus pellentesque eget. Curabitur elementum consequat finibus. Pellentesque finibus lorem sapien, ut lobortis purus blandit non. Maecenas est tellus, condimentum sed erat vel, ullamcorper feugiat dolor. Suspendisse consequat luctus erat, ac fermentum metus aliquet vel. Nunc tincidunt nisl vel scelerisque molestie. Proin eu leo consectetur, bibendum mi ornare, finibus libero. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia curae; Suspendisse efficitur rhoncus nunc, nec tincidunt turpis.",
+    isFeatured: false,
+    isInSpam: false,
+    isInTrash: true,
+    isRead: false,
+    date: new Date().toISOString(),
+  },
+  {
+    id: "mes7",
+    owner: "Bogdan Szermanc",
+    email: "bogdanSzermanc@o2.pl",
+    avatarSrc: "/laptop.webp",
+    subject:
+      "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec justo dolor, aliquet vitae efficitur a, pretium vel metus. Sed sapien ligula, iaculis quis erat in, bibendum consectetur sapien.",
+    description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. loremdasdoijasdoij",
+    isFeatured: false,
+    isInSpam: false,
+    isInTrash: false,
+    isRead: false,
+    date: "2023-11-09T17:20:00",
+  },
+  {
+    id: "mes8",
+    owner: "Bogdan Szermanc",
+    email: "bogdanSzermanc@o2.pl",
+    avatarSrc: "/laptop.webp",
+    subject:
+      "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec justo dolor, aliquet vitae efficitur a, pretium vel metus. Sed sapien ligula, iaculis quis erat in, bibendum consectetur sapien.",
+    description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. loremdasdoijasdoij",
+    isFeatured: false,
+    isInSpam: false,
+    isInTrash: false,
+    isRead: false,
+    date: "2023-11-09T17:20:00",
+  },
+  {
+    id: "mes9",
+    owner: "Bogdan Szermanc",
+    email: "bogdanSzermanc@o2.pl",
+    avatarSrc: "/laptop.webp",
+    subject:
+      "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec justo dolor, aliquet vitae efficitur a, pretium vel metus. Sed sapien ligula, iaculis quis erat in, bibendum consectetur sapien.",
+    description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. loremdasdoijasdoij",
+    isFeatured: false,
+    isInSpam: false,
+    isInTrash: false,
+    isRead: false,
+    date: "2023-11-09T17:20:00",
+  },
+  {
+    id: "mes10",
+    owner: "Bogdan Szermanc",
+    email: "bogdanSzermanc@o2.pl",
+    avatarSrc: "/laptop.webp",
+    subject:
+      "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec justo dolor, aliquet vitae efficitur a, pretium vel metus. Sed sapien ligula, iaculis quis erat in, bibendum consectetur sapien.",
+    description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. loremdasdoijasdoij",
+    isFeatured: false,
+    isInSpam: false,
+    isInTrash: false,
+    isRead: false,
+    date: "2023-11-09T17:20:00",
+  },
+  {
+    id: "mes11",
+    owner: "Bogdan Szermanc",
+    email: "bogdanSzermanc@o2.pl",
+    avatarSrc: "/laptop.webp",
+    subject:
+      "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec justo dolor, aliquet vitae efficitur a, pretium vel metus. Sed sapien ligula, iaculis quis erat in, bibendum consectetur sapien.",
+    description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. loremdasdoijasdoij",
+    isFeatured: false,
+    isInSpam: false,
+    isInTrash: false,
+    isRead: false,
+    date: "2023-11-09T17:20:00",
+  },
+  {
+    id: "mes12",
+    owner: "Bogdan Szermanc",
+    email: "bogdanSzermanc@o2.pl",
+    avatarSrc: "/laptop.webp",
+    subject:
+      "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec justo dolor, aliquet vitae efficitur a, pretium vel metus. Sed sapien ligula, iaculis quis erat in, bibendum consectetur sapien.",
+    description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. loremdasdoijasdoij",
+    isFeatured: false,
+    isInSpam: false,
+    isInTrash: false,
+    isRead: false,
+    date: "2023-11-09T17:20:00",
+  },
+  {
+    id: "mes13",
+    owner: "Bogdan Szermanc",
+    email: "bogdanSzermanc@o2.pl",
+    avatarSrc: "/laptop.webp",
+    subject:
+      "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec justo dolor, aliquet vitae efficitur a, pretium vel metus. Sed sapien ligula, iaculis quis erat in, bibendum consectetur sapien.",
+    description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. loremdasdoijasdoij",
+    isFeatured: false,
+    isInSpam: false,
+    isInTrash: false,
+    isRead: false,
+    date: "2023-11-09T17:20:00",
+  },
+  {
+    id: "mes14",
+    owner: "Bogdan Szermanc",
+    email: "bogdanSzermanc@o2.pl",
+    avatarSrc: "/laptop.webp",
+    subject:
+      "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec justo dolor, aliquet vitae efficitur a, pretium vel metus. Sed sapien ligula, iaculis quis erat in, bibendum consectetur sapien.",
+    description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. loremdasdoijasdoij",
+    isFeatured: false,
+    isInSpam: false,
+    isInTrash: false,
+    isRead: false,
+    date: "2023-11-09T17:20:00",
+  },
+  {
+    id: "mes15",
+    owner: "Bogdan Szermanc",
+    email: "bogdanSzermanc@o2.pl",
+    avatarSrc: "/laptop.webp",
+    subject:
+      "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec justo dolor, aliquet vitae efficitur a, pretium vel metus. Sed sapien ligula, iaculis quis erat in, bibendum consectetur sapien.",
+    description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. loremdasdoijasdoij",
+    isFeatured: false,
+    isInSpam: false,
+    isInTrash: false,
+    isRead: false,
+    date: "2023-11-09T17:20:00",
+  },
+  {
+    id: "mes16",
+    owner: "Bogdan Szermanc",
+    email: "bogdanSzermanc@o2.pl",
+    avatarSrc: "/laptop.webp",
+    subject:
+      "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec justo dolor, aliquet vitae efficitur a, pretium vel metus. Sed sapien ligula, iaculis quis erat in, bibendum consectetur sapien.",
+    description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. loremdasdoijasdoij",
+    isFeatured: false,
+    isInSpam: false,
+    isInTrash: false,
+    isRead: false,
+    date: "2023-11-09T17:20:00",
+  },
+  {
+    id: "mes17",
+    owner: "Bogdan Szermanc",
+    email: "bogdanSzermanc@o2.pl",
+    avatarSrc: "/laptop.webp",
+    subject:
+      "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec justo dolor, aliquet vitae efficitur a, pretium vel metus. Sed sapien ligula, iaculis quis erat in, bibendum consectetur sapien.",
+    description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. loremdasdoijasdoij",
+    isFeatured: false,
+    isInSpam: false,
+    isInTrash: false,
+    isRead: false,
+    date: "2023-11-09T17:20:00",
+  },
+  {
+    id: "mes18",
+    owner: "Bogdan Szermanc",
+    email: "bogdanSzermanc@o2.pl",
+    avatarSrc: "/laptop.webp",
+    subject:
+      "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec justo dolor, aliquet vitae efficitur a, pretium vel metus. Sed sapien ligula, iaculis quis erat in, bibendum consectetur sapien.",
+    description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. loremdasdoijasdoij",
+    isFeatured: false,
+    isInSpam: false,
+    isInTrash: false,
+    isRead: false,
+    date: "2023-11-09T17:20:00",
+  },
+];
+
+export const DUMMY_SENTMESSAGES = [
+  {
+    id: "sent1",
+    owner: "Bolesław chrobry",
+    email: "bolesławchrobry@o2.pl",
+    to: "bogdanSzermanc@o2.pl",
+    avatarSrc: "/avatar.webp",
+    subject:
+      "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec justo dolor, aliquet vitae efficitur a, pretium vel metus. Sed sapien ligula, iaculis quis erat in, bibendum consectetur sapien.",
+    description:
+      "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec justo dolor, aliquet vitae efficitur a, pretium vel metus. Sed sapien ligula, iaculis quis erat in, bibendum consectetur sapien. Cras tincidunt hendrerit orci, ac sodales risus pellentesque eget. Curabitur elementum consequat finibus. Pellentesque finibus lorem sapien, ut lobortis purus blandit non. Maecenas est tellus, condimentum sed erat vel, ullamcorper feugiat dolor. Suspendisse consequat luctus erat, ac fermentum metus aliquet vel. Nunc tincidunt nisl vel scelerisque molestie. Proin eu leo consectetur, bibendum mi ornare, finibus libero. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia curae; Suspendisse efficitur rhoncus nunc, nec tincidunt turpis.",
+    date: "2023-11-18T13:20:00",
+  },
+  {
+    id: "sent2",
+    owner: "Bolesław chrobry",
+    email: "bolesławchrobry@o2.pl",
+    to: "bogdanSzermanc@o2.pl",
+    avatarSrc: "/avatar.webp",
+    subject:
+      "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec justo dolor, aliquet vitae efficitur a, pretium vel metus. Sed sapien ligula, iaculis quis erat in, bibendum consectetur sapien.",
+    description:
+      "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec justo dolor, aliquet vitae efficitur a, pretium vel metus. Sed sapien ligula, iaculis quis erat in, bibendum consectetur sapien. Cras tincidunt hendrerit orci, ac sodales risus pellentesque eget. Curabitur elementum consequat finibus. Pellentesque finibus lorem sapien, ut lobortis purus blandit non. Maecenas est tellus, condimentum sed erat vel, ullamcorper feugiat dolor. Suspendisse consequat luctus erat, ac fermentum metus aliquet vel. Nunc tincidunt nisl vel scelerisque molestie. Proin eu leo consectetur, bibendum mi ornare, finibus libero. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia curae; Suspendisse efficitur rhoncus nunc, nec tincidunt turpis.",
+    date: "2023-11-19T14:20:00",
+  },
+  {
+    id: "sent3",
+    owner: "Bolesław chrobry",
+    email: "bolesławchrobry@o2.pl",
+    to: "bogdanSzermanc@o2.pl",
+    avatarSrc: "/avatar.webp",
+    subject: "Lorem ipsum dolor sit amet.",
+    description:
+      "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec justo dolor, aliquet vitae efficitur a, pretium vel metus. Sed sapien ligula, iaculis quis erat in, bibendum consectetur sapien. Cras tincidunt hendrerit orci, ac sodales risus pellentesque eget. Curabitur elementum consequat finibus. .",
+    date: "2023-11-22T13:20:00",
   },
 ];

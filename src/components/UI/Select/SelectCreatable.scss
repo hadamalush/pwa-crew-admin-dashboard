@@ -1,0 +1,91 @@
+.dark .own {
+  cursor: pointer;
+  &__control {
+    border: 1px solid #2c2e33;
+    background-color: #191c24;
+    cursor: pointer;
+
+    &:hover {
+      border: 1px solid #36393f;
+    }
+  }
+
+  &__input-container {
+    color: #989cb3;
+  }
+
+  .own__multi-value {
+    background-color: #0f1216;
+    cursor: pointer;
+
+    &__label {
+      color: #989cb3;
+    }
+
+    svg {
+      color: #989cb3;
+    }
+  }
+
+  .own__multi-value__remove:hover {
+    background-color: #050607;
+  }
+
+  &__indicator {
+    border-color: #0f1216;
+  }
+  &__indicator-separator {
+    background-color: #2c2e33;
+  }
+
+  &__menu {
+    background-color: #191c24;
+    border-radius: 5px;
+  }
+
+  &__option {
+    color: #989cb3;
+    cursor: pointer;
+
+    &--is-focused {
+      background-color: #191c24;
+    }
+
+    &:hover {
+      background-color: #20242e;
+    }
+  }
+}
+
+.own {
+  cursor: pointer !important;
+  &__control {
+    cursor: pointer !important;
+  }
+
+  &__menu {
+    border-radius: 5px !important;
+  }
+
+  .own__placeholder {
+    color: #989cb3;
+  }
+
+  &__option {
+    cursor: pointer !important;
+  }
+
+  .own__multi-value {
+    background-color: #cbd5e1;
+    cursor: pointer;
+
+    &__label,
+    svg {
+      color: #000;
+    }
+  }
+
+  .own__multi-value__remove:hover {
+    background-color: #b0c6e2;
+  }
+}

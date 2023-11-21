@@ -4,7 +4,7 @@ import { Doughnut } from "react-chartjs-2";
 import { ComponentPropsWithoutRef, useState } from "react";
 import { cn } from "../../../util/utils";
 import { type DUMMY_STORAGETYPE } from "../dummy-items";
-import SelectSingle from "../../UI/SelectSingle";
+import SelectSingle from "../../UI/Select/SelectSingle";
 import "chart.js/auto";
 import { memo } from "react";
 

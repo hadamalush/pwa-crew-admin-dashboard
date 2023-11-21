@@ -8,7 +8,7 @@ type AvatarProps = Pick<HTMLImageElement, "src"> & {
 };
 
 const Avatar = ({ size, className, ...props }: AvatarProps) => (
-  <picture>
+  <picture className="flex">
     <source srcSet={props.src} />
     <img
       {...props}

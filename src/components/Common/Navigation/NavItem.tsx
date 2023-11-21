@@ -4,13 +4,23 @@ import { type ComponentPropsWithoutRef } from "react";
 import { NavLink, useLocation } from "react-router-dom";
 import { cn } from "../../../util/utils";
 import Icon from "../../UI/Icons/Icon";
+import { useGlobalSelector } from "../../../global/hooks";
+import { messageDetailsType } from "../../../global/message-slice";
+import { useEffect, useState } from "react";
+import { AnimatePresence, motion } from "framer-motion";
 
-type NavItemProps = {
+type handleAdditionalInfoProps = {
+  pageName: "Trash" | "Inbox" | "Featured" | "Spam" | null;
+  allMessages: messageDetailsType[];
+};
+
+export type NavItemProps = {
   icon: IconNameType;
   to: string;
   title?: string;
   className?: string;
   iconColor?: basicVariantColorType;
+  isAdditionalInfo?: boolean;
 } & ComponentPropsWithoutRef<"a">;
 
 const classesNavItem = {
@@ -20,9 +30,30 @@ const classesNavItem = {
     "dark:bg-navItemActive bg-slate-200 before:absolute before:left-0 before:inset-y-0 before:w-1 before:bg-lightBlue before:duration-300",
 };
 
-const NavItem = ({ icon, iconColor, to, title, className, ...props }: NavItemProps) => {
+const NavItem = ({
+  icon,
+  iconColor,
+  to,
+  title,
+  className,
+  isAdditionalInfo,
+  ...props
+}: NavItemProps) => {
+  const allMessages = useGlobalSelector((state) => state.messages.allMessages);
   const pathname = useLocation().pathname;
+  const [quantity, setQuantity] = useState(0);
   const isActivePath = pathname === to;
+  const formattedTitle =
+    title === "Trash" || title === "Spam" || title === "Featured" || title === "Inbox"
+      ? title
+      : null;
+
+  useEffect(() => {
+    if (isAdditionalInfo) {
+      const messQuantity = getUnreadMessageCountByTab({ pageName: formattedTitle, allMessages });
+      setQuantity(messQuantity);
+    }
+  }, [quantity, allMessages, formattedTitle, isAdditionalInfo]);
 
   return (
     <li>
@@ -37,6 +68,20 @@ const NavItem = ({ icon, iconColor, to, title, className, ...props }: NavItemPro
           <Icon iconName={icon} color={iconColor} size="s1" className="w-36 h-8" />
         </span>
 
+        <AnimatePresence>
+          {isAdditionalInfo && quantity > 0 && (
+            <motion.span
+              initial={{ y: -20, opacity: 0 }}
+              animate={{ y: 0, opacity: 1 }}
+              transition={{ duration: 0.2 }}
+              exit={{ y: 20, opacity: 0 }}
+              className="dark:bg-primaryLight  w-10 h-10 mr-4 rounded-full flexCenter absolute right-0"
+            >
+              {quantity}
+            </motion.span>
+          )}
+        </AnimatePresence>
+
         {title && <span className="animate-scale">{title}</span>}
       </NavLink>
     </li>
@@ -44,3 +89,24 @@ const NavItem = ({ icon, iconColor, to, title, className, ...props }: NavItemPro
 };
 
 export default NavItem;
+
+const getUnreadMessageCountByTab = ({ pageName, allMessages }: handleAdditionalInfoProps) => {
+  let quantity: number = 0;
+
+  if (pageName === "Trash") {
+    quantity = allMessages.filter((mess) => mess.isInTrash && !mess.isRead).length;
+  }
+  if (pageName === "Inbox") {
+    quantity = allMessages.filter(
+      (mess) => !mess.isInSpam && !mess.isInTrash && !mess.isRead
+    ).length;
+  }
+  if (pageName === "Featured") {
+    quantity = allMessages.filter((mess) => mess.isFeatured && !mess.isRead).length;
+  }
+  if (pageName === "Spam") {
+    quantity = allMessages.filter((mess) => mess.isInSpam && !mess.isRead).length;
+  }
+
+  return quantity;
+};

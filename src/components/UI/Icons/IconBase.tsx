@@ -400,4 +400,191 @@ export const IconsBase = {
       <path d="M6 6l12 12"></path>
     </svg>
   ),
+  inbox: (
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      className="icon icon-tabler icon-tabler-inbox"
+      viewBox="0 0 24 24"
+      strokeWidth="2"
+      stroke="currentColor"
+      fill="none"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    >
+      <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+      <path d="M4 4m0 2a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v12a2 2 0 0 1 -2 2h-12a2 2 0 0 1 -2 -2z"></path>
+      <path d="M4 13h3l3 3h4l3 -3h3"></path>
+    </svg>
+  ),
+  sent: (
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      className="icon icon-tabler icon-tabler-send"
+      viewBox="0 0 24 24"
+      strokeWidth="2"
+      stroke="currentColor"
+      fill="none"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    >
+      <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+      <path d="M10 14l11 -11"></path>
+      <path d="M21 3l-6.5 18a.55 .55 0 0 1 -1 0l-3.5 -7l-7 -3.5a.55 .55 0 0 1 0 -1l18 -6.5"></path>
+    </svg>
+  ),
+  flame: (
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      className="icon icon-tabler icon-tabler-flame"
+      viewBox="0 0 24 24"
+      strokeWidth="2"
+      stroke="currentColor"
+      fill="none"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    >
+      <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+      <path d="M12 12c2 -2.96 0 -7 -1 -8c0 3.038 -1.773 4.741 -3 6c-1.226 1.26 -2 3.24 -2 5a6 6 0 1 0 12 0c0 -1.532 -1.056 -3.94 -2 -5c-1.786 3 -2.791 3 -4 2z"></path>
+    </svg>
+  ),
+  trash: (
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      className="icon icon-tabler icon-tabler-trash"
+      viewBox="0 0 24 24"
+      strokeWidth="2"
+      stroke="currentColor"
+      fill="none"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    >
+      <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+      <path d="M4 7l16 0"></path>
+      <path d="M10 11l0 6"></path>
+      <path d="M14 11l0 6"></path>
+      <path d="M5 7l1 12a2 2 0 0 0 2 2h8a2 2 0 0 0 2 -2l1 -12"></path>
+      <path d="M9 7v-3a1 1 0 0 1 1 -1h4a1 1 0 0 1 1 1v3"></path>
+    </svg>
+  ),
+  arrowRightMini: (
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      className="icon icon-tabler icon-tabler-chevron-right"
+      viewBox="0 0 24 24"
+      strokeWidth="2"
+      stroke="currentColor"
+      fill="none"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    >
+      <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+      <path d="M9 6l6 6l-6 6"></path>
+    </svg>
+  ),
+  arrowLeftMini: (
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      className="icon icon-tabler icon-tabler-chevron-left"
+      viewBox="0 0 24 24"
+      strokeWidth="2"
+      stroke="currentColor"
+      fill="none"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    >
+      <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+      <path d="M15 6l-6 6l6 6"></path>
+    </svg>
+  ),
+  starFilled: (
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      className="icon icon-tabler icon-tabler-star-filled"
+      viewBox="0 0 24 24"
+      strokeWidth="2"
+      stroke="currentColor"
+      fill="none"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    >
+      <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+      <path
+        d="M8.243 7.34l-6.38 .925l-.113 .023a1 1 0 0 0 -.44 1.684l4.622 4.499l-1.09 6.355l-.013 .11a1 1 0 0 0 1.464 .944l5.706 -3l5.693 3l.1 .046a1 1 0 0 0 1.352 -1.1l-1.091 -6.355l4.624 -4.5l.078 -.085a1 1 0 0 0 -.633 -1.62l-6.38 -.926l-2.852 -5.78a1 1 0 0 0 -1.794 0l-2.853 5.78z"
+        strokeWidth="0"
+        fill="currentColor"
+      ></path>
+    </svg>
+  ),
+  star: (
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      className="icon icon-tabler icon-tabler-star"
+      viewBox="0 0 24 24"
+      strokeWidth="2"
+      stroke="currentColor"
+      fill="none"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    >
+      <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+      <path d="M12 17.75l-6.172 3.245l1.179 -6.873l-5 -4.867l6.9 -1l3.086 -6.253l3.086 6.253l6.9 1l-5 4.867l1.179 6.873z"></path>
+    </svg>
+  ),
+  spiderWeb: (
+    <svg
+      version="1.1"
+      id="Layer_1"
+      xmlns="http://www.w3.org/2000/svg"
+      xmlnsXlink="http://www.w3.org/1999/xlink"
+      viewBox="0 0 505 505"
+      xmlSpace="preserve"
+      fill="#000000"
+    >
+      <g id="SVGRepo_bgCarrier" strokeWidth="0"></g>
+      <g id="SVGRepo_tracerCarrier" strokeLinecap="round" strokeLinejoin="round"></g>
+      <g id="SVGRepo_iconCarrier">
+        <circle fill="#3c78aa" cx="252.5" cy="252.5" r="252.5"></circle>
+        <path
+          fill="#FFD05B"
+          d="M242.4,306.7V505c-14-0.6-27.7-2.3-41.1-5c-10.9-2.2-21.5-5.2-31.8-8.8V306.7H242.4z"
+        ></path>
+        <path fill="#F9B54C;" d="M242.4,306.7V505c-14-0.6-27.7-2.3-41.1-5V306.7H242.4z"></path>
+        <path fill="#584280" d="M307.2,125v204H61.6V208.8c0-46.2,37.5-83.8,83.8-83.8H307.2z"></path>
+        <path
+          fill="#8f5fe8"
+          d="M391,329H223.5V208.8c0-46.3,37.5-83.8,83.8-83.8l0,0c46.3,0,83.8,37.5,83.8,83.8V329H391z"
+        ></path>
+        <path
+          fill="#E6E9EE"
+          d="M443.4,185v84.1c0,4.4-1.8,8.4-4.8,11.2c-2.8,2.7-6.7,4.4-10.8,4.4H281.9c-4.2,0-8-1.7-10.8-4.4 c-3-2.8-4.8-6.8-4.8-11.2V185c0-4.4,1.8-8.4,4.8-11.2c2.8-2.7,6.6-4.4,10.8-4.4h145.9c4.2,0,8,1.7,10.8,4.4 C441.6,176.6,443.4,180.6,443.4,185z"
+        ></path>
+        <path
+          fill="#CED5E0"
+          d="M438.6,280.3c-2.8,2.7-6.7,4.4-10.8,4.4H281.9c-4.2,0-8-1.7-10.8-4.4l83.8-76.9L438.6,280.3z"
+        ></path>
+        <path
+          fill="#FFFFFF"
+          d="M438.6,173.7l-83.8,76.8L271,173.7c2.8-2.7,6.6-4.4,10.8-4.4h145.9C432,169.4,435.8,171,438.6,173.7z "
+        ></path>
+        <rect x="107.3" y="210" fill="#E6E9EE" width="94.1" height="27.6"></rect>
+      </g>
+    </svg>
+  ),
+  arrowLeft: (
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      className="icon icon-tabler icon-tabler-arrow-left"
+      viewBox="0 0 24 24"
+      strokeWidth="2"
+      stroke="currentColor"
+      fill="none"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    >
+      <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+      <path d="M5 12l14 0" />
+      <path d="M5 12l6 6" />
+      <path d="M5 12l6 -6" />
+    </svg>
+  ),
 };
