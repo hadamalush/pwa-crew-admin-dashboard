@@ -1,5 +1,4 @@
-import { type messageDetailsType } from "../../../global/message-slice";
-import { type ComponentPropsWithoutRef } from "react";
+import { type ComponentPropsWithoutRef, useState } from "react";
 import { cn } from "../../../util/utils";
 import Avatar from "../Avatar";
 import Container from "../../UI/Container";
@@ -11,10 +10,7 @@ type MessageItemDetailsProps = {
   description: string;
   email: string;
   owner: string;
-};
-
-type MessageItemDetails = {
-  message: messageDetailsType;
+  textClass?: string;
 } & ComponentPropsWithoutRef<"li">;
 
 const MessageItemDetails = ({
@@ -23,28 +19,38 @@ const MessageItemDetails = ({
   description,
   email,
   owner,
+  textClass,
+  ...props
 }: MessageItemDetailsProps) => {
-  //   const { avatarSrc, date, description, email, owner } = message;
+  const [isVisibleMess, setIsVisibleMess] = useState(false);
 
   const convertedDate = new Date(date);
   const formattedDate = format(convertedDate, "yyyy-MM-dd");
   const time = format(convertedDate, "HH:mm");
 
-  console.log(formattedDate, time);
   return (
     <li
       className={cn(
         `flex  w-full mx-auto text-xl xlg:text-2xl text-black dark:text-textPrimary px-5 border-pLight dark:border-borderPrimary border-b
-py-6 md:px-10 `
+        py-10 md:px-10 cursor-pointer`,
+        props.className
       )}
+      onClick={() => setIsVisibleMess((prev) => !prev)}
     >
       <Avatar src={avatarSrc} size="s5" />
       <Container className="flex-col justify-start w-10/12 md:w-11/12 relative">
-        <h2 className="text-2xl px-4 font-semibold mr-auto text-black dark:text-textPrimary flex">
+        <h2 className="text-2xl px-4 font-semibold mr-auto text-black dark:text-textPrimary sm:flex">
           <p>{owner}</p>
           <pre className="font-light"> &lt; {email} &gt;</pre>
         </h2>
-        <p className="text-2xl px-4 pt-4">{description}</p>
+        <p
+          className={cn("text-2xl px-4 pt-4 mr-auto text-ellipsis ", textClass, {
+            "whitespace-nowrap overflow-hidden w-11/12 ": !isVisibleMess && textClass,
+            "whitespace-normal overflow-auto w-full": isVisibleMess,
+          })}
+        >
+          {description}
+        </p>
         <p className="absolute right-6 top-[-2rem]">
           <time dateTime={formattedDate}>{formattedDate},</time>
           <time dateTime={time}> {time}</time>

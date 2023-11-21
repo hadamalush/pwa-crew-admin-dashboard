@@ -2,9 +2,10 @@ import { useForm } from "react-hook-form";
 import SelectCreatable from "../../UI/Select/SelectCreatable";
 import TextEditor from "../Editor/TextEditor";
 import { DUMMY_USERS } from "../dummy-items";
-import { useState, useEffect } from "react";
+import { useState, useEffect, type ComponentPropsWithoutRef } from "react";
 import * as yup from "yup";
 import Button from "../../UI/Button";
+import { cn } from "../../../util/utils";
 
 type OptionType = { label: string; value: string };
 
@@ -12,13 +13,18 @@ type UserType = {
   email: string;
 };
 
+type NewMessageProps = {
+  subject?: string;
+  email?: string;
+} & ComponentPropsWithoutRef<"form">;
+
 const emailSchema = yup.string().email().required();
 
 const validateEmail = (email: string) => {
   return emailSchema.isValidSync(email);
 };
 
-const NewMessage = () => {
+const NewMessage = ({ subject, email, ...props }: NewMessageProps) => {
   const {
     register,
     handleSubmit,
@@ -50,12 +56,16 @@ const NewMessage = () => {
   };
 
   return (
-    <form className=" overflow-x-hidden" onSubmit={handleSubmit(handleSendMessage)}>
+    <form
+      className={cn(" overflow-x-hidden", props.className)}
+      onSubmit={handleSubmit(handleSendMessage)}
+    >
       <SelectCreatable
         className="mx-6 mt-5"
         options={emailOptions}
         isValidNewOption={validateEmail}
         onChange={handleChangeEmails}
+        defaultInputValue={email}
       />
       <div className="bg-transparent mx-6 overflow-hidden mt-6 ">
         <input
@@ -65,6 +75,7 @@ const NewMessage = () => {
           })}
           placeholder="Subject"
           autoComplete="off"
+          defaultValue={subject}
           className="block w-full py-2 px-4 rounded-md dark:bg-primary border dark:border-borderPrimary border-secondaryLight dark:text-textPrimary  overflow-hidden
            placeholder-textPrimary outline-none focus:border-blueFocus focus:border-2 dark:focus:border-blueFocus dark:focus:border"
         />

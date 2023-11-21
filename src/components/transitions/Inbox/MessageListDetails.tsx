@@ -5,6 +5,8 @@ import { useParams } from "react-router";
 import ToolbarInboxDetails from "../ToolbarInboxDetails";
 import MessageItemDetails from "./MessageItemDetails";
 import { DUMMY_SENTMESSAGES } from "../dummy-items";
+import NewMessage from "./NewMessage";
+import Avatar from "../Avatar";
 // import TextEditor from "../Editor/TextEditor";
 
 const MessageListDetails = () => {
@@ -29,8 +31,6 @@ const MessageListDetails = () => {
     return null;
   }
 
-  console.log(sortedMessages);
-
   return (
     <ul
       className={cn(
@@ -43,13 +43,34 @@ const MessageListDetails = () => {
         <h1>{messageItem.subject}</h1>
       </li>
 
-      <MessageItemDetails
-        avatarSrc={messageItem.avatarSrc}
-        date={messageItem.date}
-        description={messageItem.description}
-        email={messageItem.email}
-        owner={messageItem.owner}
-      />
+      {sortedMessages.map((message, index) => {
+        let textClass: string = "";
+        let messItemClass: string = "";
+
+        if (sortedMessages.length > 1 && index !== sortedMessages.length - 1) {
+          textClass = "whitespace-nowrap overflow-hidden w-11/12";
+        }
+
+        if (index === sortedMessages.length - 1) messItemClass = "border-none";
+
+        return (
+          <MessageItemDetails
+            key={message.id}
+            avatarSrc={message.avatarSrc}
+            date={message.date}
+            description={message.description}
+            email={message.email}
+            owner={message.owner}
+            textClass={textClass}
+            className={messItemClass}
+          />
+        );
+      })}
+
+      <li className="flex ml-10">
+        <Avatar src="/avatar.webp" size="s5" />
+        <NewMessage subject={messageItem.subject} email={messageItem.email} />
+      </li>
     </ul>
   );
 };
