@@ -22,6 +22,7 @@ const ToolbarInboxDetails = ({ message }: ToolbarInboxDetailsType) => {
       <Button
         onClick={() => navigate(-1)}
         className="mr-14 rounded-full hover:dark:bg-primaryLight hover:bg-slate-100 p-2 duration-200"
+        aria-label="Previous page"
       >
         <Icon iconName="arrowLeft" className="dark:text-textPrimary text-gray" />
       </Button>

@@ -32,10 +32,6 @@ const ToolbarInbox = () => {
 
   const quantityMessages = getNumberOfMessagesByPage(messagesState, getInboxPage(path));
 
-  console.log(quantityMessages);
-
-  console.log("lastindex ", lastIndexMess);
-
   const handleInboxNavChange = () => {
     dispatch(handleNav({ isVisibleNav: false }));
     dispatch(handleInboxNav({ isVisibleInboxNav: !isVisibleInboxNav }));
@@ -145,43 +141,49 @@ const ToolbarInbox = () => {
         )}
       </Container>
 
-      <p className="dark:text-textPrimary mr-5 text-xl">
-        {(firstIndexMess && firstIndexMess + 1) || (!firstIndexMess && 1)} &nbsp;- &nbsp;
-        {lastIndexMess && quantityMessages && lastIndexMess > quantityMessages
-          ? quantityMessages
-          : lastIndexMess}{" "}
-        of {quantityMessages}
-      </p>
+      {!messageId && (
+        <p className="dark:text-textPrimary mr-5 text-xl">
+          {(firstIndexMess && firstIndexMess + 1) || (!firstIndexMess && 1)} &nbsp;- &nbsp;
+          {lastIndexMess && quantityMessages && lastIndexMess > quantityMessages
+            ? quantityMessages
+            : lastIndexMess}{" "}
+          of {quantityMessages}
+        </p>
+      )}
 
-      <Button
-        variant="outline"
-        className="group p-2 md:p-5 outline-none order-1 md:order-none"
-        aria-label="Previous page"
-        type="button"
-        onClick={() => handleChangePage("previous")}
-      >
-        <Icon
-          iconName="arrowLeftMini"
-          size="s1_5"
-          color="gray"
-          className="group-hover:text-lightBlue"
-        />
-      </Button>
+      {!messageId && (
+        <>
+          <Button
+            variant="outline"
+            className="group p-2 md:p-5 outline-none order-1 md:order-none"
+            aria-label="Previous page"
+            type="button"
+            onClick={() => handleChangePage("previous")}
+          >
+            <Icon
+              iconName="arrowLeftMini"
+              size="s1_5"
+              color="gray"
+              className="group-hover:text-lightBlue"
+            />
+          </Button>
 
-      <Button
-        variant="outline"
-        className="group p-2 md:p-5 outline-none order-1 md:order-none"
-        aria-label="Next page"
-        type="button"
-        onClick={() => handleChangePage("next")}
-      >
-        <Icon
-          iconName="arrowRightMini"
-          size="s1_5"
-          color="gray"
-          className="group-hover:text-lightBlue"
-        />
-      </Button>
+          <Button
+            variant="outline"
+            className="group p-2 md:p-5 outline-none order-1 md:order-none"
+            aria-label="Next page"
+            type="button"
+            onClick={() => handleChangePage("next")}
+          >
+            <Icon
+              iconName="arrowRightMini"
+              size="s1_5"
+              color="gray"
+              className="group-hover:text-lightBlue"
+            />
+          </Button>
+        </>
+      )}
 
       <Button
         variant="outline"

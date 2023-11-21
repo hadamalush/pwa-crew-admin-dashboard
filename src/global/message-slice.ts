@@ -194,7 +194,6 @@ export const messageSlice = createSlice({
       }
     },
     resetCurrentPage(state) {
-      console.log("brawooo");
       state.currentPagePag = initialCurrentPage;
     },
   },

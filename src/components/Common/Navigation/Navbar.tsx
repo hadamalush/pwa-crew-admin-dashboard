@@ -82,7 +82,7 @@ const Navbar = ({ className, data, id, isAdditionalInfo, ...props }: NavbarProps
               isAdditionalInfo={isAdditionalInfo}
               {...item}
               title={isVisibleNav || !isMdScreen || id === "inboxNav" ? item.title : ""}
-              aria-label={item.title}
+              aria-label={"Go to " + item.title + " section"}
             />
           ))}
         </ul>
