@@ -151,7 +151,7 @@ const ToolbarInbox = () => {
         </p>
       )}
 
-      {(!messageId && quantityMessages) !== 0 && (
+      {!messageId && quantityMessages && quantityMessages > 0 && (
         <>
           <Button
             variant="outline"
