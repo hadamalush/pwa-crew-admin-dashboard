@@ -2,7 +2,7 @@ import { useGlobalSelector } from "../../../global/hooks";
 import { cn } from "../../../util/utils";
 import { basicVariant } from "../../variants/variants";
 import { useParams } from "react-router";
-import ToolbarInboxDetails from "../ToolbarInboxDetails";
+import ToolbarInboxDetails from "./ToolbarInboxDetails";
 import MessageItemDetails from "./MessageItemDetails";
 import { DUMMY_SENTMESSAGES } from "../dummy-items";
 import NewMessage from "./NewMessage";

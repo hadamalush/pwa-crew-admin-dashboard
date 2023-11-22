@@ -4,7 +4,7 @@ import { useGlobalSelector } from "../global/hooks";
 import { cn } from "../util/utils";
 import Main from "../components/Common/Main";
 import Navbar from "../components/Common/Navigation/Navbar";
-import ToolbarInbox from "../components/transitions/ToolbarInbox";
+import ToolbarInbox from "../components/transitions/Inbox/ToolbarInbox";
 import usePage from "../hooks/usePage";
 import { useDispatch } from "react-redux";
 import { resetCurrentPage } from "../global/message-slice";
