@@ -54,7 +54,7 @@ const DashBoardPage = () => {
           scrollbar-thumb-rounded-3xl
           scrollbar-track-rounded-full scrollbar-track"
         >
-          <UsersList users={DUMMY_USERS} />
+          <UsersList users={DUMMY_USERS} searchOption={false} />
         </Container>
       </Container>
     </Main>
