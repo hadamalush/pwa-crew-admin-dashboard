@@ -1,11 +1,20 @@
 import Heading from "../../UI/Heading";
-import { ComponentPropsWithoutRef, FC } from "react";
-import { DUMMY_USERS } from "../dummy-items";
-import UsersItem from "./UsersItem";
+import { ComponentPropsWithoutRef } from "react";
+// import { DUMMY_USERS } from "../dummy-items";
+import UsersItem, { UserItemProps } from "./UsersItem";
+import { cn } from "../../../util/utils";
+import SelectSingle from "../../UI/Select/SelectSingle";
 
-const UsersList: FC<ComponentPropsWithoutRef<"ul">> = () => {
+type UsersListProps = {
+  users: UserItemProps[];
+} & ComponentPropsWithoutRef<"ul">;
+
+const UsersList = ({ users, className }: UsersListProps) => {
   return (
-    <ul className="min-w-max">
+    <ul className={cn("min-w-max", className)}>
+      <li>
+        <SelectSingle className="w-full p-5 px-10" />
+      </li>
       <li>
         <ul className="flex w-full  mt-10 mx-auto font-semibold justify-between text-black dark:text-textPrimary px-10 border-pLight dark:border-borderPrimary border-b pb-10 ">
           <li className="w-56">
@@ -26,7 +35,7 @@ const UsersList: FC<ComponentPropsWithoutRef<"ul">> = () => {
         </ul>
       </li>
 
-      {DUMMY_USERS.map((user, index) => {
+      {users.map((user, index) => {
         return <UsersItem key={index} {...user} className={`${index === 4 && "border-none"}`} />;
       })}
     </ul>

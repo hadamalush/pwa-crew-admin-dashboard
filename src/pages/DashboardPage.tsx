@@ -6,7 +6,7 @@ import CardStats from "../components/transitions/Cards/CardStats";
 import CardStorage from "../components/transitions/Cards/CardStorage";
 import CardUsersStats from "../components/transitions/Cards/CardUsersStat";
 import UsersList from "../components/transitions/Users/UsersList";
-import { DUMMY_STORAGE } from "../components/transitions/dummy-items";
+import { DUMMY_STORAGE, DUMMY_USERS } from "../components/transitions/dummy-items";
 
 type DUMMY_INFOTYPE = {
   id: string;
@@ -54,7 +54,7 @@ const DashBoardPage = () => {
           scrollbar-thumb-rounded-3xl
           scrollbar-track-rounded-full scrollbar-track"
         >
-          <UsersList />
+          <UsersList users={DUMMY_USERS} />
         </Container>
       </Container>
     </Main>

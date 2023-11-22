@@ -51,9 +51,21 @@
       background-color: #191c24;
     }
 
+    &--is-selected {
+      background-color: transparent;
+    }
+
     &:hover {
       background-color: #20242e;
     }
+  }
+
+  &__single-value {
+    color: #989cb3;
+  }
+
+  &__input {
+    background-color: #fff;
   }
 }
 

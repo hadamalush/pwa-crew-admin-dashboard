@@ -3,7 +3,7 @@ import Icon from "../../UI/Icons/Icon";
 import Avatar from "../Avatar";
 import { type ComponentPropsWithoutRef } from "react";
 
-type UserItemProps = {
+export type UserItemProps = {
   name: string;
   avatarSrc?: string;
   email: string;
