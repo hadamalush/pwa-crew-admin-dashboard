@@ -32,9 +32,9 @@ export const basicVariant = cva("w-10 h-10", {
     },
     box: {
       default:
-        "bg-white dark:bg-primary w-10 h-10 drop-shadow-[0_0px_15px_rgba(0,0,0,0.09)] dark:drop-shadow-[0_0px_15px_rgba(0,0,0,0.9)] rounded-xl duration-200",
+        "bg-white dark:bg-primary w-10 h-10 shadow-[0_0px_15px_rgba(0,0,0,0.09)] dark:shadow-[0_0px_15px_rgba(0,0,0,0.9)] rounded-xl duration-200",
       littleShadow:
-        "bg-white dark:bg-primary w-10 h-10 drop-shadow-[0_0px_15px_rgba(0,0,0,0.07)] dark:drop-shadow-[0_2px_15px_rgba(0,0,0,0.3)] rounded-xl duration-200",
+        "bg-white dark:bg-primary w-10 h-10 shadow-[0_0px_15px_rgba(0,0,0,0.07)] dark:shadow-[0_2px_5px_rgba(0,0,0,0.3)] rounded-xl duration-200",
     },
   },
   defaultVariants: {

@@ -29,6 +29,10 @@ const SimpleDropdownList = ({ onClose, isVisible, ...props }: SimpleDropdownList
     <AnimatePresence>
       {isVisible && (
         <motion.ul
+          initial={{ y: -10, opacity: 0 }}
+          animate={{ y: 0, opacity: 1 }}
+          transition={{ duration: 0.1 }}
+          exit={{ opacity: 0 }}
           className={cn(
             basicVariant({ box: "littleShadow" }),
             "absolute bottom-[-8rem] left-5 w-40 rounded-lg z-10 dark:bg-primary h-auto overflow-hidden text-black dark:text-textPrimary "
