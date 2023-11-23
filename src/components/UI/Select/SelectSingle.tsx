@@ -12,6 +12,7 @@ const SelectSingle = ({ className, ...props }: SelectSingleProps) => {
       menuPortalTarget={document.body}
       classNamePrefix="own"
       className={cn("own mt-5 w-3/4 text-white z-50", className)}
+      defaultMenuIsOpen={true}
     />
   );
 };

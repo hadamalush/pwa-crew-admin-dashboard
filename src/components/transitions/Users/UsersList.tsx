@@ -1,6 +1,5 @@
 import Heading from "../../UI/Heading";
 import { ComponentPropsWithoutRef } from "react";
-// import { DUMMY_USERS } from "../dummy-items";
 import UsersItem, { UserItemProps } from "./UsersItem";
 import { cn } from "../../../util/utils";
 import SelectSingle from "../../UI/Select/SelectSingle";
@@ -21,13 +20,11 @@ const UsersList = ({ users, searchOption, className }: UsersListProps) => {
       {searchOption && (
         <li>
           <SelectSingle
-            className="w-full p-5 px-10"
+            className="w-96 mxs:w-126 sm:w-full sm:mx-auto p-5 px-10 "
             placeholder="Search user..."
             aria-label="Search user"
             // eslint-disable-next-line @typescript-eslint/no-explicit-any
             getOptionLabel={(option: any) => `${option.label} (${option.email})`}
-            // eslint-disable-next-line @typescript-eslint/no-explicit-any
-            getOptionValue={(option: any) => option.label}
             options={userOptions}
           />
         </li>

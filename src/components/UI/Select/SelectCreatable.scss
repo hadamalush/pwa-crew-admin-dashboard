@@ -41,6 +41,10 @@
   &__menu {
     background-color: #191c24;
     border-radius: 5px;
+
+    ::-webkit-scrollbar-thumb {
+      background-color: #2c2e33;
+    }
   }
 
   &__option {
@@ -49,10 +53,6 @@
 
     &--is-focused {
       background-color: #191c24;
-    }
-
-    &--is-selected {
-      background-color: transparent;
     }
 
     &:hover {
@@ -68,6 +68,9 @@
     background-color: #fff;
   }
 }
+.dark .own__menu-list .own__option--is-selected {
+  color: #989cb3;
+}
 
 .own {
   cursor: pointer !important;
@@ -77,6 +80,17 @@
 
   &__menu {
     border-radius: 5px !important;
+
+    ::-webkit-scrollbar {
+      display: block;
+      width: 2px;
+      scrollbar-width: thin;
+    }
+
+    ::-webkit-scrollbar-thumb {
+      background-color: #cbd5e1;
+      border-radius: 5%;
+    }
   }
 
   .own__placeholder {
@@ -100,4 +114,9 @@
   .own__multi-value__remove:hover {
     background-color: #b0c6e2;
   }
+}
+
+.own__menu-list .own__option--is-selected {
+  background-color: transparent;
+  color: black;
 }

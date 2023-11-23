@@ -8,8 +8,8 @@ import { DUMMY_USERSFULL } from "../components/transitions/dummy-items";
 const UsersPage = () => {
   return (
     <Main>
-      <Container as="div" variant="wrapper">
-        <Container as="section" variant="flex" className="justify-start p-20 pb-10">
+      <Container as="div" variant="wrapper" className="p-5 lg:px-14">
+        <Container as="section" variant="flex" className="justify-start py-20 px-5  pb-10">
           <Heading as="h1" className="text-3xl md:text-5xl dark:text-textPrimary text-black">
             Users list
           </Heading>
