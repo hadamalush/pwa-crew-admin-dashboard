@@ -1,4 +1,4 @@
-import { createSlice, type PayloadAction } from "@reduxjs/toolkit";
+import { createSlice } from "@reduxjs/toolkit";
 import { DUMMY_USERSFULL } from "../components/transitions/dummy-items";
 
 export type UserProps = {
@@ -22,6 +22,9 @@ export const usersSlice = createSlice({
   name: "users",
   initialState: initialState,
   reducers: {
+    display(state) {
+      console.log(state);
+    },
     // handleNav(state, action: PayloadAction<{ isVisibleNav: boolean }>) {
     //   state.isVisibleNav = action.payload.isVisibleNav;
     // },
@@ -34,4 +37,4 @@ export const usersSlice = createSlice({
   },
 });
 
-export const {} = usersSlice.actions;
+export const { display } = usersSlice.actions;
