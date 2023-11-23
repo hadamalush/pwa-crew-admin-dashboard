@@ -6,6 +6,7 @@ import { useState, useEffect, type ComponentPropsWithoutRef } from "react";
 import * as yup from "yup";
 import Button from "../../UI/Button";
 import { cn } from "../../../util/utils";
+import InputText from "../../UI/Input/InputText";
 
 type OptionType = { label: string; value: string };
 
@@ -68,7 +69,16 @@ const NewMessage = ({ subject, email, ...props }: NewMessageProps) => {
         defaultInputValue={email}
       />
       <div className="bg-transparent mx-6 overflow-hidden mt-6 ">
-        <input
+        <InputText
+          {...register("subject", {
+            required: "Subject is required",
+            minLength: { value: 4, message: "The subject should contain at least 4 characters" },
+          })}
+          placeholder="Subject"
+          autoComplete="off"
+          defaultValue={subject}
+        />
+        {/* <input
           {...register("subject", {
             required: "Subject is required",
             minLength: { value: 4, message: "The subject should contain at least 4 characters" },
@@ -78,7 +88,7 @@ const NewMessage = ({ subject, email, ...props }: NewMessageProps) => {
           defaultValue={subject}
           className="block w-full py-2 px-4 rounded-md dark:bg-primary border dark:border-borderPrimary border-secondaryLight dark:text-textPrimary text-black overflow-hidden
            placeholder-textPrimary outline-none focus:border-blueFocus focus:border-2 dark:focus:border-blueFocus dark:focus:border"
-        />
+        /> */}
       </div>
 
       <p className="px-7 text-lightRed py-2">
