@@ -1,9 +1,9 @@
-import Button from "../UI/Button";
-import Icon from "../UI/Icons/Icon";
+import Button from "../../UI/Button";
+import Icon from "../../UI/Icons/Icon";
 import { useNavigate } from "react-router-dom";
 import { ComponentPropsWithoutRef } from "react";
-import { useGlobalDispatch } from "../../global/hooks";
-import { messageDetailsType, moveMessages } from "../../global/message-slice";
+import { useGlobalDispatch } from "../../../global/hooks";
+import { messageDetailsType, moveMessages } from "../../../global/message-slice";
 
 type ToolbarInboxDetailsType = {
   message: messageDetailsType;

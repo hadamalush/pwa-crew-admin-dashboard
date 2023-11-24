@@ -27,6 +27,7 @@ export default {
         spin: "spin 2s linear infinite",
       },
       width: {
+        126: "30rem",
         128: "32rem",
         160: "50rem",
       },

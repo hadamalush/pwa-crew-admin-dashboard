@@ -6,7 +6,7 @@ import CardStats from "../components/transitions/Cards/CardStats";
 import CardStorage from "../components/transitions/Cards/CardStorage";
 import CardUsersStats from "../components/transitions/Cards/CardUsersStat";
 import UsersList from "../components/transitions/Users/UsersList";
-import { DUMMY_STORAGE } from "../components/transitions/dummy-items";
+import { DUMMY_STORAGE, DUMMY_USERS } from "../components/transitions/dummy-items";
 
 type DUMMY_INFOTYPE = {
   id: string;
@@ -49,12 +49,12 @@ const DashBoardPage = () => {
         <Container
           as="section"
           variant="default"
-          className="w-full h-160 block overflow-x-auto overflow-y-hidden dark:scrollbar-track-primary scrollbar-thin dark:scrollbar-thumb-borderPrimary
+          className="w-full  h-160 block overflow-x-auto overflow-y-hidden dark:scrollbar-track-primary scrollbar-thin dark:scrollbar-thumb-borderPrimary
           scrollbar-thumb-slate-200
           scrollbar-thumb-rounded-3xl
           scrollbar-track-rounded-full scrollbar-track"
         >
-          <UsersList />
+          <UsersList users={DUMMY_USERS} searchOption={false} />
         </Container>
       </Container>
     </Main>

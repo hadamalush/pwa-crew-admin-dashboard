@@ -1,19 +1,19 @@
-import { useGlobalDispatch, useGlobalSelector } from "../../global/hooks";
-import { cn } from "../../util/utils";
-import Container from "../UI/Container";
-import Icon from "../UI/Icons/Icon";
-import Button from "../UI/Button";
-import { handleInboxNav, handleNav } from "../../global/toggle-slice";
+import { useGlobalDispatch, useGlobalSelector } from "../../../global/hooks";
+import { cn } from "../../../util/utils";
+import Container from "../../UI/Container";
+import Icon from "../../UI/Icons/Icon";
+import Button from "../../UI/Button";
+import { handleInboxNav, handleNav } from "../../../global/toggle-slice";
 import {
   moveMessages,
   markAllMessage,
   getNumberOfMessagesByPage,
   getInboxPage,
   changeCurrentPage,
-} from "../../global/message-slice";
-import usePage from "../../hooks/usePage";
+} from "../../../global/message-slice";
+import usePage from "../../../hooks/usePage";
 import { useParams } from "react-router";
-import { getMessIndex } from "../../global/message-action";
+import { getMessIndex } from "../../../global/message-action";
 
 const ToolbarInbox = () => {
   const dispatch = useGlobalDispatch();

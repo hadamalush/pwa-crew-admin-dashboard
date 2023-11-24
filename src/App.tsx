@@ -25,7 +25,7 @@ function App() {
         {
           index: true,
           element: (
-            <Suspense fallback={<div>Loading...</div>}>
+            <Suspense fallback={null}>
               <DashBoardPage />
             </Suspense>
           ),
@@ -33,7 +33,7 @@ function App() {
         {
           path: "inbox",
           element: (
-            <Suspense fallback={<div>Loading...</div>}>
+            <Suspense fallback={null}>
               <InboxLayout />
             </Suspense>
           ),
@@ -41,7 +41,7 @@ function App() {
             {
               index: true,
               element: (
-                <Suspense fallback={<div>Loading...</div>}>
+                <Suspense fallback={null}>
                   <InboxPage />
                 </Suspense>
               ),
@@ -49,7 +49,7 @@ function App() {
             {
               path: ":messageId",
               element: (
-                <Suspense fallback={<div>Loading...</div>}>
+                <Suspense fallback={null}>
                   <InboxMessageDetailsPage />
                 </Suspense>
               ),
@@ -57,7 +57,7 @@ function App() {
             {
               path: "sent",
               element: (
-                <Suspense fallback={<div>Loading...</div>}>
+                <Suspense fallback={null}>
                   <InboxSentPage />
                 </Suspense>
               ),
@@ -65,7 +65,7 @@ function App() {
             {
               path: "featured",
               element: (
-                <Suspense fallback={<div>Loading...</div>}>
+                <Suspense fallback={null}>
                   <InboxFeaturedPage />
                 </Suspense>
               ),
@@ -73,7 +73,7 @@ function App() {
             {
               path: "featured/:messageId",
               element: (
-                <Suspense fallback={<div>Loading...</div>}>
+                <Suspense fallback={null}>
                   <InboxMessageDetailsPage />
                 </Suspense>
               ),
@@ -81,7 +81,7 @@ function App() {
             {
               path: "spam",
               element: (
-                <Suspense fallback={<div>Loading...</div>}>
+                <Suspense fallback={null}>
                   <InboxSpamPage />
                 </Suspense>
               ),
@@ -89,7 +89,7 @@ function App() {
             {
               path: "spam/:messageId",
               element: (
-                <Suspense fallback={<div>Loading...</div>}>
+                <Suspense fallback={null}>
                   <InboxMessageDetailsPage />
                 </Suspense>
               ),
@@ -97,7 +97,7 @@ function App() {
             {
               path: "trash",
               element: (
-                <Suspense fallback={<div>Loading...</div>}>
+                <Suspense fallback={null}>
                   <InboxTrashPage />
                 </Suspense>
               ),
@@ -105,7 +105,7 @@ function App() {
             {
               path: "trash/:messageId",
               element: (
-                <Suspense fallback={<div>Loading...</div>}>
+                <Suspense fallback={null}>
                   <InboxMessageDetailsPage />
                 </Suspense>
               ),
