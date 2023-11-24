@@ -7,6 +7,7 @@ import { getDataUserForSearchable } from "../../../global/user-action";
 import { useGlobalSelector } from "../../../global/hooks";
 import { AnimatePresence } from "framer-motion";
 import Modal from "../Modal";
+import FormEditUser from "../Forms/FormEditUser";
 
 type UsersListProps = {
   users: Omit<UserItemProps, "onAction">[];
@@ -15,6 +16,7 @@ type UsersListProps = {
 
 const UsersList = ({ users, searchOption, className }: UsersListProps) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [dataUser, setDataUser] = useState({ id: "", email: "", name: "" });
   const userState = useGlobalSelector((state) => state.users);
   const userOptions = getDataUserForSearchable(userState);
 
@@ -25,9 +27,10 @@ const UsersList = ({ users, searchOption, className }: UsersListProps) => {
     id: string;
   }) => {
     const { mode, id, email, name } = action;
-    setIsModalOpen(true);
+    setDataUser({ id, email, name });
+    console.log(mode);
 
-    console.log(mode, id, email, name);
+    setIsModalOpen(true);
   };
 
   return (
@@ -39,8 +42,7 @@ const UsersList = ({ users, searchOption, className }: UsersListProps) => {
             className="sm:w-[50rem]  h-full sm:h-auto overflow-y-auto rounded-none sm:rounded-xl"
             title="Edit user"
           >
-            {/* <FormNewUser /> */}
-            brawoo
+            <FormEditUser initialData={dataUser} />
           </Modal>
         )}
       </AnimatePresence>

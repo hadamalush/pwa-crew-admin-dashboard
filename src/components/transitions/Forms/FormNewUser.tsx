@@ -4,7 +4,7 @@ import InputText from "../../UI/Input/InputText";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 
-const schema = yup.object().shape({
+export const newUserSchema = yup.object().shape({
   username: yup
     .string()
     .required("Username is required")
@@ -31,14 +31,14 @@ const FormNewUser = () => {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm({ resolver: yupResolver(schema), mode: "onBlur" });
+  } = useForm({ resolver: yupResolver(newUserSchema), mode: "onBlur" });
 
-  const handleSendMessage = () => {
+  const handleCreateUser = () => {
     console.log("gooo");
   };
 
   return (
-    <form className="py-14 px-20 h-160" onSubmit={handleSubmit(handleSendMessage)}>
+    <form className="py-14 px-20 h-160" onSubmit={handleSubmit(handleCreateUser)}>
       <InputText id="username" label="Username *" errors={errors} {...register("username")} />
       <InputText id="email" label="Email *" errors={errors} {...register("email")} />
       <InputText id="password" label="Password *" errors={errors} {...register("password")} />

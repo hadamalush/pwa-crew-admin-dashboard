@@ -2,54 +2,54 @@ import { useForm } from "react-hook-form";
 import Button from "../../UI/Button";
 import InputText from "../../UI/Input/InputText";
 import { yupResolver } from "@hookform/resolvers/yup";
-import * as yup from "yup";
+import { newUserSchema } from "./FormNewUser";
 
-const schema = yup.object().shape({
-  username: yup
-    .string()
-    .required("Username is required")
-    .min(3, "At least 3 characters")
-    .max(80, "Max 80 characters"),
-  email: yup
-    .string()
-    .required("Address email is required")
-    .min(3, "At least 3 characters")
+type FormEditUserProps = {
+  id: string;
+  name: string;
+  email: string;
+};
 
-    .email("Enter valid address email"),
-  password: yup
-    .string()
-    .required("Password is required")
-    .min(8, "At least 8 characters")
-    .matches(
-      /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*()\-_=+{}[\]:;'<,>.?/]).{8,}$/,
-      "Password must be strong"
-    ),
-});
+type initialData = {
+  initialData: FormEditUserProps;
+};
 
-const FormEditUser = () => {
+const FormEditUser = ({ initialData }: initialData) => {
   const {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm({ resolver: yupResolver(schema), mode: "onBlur" });
+  } = useForm({ resolver: yupResolver(newUserSchema), mode: "onBlur" });
+  const { id, name, email } = initialData;
 
-  const handleSendMessage = () => {
+  const handleEditUser = () => {
     console.log("gooo");
+    console.log(id);
+
+    //hendle user edit...
   };
 
+  console.log(initialData);
+
   return (
-    <form className="py-14 px-20 h-160" onSubmit={handleSubmit(handleSendMessage)}>
+    <form className="py-14 px-20 h-160" onSubmit={handleSubmit(handleEditUser)}>
       <InputText
         id="username"
         label="Username *"
-        defaultValue="Bogdan"
+        defaultValue={name}
         errors={errors}
         {...register("username")}
       />
-      <InputText id="email" label="Email *" errors={errors} {...register("email")} />
-      <InputText id="password" label="Password *" errors={errors} {...register("password")} />
+      <InputText
+        id="email"
+        label="Email *"
+        defaultValue={email}
+        errors={errors}
+        {...register("email")}
+      />
+      <InputText id="password" label="New password *" errors={errors} {...register("password")} />
       <Button variant="default" size="big" className="mt-14 w-full" type="submit">
-        Create
+        Edit
       </Button>
     </form>
   );
