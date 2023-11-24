@@ -12,6 +12,7 @@ export default {
   black: "#000000",
   gray: "#767676",
   grayLight: "background-color: rgb(203 213 225)",
+  grayInputDark: "#2a3038",
   darkPurple: "#8f5fe8",
   orangeYellow: "#ffab00",
   lightRed: "#fc424a",

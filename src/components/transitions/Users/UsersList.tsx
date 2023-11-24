@@ -32,7 +32,9 @@ const UsersList = ({ users, searchOption, className }: UsersListProps) => {
       <li>
         <ul className="flex w-full  mt-10 mx-auto font-semibold justify-between text-black dark:text-textPrimary px-10 border-pLight dark:border-borderPrimary border-b pb-10 ">
           <li className="w-72">
-            <Heading as="h4">User Name</Heading>
+            <Heading as="h4" className="ml-10">
+              User Name
+            </Heading>
           </li>
           <li className="w-56 pl-5">
             <Heading as="h4">User Email</Heading>
