@@ -3,9 +3,15 @@ import Button from "../../UI/Button";
 import SimpleDropdownList from "../../UI/Dropdown/SimpleDropdownList";
 import Icon from "../../UI/Icons/Icon";
 import { useState, type MouseEvent } from "react";
-
 import Avatar from "../Avatar";
 import { type ComponentPropsWithoutRef } from "react";
+
+type UserActionType = {
+  id: string;
+  mode: "delete" | "edit";
+  email: string;
+  name: string;
+};
 
 export type UserItemProps = {
   name: string;
@@ -13,17 +19,21 @@ export type UserItemProps = {
   email: string;
   accountActive: boolean;
   newsletter: boolean;
+  id: string;
   createdAccount: string;
+  onAction: (action: UserActionType) => void;
 } & ComponentPropsWithoutRef<"ul">;
 
 const UsersItem = ({
   name,
+  id,
   avatarSrc,
   email,
   accountActive,
   newsletter,
   createdAccount,
   className,
+  onAction,
   ...props
 }: UserItemProps) => {
   const avatarImg = avatarSrc ? avatarSrc : "/anonymous.webp";
@@ -58,10 +68,18 @@ const UsersItem = ({
             />
 
             <SimpleDropdownList onClose={() => setIsOpenUserTools(false)} isVisible={isOpenTools}>
-              <li className="py-4 border-b dark:border-borderPrimary border-pLight dark:hover:bg-primaryLight hover:bg-slate-100 duration-200">
+              <li
+                className="py-4 border-b dark:border-borderPrimary border-pLight dark:hover:bg-primaryLight hover:bg-slate-100 duration-200"
+                role="button"
+                onClick={() => onAction({ mode: "edit", id, email, name })}
+              >
                 Edit
               </li>
-              <li className="py-4 text-lightRed hover:bg-slate-100 dark:hover:bg-primaryLight duration-200">
+              <li
+                className="py-4 text-lightRed hover:bg-slate-100 dark:hover:bg-primaryLight duration-200"
+                role="button"
+                onClick={() => onAction({ mode: "edit", id, email, name })}
+              >
                 Delete
               </li>
             </SimpleDropdownList>
