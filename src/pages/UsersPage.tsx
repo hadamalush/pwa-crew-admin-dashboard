@@ -7,9 +7,14 @@ import Modal from "../components/transitions/Modal";
 import UsersList from "../components/transitions/Users/UsersList";
 import { DUMMY_USERSFULL } from "../components/transitions/dummy-items";
 import { AnimatePresence } from "framer-motion";
+import FormNewUser from "../components/transitions/Forms/FormNewUser";
 
 const UsersPage = () => {
-  const [isModalOpen, setIsModalOpen] = useState(true);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
+  const handleNewUserModal = () => {
+    setIsModalOpen((prev) => !prev);
+  };
 
   return (
     <>
@@ -20,7 +25,7 @@ const UsersPage = () => {
             className="sm:w-[50rem]  h-full sm:h-auto overflow-y-auto rounded-none sm:rounded-xl"
             title="Create user"
           >
-            <form className="p-10"></form>
+            <FormNewUser />
           </Modal>
         )}
       </AnimatePresence>
@@ -30,7 +35,12 @@ const UsersPage = () => {
             <Heading as="h1" className="text-3xl md:text-5xl dark:text-textPrimary text-black">
               Users list
             </Heading>
-            <Button variant="default" className="ml-auto px-4 md:text-2xl font-semibold" size="big">
+            <Button
+              variant="default"
+              className="ml-auto px-4 md:text-2xl font-semibold"
+              size="big"
+              onClick={handleNewUserModal}
+            >
               New user
             </Button>
           </Container>

@@ -68,34 +68,19 @@ const NewMessage = ({ subject, email, ...props }: NewMessageProps) => {
         onChange={handleChangeEmails}
         defaultInputValue={email}
       />
-      <div className="bg-transparent mx-6 overflow-hidden mt-6 ">
+      <div className="bg-transparent mx-6 overflow-hidden mt-6 mb-6 ">
         <InputText
+          id="subject"
           {...register("subject", {
             required: "Subject is required",
-            minLength: { value: 4, message: "The subject should contain at least 4 characters" },
+            minLength: { value: 4, message: "At least 4 characters" },
           })}
+          aria-label="Subject"
           placeholder="Subject"
-          autoComplete="off"
           defaultValue={subject}
+          errors={errors}
         />
-        {/* <input
-          {...register("subject", {
-            required: "Subject is required",
-            minLength: { value: 4, message: "The subject should contain at least 4 characters" },
-          })}
-          placeholder="Subject"
-          autoComplete="off"
-          defaultValue={subject}
-          className="block w-full py-2 px-4 rounded-md dark:bg-primary border dark:border-borderPrimary border-secondaryLight dark:text-textPrimary text-black overflow-hidden
-           placeholder-textPrimary outline-none focus:border-blueFocus focus:border-2 dark:focus:border-blueFocus dark:focus:border"
-        /> */}
       </div>
-
-      <p className="px-7 text-lightRed py-2">
-        {errors.subject?.message &&
-          typeof errors.subject.message === "string" &&
-          errors.subject.message}
-      </p>
 
       <TextEditor onChange={setText} value={text} />
       <Button type="submit" variant="default" className="w-72 py-2 ml-6 mb-5">
