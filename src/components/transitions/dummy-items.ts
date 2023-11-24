@@ -117,6 +117,7 @@ export const DUMMY_STORAGE: DUMMY_STORAGETYPE = {
 
 export const DUMMY_USERS = [
   {
+    id: "user1",
     name: "Bogdan Szermanc",
     email: "bogdanSzermanc@o2.pl",
     avatarSrc: "laptop.webp",
@@ -125,6 +126,7 @@ export const DUMMY_USERS = [
     createdAccount: "10.12.2019",
   },
   {
+    id: "user2",
     name: "Magdalena Guzdro",
     email: "magdalena.guzdro@gmail.com",
     avatarSrc: "/woman.webp",
@@ -133,6 +135,7 @@ export const DUMMY_USERS = [
     createdAccount: "09.03.2021",
   },
   {
+    id: "user3",
     name: "Khabib Mustafa",
     email: "khabib@protonmail.pl",
     accountActive: false,
@@ -140,6 +143,7 @@ export const DUMMY_USERS = [
     createdAccount: "17.01.2023",
   },
   {
+    id: "user4",
     name: "Monden Welm",
     email: "mondenWelmen1234@gmail.pl",
     avatarSrc: "cosmita.webp",
@@ -148,6 +152,7 @@ export const DUMMY_USERS = [
     createdAccount: "13.07.2021",
   },
   {
+    id: "user5",
     name: "Anna Musk",
     email: "muskanna@twitter.com",
     accountActive: true,
