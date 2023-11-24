@@ -29,8 +29,6 @@ const FormEditUser = ({ initialData }: initialData) => {
     //hendle user edit...
   };
 
-  console.log(initialData);
-
   return (
     <form className="py-14 px-20 h-160" onSubmit={handleSubmit(handleEditUser)}>
       <InputText

@@ -8,6 +8,7 @@ import { useGlobalSelector } from "../../../global/hooks";
 import { AnimatePresence } from "framer-motion";
 import Modal from "../Modal";
 import FormEditUser from "../Forms/FormEditUser";
+import UserDeletionConfirmation from "../Forms/UserDeletionConfirmation";
 
 type UsersListProps = {
   users: Omit<UserItemProps, "onAction">[];
@@ -16,7 +17,7 @@ type UsersListProps = {
 
 const UsersList = ({ users, searchOption, className }: UsersListProps) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [dataUser, setDataUser] = useState({ id: "", email: "", name: "" });
+  const [dataUser, setDataUser] = useState({ id: "", email: "", name: "", mode: "" });
   const userState = useGlobalSelector((state) => state.users);
   const userOptions = getDataUserForSearchable(userState);
 
@@ -27,9 +28,8 @@ const UsersList = ({ users, searchOption, className }: UsersListProps) => {
     id: string;
   }) => {
     const { mode, id, email, name } = action;
-    setDataUser({ id, email, name });
     console.log(mode);
-
+    setDataUser({ id, email, name, mode });
     setIsModalOpen(true);
   };
 
@@ -40,9 +40,10 @@ const UsersList = ({ users, searchOption, className }: UsersListProps) => {
           <Modal
             onClose={() => setIsModalOpen(false)}
             className="sm:w-[50rem]  h-full sm:h-auto overflow-y-auto rounded-none sm:rounded-xl"
-            title="Edit user"
+            title={dataUser.mode === "delete" ? "User deletion" : "User edit"}
           >
-            <FormEditUser initialData={dataUser} />
+            {dataUser.mode === "edit" && <FormEditUser initialData={dataUser} />}
+            {dataUser.mode === "delete" && <UserDeletionConfirmation initialData={dataUser} />}
           </Modal>
         )}
       </AnimatePresence>

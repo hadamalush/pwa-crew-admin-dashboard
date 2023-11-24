@@ -78,7 +78,7 @@ const UsersItem = ({
               <li
                 className="py-4 text-lightRed hover:bg-slate-100 dark:hover:bg-primaryLight duration-200"
                 role="button"
-                onClick={() => onAction({ mode: "edit", id, email, name })}
+                onClick={() => onAction({ mode: "delete", id, email, name })}
               >
                 Delete
               </li>
