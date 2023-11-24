@@ -43,8 +43,10 @@ const UsersList = ({ searchOption, className }: UsersListProps) => {
   };
 
   const handleSearchUser = (inputValue: string) => {
-    const filteredUser = allUsers.filter((user) =>
-      user.email.toLocaleLowerCase().includes(inputValue)
+    const filteredUser = allUsers.filter(
+      (user) =>
+        user.email.toLocaleLowerCase().includes(inputValue) ||
+        user.name.toLocaleLowerCase().includes(inputValue)
     );
 
     setFilteredUsers(filteredUser);

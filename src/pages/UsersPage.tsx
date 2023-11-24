@@ -47,7 +47,7 @@ const UsersPage = () => {
           <Container
             variant="default"
             as="section"
-            className="p-0 md:p-20 w-full h-auto block  overflow-x-auto duration-200 overflow-y-hidden dark:scrollbar-track-primary scrollbar-thin dark:scrollbar-thumb-borderPrimary
+            className="p-0 md:p-20 w-full h-auto block  overflow-x-auto duration-0 overflow-y-hidden dark:scrollbar-track-primary scrollbar-thin dark:scrollbar-thumb-borderPrimary
         scrollbar-thumb-slate-200
         scrollbar-thumb-rounded-3xl
         scrollbar-track-rounded-full scrollbar-track"
@@ -55,7 +55,7 @@ const UsersPage = () => {
             <UsersList
               users={DUMMY_USERSFULL}
               searchOption={true}
-              className=" dark:bg-primary rounded-xl h-auto min-h-screen duration-200"
+              className=" dark:bg-primary rounded-xl duration-0 h-auto min-h-screen "
             />
           </Container>
         </Container>
