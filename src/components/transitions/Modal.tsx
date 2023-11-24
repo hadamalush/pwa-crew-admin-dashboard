@@ -38,7 +38,7 @@ const Modal = ({ onClose, title, className, ...props }: ModalProps) => {
         open
       >
         <div className="h-24  dark:bg-primary p-7 dark:text-white text-3xl font-semibold rounded-tr-xl rounded-tl-xl dark:border-borderPrimary border-pLight border-b flex items-center">
-          {title}
+          <h2>{title}</h2>
           <Button
             className="ml-auto rounded-full p-2 duration-200 dark:hover:bg-primaryLight hover:bg-slate-200"
             onClick={() => {

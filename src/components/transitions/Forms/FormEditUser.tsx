@@ -2,7 +2,7 @@ import { useForm } from "react-hook-form";
 import Button from "../../UI/Button";
 import InputText from "../../UI/Input/InputText";
 import { yupResolver } from "@hookform/resolvers/yup";
-import { newUserSchema } from "./FormNewUser";
+import { newUserSchema } from "../../../schemas/schema";
 
 type FormEditUserProps = {
   id: string;

@@ -2,29 +2,7 @@ import { useForm } from "react-hook-form";
 import Button from "../../UI/Button";
 import InputText from "../../UI/Input/InputText";
 import { yupResolver } from "@hookform/resolvers/yup";
-import * as yup from "yup";
-
-export const newUserSchema = yup.object().shape({
-  username: yup
-    .string()
-    .required("Username is required")
-    .min(3, "At least 3 characters")
-    .max(80, "Max 80 characters"),
-  email: yup
-    .string()
-    .required("Address email is required")
-    .min(3, "At least 3 characters")
-
-    .email("Enter valid address email"),
-  password: yup
-    .string()
-    .required("Password is required")
-    .min(8, "At least 8 characters")
-    .matches(
-      /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*()\-_=+{}[\]:;'<,>.?/]).{8,}$/,
-      "Password must be strong"
-    ),
-});
+import { newUserSchema } from "../../../schemas/schema";
 
 const FormNewUser = () => {
   const {

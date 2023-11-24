@@ -18,9 +18,9 @@ const UserDeletionConfirmation = ({ initialData }: UserDeletionConfirmationProps
 
   return (
     <div className="py-14 px-20">
-      <h2 className="text-black dark:text-white text-3xl font-semibold text-center">
+      <h3 className="text-black dark:text-white text-3xl font-semibold text-center">
         Are you sure you want to delete a user?
-      </h2>
+      </h3>
       <p className="text-center text-black dark:text-white pt-2">
         Username: <strong className="text-lightRed">{name}</strong>
       </p>
