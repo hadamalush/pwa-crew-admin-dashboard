@@ -285,6 +285,24 @@ export const DUMMY_USERSFULL = [
     newsletter: true,
     createdAccount: "19.06.2017",
   },
+  {
+    id: "user16",
+    name: "Ewelina Kuteń",
+    email: "boMoLA1238@szu.com",
+    avatarSrc: "tiger.webp",
+    accountActive: true,
+    newsletter: true,
+    createdAccount: "19.09.2222",
+  },
+  {
+    id: "user17",
+    name: "Maskot 128",
+    email: "naruto@blitz.pl",
+    avatarSrc: "muscari.webp",
+    accountActive: true,
+    newsletter: true,
+    createdAccount: "22.06.2221",
+  },
 ];
 
 export const DUMMY_INBOXMESSAGES = [

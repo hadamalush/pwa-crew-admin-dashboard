@@ -9,17 +9,27 @@ import { AnimatePresence } from "framer-motion";
 import Modal from "../Modal";
 import FormEditUser from "../Forms/FormEditUser";
 import UserDeletionConfirmation from "../Forms/UserDeletionConfirmation";
+import { UserProps } from "../../../global/user-slice";
 
 type UsersListProps = {
   users: Omit<UserItemProps, "onAction">[];
   searchOption: boolean;
 } & ComponentPropsWithoutRef<"ul">;
 
-const UsersList = ({ users, searchOption, className }: UsersListProps) => {
+type UserOption = {
+  value: string;
+  label: string;
+  email: string;
+};
+
+const UsersList = ({ searchOption, className }: UsersListProps) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [dataUser, setDataUser] = useState({ id: "", email: "", name: "", mode: "" });
   const userState = useGlobalSelector((state) => state.users);
   const userOptions = getDataUserForSearchable(userState);
+  const allUsers = userState.allUsers;
+  const [filteredUsers, setFilteredUsers] = useState(allUsers);
+  const [foundUser, setFoundUser] = useState<UserProps | null>(null);
 
   const handleActionModal = (action: {
     mode: "edit" | "delete";
@@ -28,9 +38,26 @@ const UsersList = ({ users, searchOption, className }: UsersListProps) => {
     id: string;
   }) => {
     const { mode, id, email, name } = action;
-    console.log(mode);
     setDataUser({ id, email, name, mode });
     setIsModalOpen(true);
+  };
+
+  const handleSearchUser = (inputValue: string) => {
+    const filteredUser = allUsers.filter((user) =>
+      user.email.toLocaleLowerCase().includes(inputValue)
+    );
+
+    setFilteredUsers(filteredUser);
+  };
+
+  const handleSearchUserPrecise = (inputValue: unknown) => {
+    const foundUser = inputValue as UserOption;
+
+    if (foundUser) {
+      const currentUser = allUsers.find((user) => user.email === foundUser.email);
+
+      if (currentUser) setFoundUser(currentUser);
+    }
   };
 
   return (
@@ -55,6 +82,8 @@ const UsersList = ({ users, searchOption, className }: UsersListProps) => {
               className="w-96 mxs:w-126 sm:w-full sm:mx-auto p-5 px-10 "
               placeholder="Search user..."
               aria-label="Search user"
+              onInputChange={(inputValue) => handleSearchUser(inputValue.toLocaleLowerCase())}
+              onChange={handleSearchUserPrecise}
               // eslint-disable-next-line @typescript-eslint/no-explicit-any
               getOptionLabel={(option: any) => `${option.label} (${option.email})`}
               options={userOptions}
@@ -83,7 +112,8 @@ const UsersList = ({ users, searchOption, className }: UsersListProps) => {
           </ul>
         </li>
 
-        {users.map((user, index) => {
+        {foundUser && <UsersItem key="foundUser49" {...foundUser} onAction={handleActionModal} />}
+        {filteredUsers.map((user, index) => {
           return <UsersItem key={index} {...user} onAction={handleActionModal} />;
         })}
       </ul>

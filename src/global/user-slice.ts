@@ -2,6 +2,7 @@ import { createSlice } from "@reduxjs/toolkit";
 import { DUMMY_USERSFULL } from "../components/transitions/dummy-items";
 
 export type UserProps = {
+  id: string;
   name: string;
   email: string;
   avatarSrc?: string;
