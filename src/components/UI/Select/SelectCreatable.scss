@@ -47,7 +47,7 @@
     }
   }
 
-  &__option {
+  .own__option {
     color: #989cb3;
     cursor: pointer;
 
@@ -99,6 +99,10 @@
 
   &__option {
     cursor: pointer !important;
+  }
+
+  .own__option {
+    color: black;
   }
 
   .own__multi-value {
