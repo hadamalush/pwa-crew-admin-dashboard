@@ -5,7 +5,6 @@ import Container from "../components/UI/Container";
 import Heading from "../components/UI/Heading";
 import Modal from "../components/transitions/Modal";
 import UsersList from "../components/transitions/Users/UsersList";
-import { DUMMY_USERSFULL } from "../components/transitions/dummy-items";
 import { AnimatePresence } from "framer-motion";
 import FormNewUser from "../components/transitions/Forms/FormNewUser";
 
@@ -53,7 +52,6 @@ const UsersPage = () => {
         scrollbar-track-rounded-full scrollbar-track"
           >
             <UsersList
-              users={DUMMY_USERSFULL}
               searchOption={true}
               className=" dark:bg-primary rounded-xl duration-0 h-auto min-h-screen "
             />

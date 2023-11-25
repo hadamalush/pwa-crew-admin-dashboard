@@ -1,6 +1,6 @@
 import Heading from "../../UI/Heading";
-import { ComponentPropsWithoutRef, useState } from "react";
-import UsersItem, { UserItemProps } from "./UsersItem";
+import { type ComponentPropsWithoutRef, useState } from "react";
+import UsersItem from "./UsersItem";
 import { cn } from "../../../util/utils";
 import SelectSingle from "../../UI/Select/SelectSingle";
 import { getDataUserForSearchable } from "../../../global/user-action";
@@ -10,9 +10,9 @@ import Modal from "../Modal";
 import FormEditUser from "../Forms/FormEditUser";
 import UserDeletionConfirmation from "../Forms/UserDeletionConfirmation";
 import { UserProps } from "../../../global/user-slice";
+import Pagination from "../Pagination";
 
 type UsersListProps = {
-  users: Omit<UserItemProps, "onAction">[];
   searchOption: boolean;
 } & ComponentPropsWithoutRef<"ul">;
 
@@ -30,6 +30,14 @@ const UsersList = ({ searchOption, className }: UsersListProps) => {
   const allUsers = userState.allUsers;
   const [filteredUsers, setFilteredUsers] = useState(allUsers);
   const [foundUser, setFoundUser] = useState<UserProps | null>(null);
+
+  const [currentPage, setCurrentPage] = useState(1);
+  const itemsPerPage = 3;
+
+  const lastMessIndex = currentPage * itemsPerPage;
+  const firstMessIndex = lastMessIndex - itemsPerPage;
+
+  const currentUsers = filteredUsers.slice(firstMessIndex, lastMessIndex);
 
   const handleActionModal = (action: {
     mode: "edit" | "delete";
@@ -115,9 +123,25 @@ const UsersList = ({ searchOption, className }: UsersListProps) => {
         </li>
 
         {foundUser && <UsersItem key="foundUser49" {...foundUser} onAction={handleActionModal} />}
-        {filteredUsers.map((user, index) => {
-          return <UsersItem key={index} {...user} onAction={handleActionModal} />;
+        {currentUsers.map((user, index) => {
+          const ifIsLastItem = currentUsers.length;
+
+          return (
+            <UsersItem
+              key={user.id}
+              {...user}
+              onAction={handleActionModal}
+              className={cn({ "border-none": ifIsLastItem === index + 1 })}
+            />
+          );
         })}
+
+        <Pagination
+          currentPage={currentPage}
+          itemsPerPage={itemsPerPage}
+          itemsAllAmount={filteredUsers.length}
+          onChangePage={setCurrentPage}
+        />
       </ul>
     </>
   );

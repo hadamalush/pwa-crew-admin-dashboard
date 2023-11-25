@@ -26,15 +26,6 @@ export const usersSlice = createSlice({
     display(state) {
       console.log(state);
     },
-    // handleNav(state, action: PayloadAction<{ isVisibleNav: boolean }>) {
-    //   state.isVisibleNav = action.payload.isVisibleNav;
-    // },
-    // handleInboxNav(state, action: PayloadAction<{ isVisibleInboxNav: boolean }>) {
-    //   state.isVisibleInboxNav = action.payload.isVisibleInboxNav;
-    // },
-    // handleTheme(state, action: PayloadAction<{ theme: "dark" | "light" }>) {
-    //   state.theme = action.payload.theme;
-    // },
   },
 });
 
