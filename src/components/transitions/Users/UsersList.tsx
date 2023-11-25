@@ -31,12 +31,11 @@ const UsersList = ({ searchOption, className }: UsersListProps) => {
   const [filteredUsers, setFilteredUsers] = useState(allUsers);
   const [foundUser, setFoundUser] = useState<UserProps | null>(null);
 
+  //pagination
   const [currentPage, setCurrentPage] = useState(1);
-  const itemsPerPage = 3;
-
+  const itemsPerPage = 10;
   const lastMessIndex = currentPage * itemsPerPage;
   const firstMessIndex = lastMessIndex - itemsPerPage;
-
   const currentUsers = filteredUsers.slice(firstMessIndex, lastMessIndex);
 
   const handleActionModal = (action: {
@@ -103,26 +102,33 @@ const UsersList = ({ searchOption, className }: UsersListProps) => {
         <li>
           <ul className="flex w-full  mt-10 mx-auto font-semibold justify-between text-black dark:text-textPrimary px-10 border-pLight dark:border-borderPrimary border-b pb-10 ">
             <li className="w-72">
-              <Heading as="h4" className="ml-10">
+              <Heading as="h3" className="ml-10">
                 User Name
               </Heading>
             </li>
             <li className="w-56 pl-5">
-              <Heading as="h4">User Email</Heading>
+              <Heading as="h3">User Email</Heading>
             </li>
             <li className="w-56  text-center">
-              <Heading as="h4">Active account</Heading>
+              <Heading as="h3">Active account</Heading>
             </li>
             <li className="w-56 text-center">
-              <Heading as="h4">Newsletter</Heading>
+              <Heading as="h3">Newsletter</Heading>
             </li>
             <li className="w-56 text-center">
-              <Heading as="h4">Created Account</Heading>
+              <Heading as="h3">Created Account</Heading>
             </li>
           </ul>
         </li>
 
-        {foundUser && <UsersItem key="foundUser49" {...foundUser} onAction={handleActionModal} />}
+        {foundUser && (
+          <UsersItem
+            key="foundUser49"
+            {...foundUser}
+            onAction={handleActionModal}
+            className="dark:bg-navItemActive bg-sky-200"
+          />
+        )}
         {currentUsers.map((user, index) => {
           const ifIsLastItem = currentUsers.length;
 
@@ -136,12 +142,15 @@ const UsersList = ({ searchOption, className }: UsersListProps) => {
           );
         })}
 
-        <Pagination
-          currentPage={currentPage}
-          itemsPerPage={itemsPerPage}
-          itemsAllAmount={filteredUsers.length}
-          onChangePage={setCurrentPage}
-        />
+        <li>
+          <Pagination
+            currentPage={currentPage}
+            itemsPerPage={itemsPerPage}
+            itemsAllAmount={filteredUsers.length}
+            onChangePage={setCurrentPage}
+            className="p-10 md:py-0"
+          />
+        </li>
       </ul>
     </>
   );

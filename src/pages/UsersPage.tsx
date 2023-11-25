@@ -29,7 +29,7 @@ const UsersPage = () => {
         )}
       </AnimatePresence>
       <Main>
-        <Container as="div" variant="wrapper" className="p-5 lg:px-14">
+        <Container as="div" variant="wrapper" className=" lg:px-14 p-0 md:p-10">
           <Container as="section" variant="flex" className="justify-start py-20 px-5  pb-10">
             <Heading as="h1" className="text-3xl md:text-5xl dark:text-textPrimary text-black">
               Users list
@@ -47,6 +47,8 @@ const UsersPage = () => {
             variant="default"
             as="section"
             className="p-0 md:p-20 w-full h-auto block  overflow-x-auto duration-0 overflow-y-hidden dark:scrollbar-track-primary scrollbar-thin dark:scrollbar-thumb-borderPrimary
+            rounded-none
+            md:rounded-xl
         scrollbar-thumb-slate-200
         scrollbar-thumb-rounded-3xl
         scrollbar-track-rounded-full scrollbar-track"

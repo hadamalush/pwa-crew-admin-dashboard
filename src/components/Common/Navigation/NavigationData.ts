@@ -23,17 +23,10 @@ export const MainNavbarItems: NavItemProps[] = [
     title: "Users",
   },
   {
-    id: "mainNav4",
-    to: "/events",
-    icon: "calendarPlus",
-    iconColor: "yellow",
-    title: "Events",
-  },
-  {
     id: "mainNav5",
     to: "/settings",
     icon: "settings",
-    iconColor: "blue",
+    iconColor: "yellow",
     title: "Settings",
   },
   {

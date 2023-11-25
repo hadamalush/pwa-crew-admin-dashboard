@@ -1,6 +1,5 @@
 import { RouterProvider, createBrowserRouter } from "react-router-dom";
-import UsersPage from "./pages/UsersPage";
-import EventsPage from "./pages/EventsPage";
+
 import SettingsPage from "./pages/SettingsPage";
 import { Provider as ReduxProvider } from "react-redux/es/exports";
 import { store } from "./global/store";
@@ -15,6 +14,7 @@ const DashBoardPage = lazy(() => import("./pages/DashboardPage"));
 const InboxLayout = lazy(() => import("./layouts/InboxLayout"));
 const InboxPage = lazy(() => import("./pages/InboxPage"));
 const InboxMessageDetailsPage = lazy(() => import("./pages/Inbox/InboxMessageDetailsPage"));
+const UsersPage = lazy(() => import("./pages/UsersPage"));
 
 function App() {
   const router = createBrowserRouter([
@@ -112,8 +112,14 @@ function App() {
             },
           ],
         },
-        { path: "/users", element: <UsersPage /> },
-        { path: "/events", element: <EventsPage /> },
+        {
+          path: "/users",
+          element: (
+            <Suspense fallback={null}>
+              <UsersPage />
+            </Suspense>
+          ),
+        },
         { path: "/settings", element: <SettingsPage /> },
       ],
     },
