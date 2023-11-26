@@ -8,6 +8,8 @@ import { useGlobalSelector } from "../../../global/hooks";
 import { messageDetailsType } from "../../../global/message-slice";
 import { useEffect, useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
+import { useDispatch } from "react-redux";
+import { handleInboxNav, handleNav } from "../../../global/toggle-slice";
 
 type handleAdditionalInfoProps = {
   pageName: "Trash" | "Inbox" | "Featured" | "Spam" | null;
@@ -42,6 +44,7 @@ const NavItem = ({
   const allMessages = useGlobalSelector((state) => state.messages.allMessages);
   const pathname = useLocation().pathname;
   const [quantity, setQuantity] = useState(0);
+  const dispatch = useDispatch();
   const isActivePath = pathname === to;
   const formattedTitle =
     title === "Trash" || title === "Spam" || title === "Featured" || title === "Inbox"
@@ -55,6 +58,11 @@ const NavItem = ({
     }
   }, [quantity, allMessages, formattedTitle, isAdditionalInfo]);
 
+  const closeNavHandler = () => {
+    dispatch(handleInboxNav({ isVisibleInboxNav: false }));
+    dispatch(handleNav({ isVisibleNav: false }));
+  };
+
   return (
     <li>
       <NavLink
@@ -63,6 +71,7 @@ const NavItem = ({
         })}
         to={to}
         {...props}
+        onClick={closeNavHandler}
       >
         <span className="dark:bg-primaryLight  w-14 h-14 mr-4 rounded-full flexCenter">
           <Icon iconName={icon} color={iconColor} size="s1" className="w-36 h-8" />
