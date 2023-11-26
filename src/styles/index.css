@@ -42,12 +42,12 @@ h1 {
   max-width: 2300px;
 }
 
-.beforeMain::before {
-  position: absolute;
-  top: 0;
-  bottom: 0;
-  right: 0;
-  left: 0;
+.dark div[id="root"] {
+  background-color: black;
+}
+div[id="root"] {
+  background-color: white;
+  transition: 0.2s background-color;
 }
 
 .bodyhidden {
