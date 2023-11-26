@@ -1,6 +1,6 @@
 import Heading from "../../UI/Heading";
-import { ComponentPropsWithoutRef, useState } from "react";
-import UsersItem, { UserItemProps } from "./UsersItem";
+import { type ComponentPropsWithoutRef, useState } from "react";
+import UsersItem from "./UsersItem";
 import { cn } from "../../../util/utils";
 import SelectSingle from "../../UI/Select/SelectSingle";
 import { getDataUserForSearchable } from "../../../global/user-action";
@@ -10,9 +10,9 @@ import Modal from "../Modal";
 import FormEditUser from "../Forms/FormEditUser";
 import UserDeletionConfirmation from "../Forms/UserDeletionConfirmation";
 import { UserProps } from "../../../global/user-slice";
+import Pagination from "../Pagination";
 
 type UsersListProps = {
-  users: Omit<UserItemProps, "onAction">[];
   searchOption: boolean;
 } & ComponentPropsWithoutRef<"ul">;
 
@@ -30,6 +30,13 @@ const UsersList = ({ searchOption, className }: UsersListProps) => {
   const allUsers = userState.allUsers;
   const [filteredUsers, setFilteredUsers] = useState(allUsers);
   const [foundUser, setFoundUser] = useState<UserProps | null>(null);
+
+  //pagination
+  const [currentPage, setCurrentPage] = useState(1);
+  const itemsPerPage = 10;
+  const lastMessIndex = currentPage * itemsPerPage;
+  const firstMessIndex = lastMessIndex - itemsPerPage;
+  const currentUsers = filteredUsers.slice(firstMessIndex, lastMessIndex);
 
   const handleActionModal = (action: {
     mode: "edit" | "delete";
@@ -95,29 +102,55 @@ const UsersList = ({ searchOption, className }: UsersListProps) => {
         <li>
           <ul className="flex w-full  mt-10 mx-auto font-semibold justify-between text-black dark:text-textPrimary px-10 border-pLight dark:border-borderPrimary border-b pb-10 ">
             <li className="w-72">
-              <Heading as="h4" className="ml-10">
+              <Heading as="h3" className="ml-10">
                 User Name
               </Heading>
             </li>
             <li className="w-56 pl-5">
-              <Heading as="h4">User Email</Heading>
+              <Heading as="h3">User Email</Heading>
             </li>
             <li className="w-56  text-center">
-              <Heading as="h4">Active account</Heading>
+              <Heading as="h3">Active account</Heading>
             </li>
             <li className="w-56 text-center">
-              <Heading as="h4">Newsletter</Heading>
+              <Heading as="h3">Newsletter</Heading>
             </li>
             <li className="w-56 text-center">
-              <Heading as="h4">Created Account</Heading>
+              <Heading as="h3">Created Account</Heading>
             </li>
           </ul>
         </li>
 
-        {foundUser && <UsersItem key="foundUser49" {...foundUser} onAction={handleActionModal} />}
-        {filteredUsers.map((user, index) => {
-          return <UsersItem key={index} {...user} onAction={handleActionModal} />;
+        {foundUser && (
+          <UsersItem
+            key="foundUser49"
+            {...foundUser}
+            onAction={handleActionModal}
+            className="dark:bg-navItemActive bg-sky-200"
+          />
+        )}
+        {currentUsers.map((user, index) => {
+          const ifIsLastItem = currentUsers.length;
+
+          return (
+            <UsersItem
+              key={user.id}
+              {...user}
+              onAction={handleActionModal}
+              className={cn({ "border-none": ifIsLastItem === index + 1 })}
+            />
+          );
         })}
+
+        <li>
+          <Pagination
+            currentPage={currentPage}
+            itemsPerPage={itemsPerPage}
+            itemsAllAmount={filteredUsers.length}
+            onChangePage={setCurrentPage}
+            className="p-10 md:py-0"
+          />
+        </li>
       </ul>
     </>
   );

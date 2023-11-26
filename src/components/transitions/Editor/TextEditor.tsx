@@ -2,8 +2,9 @@ import { type FC } from "react";
 import ReactQuill, { ReactQuillProps } from "react-quill";
 import "react-quill/dist/quill.snow.css";
 import "./TextEditor.css";
+import { cn } from "../../../util/utils";
 
-const TextEditor: FC<ReactQuillProps> = (props) => {
+const TextEditor: FC<ReactQuillProps> = ({ className, ...props }) => {
   const toolbarOptions = [
     ["bold", "italic", "underline", "strike"],
     ["blockquote", "code-block"],
@@ -27,7 +28,9 @@ const TextEditor: FC<ReactQuillProps> = (props) => {
     toolbar: toolbarOptions,
   };
 
-  return <ReactQuill modules={module} theme="snow" className="editor" {...props} />;
+  return (
+    <ReactQuill modules={module} theme="snow" className={cn("editor", className)} {...props} />
+  );
 };
 
 export default TextEditor;
