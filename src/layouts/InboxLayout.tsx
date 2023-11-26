@@ -9,6 +9,7 @@ import usePage from "../hooks/usePage";
 import { useDispatch } from "react-redux";
 import { resetCurrentPage } from "../global/message-slice";
 import { useEffect } from "react";
+import { Suspense } from "react";
 
 const InboxLayout = () => {
   const isVisibleMainNav = useGlobalSelector((state) => state.toggle.isVisibleNav);
@@ -44,7 +45,9 @@ const InboxLayout = () => {
           "md:pl-[44rem]": isInboxPage && isVisibleMainNav,
         })}
       >
-        <Outlet />
+        <Suspense>
+          <Outlet />
+        </Suspense>
       </Main>
     </>
   );

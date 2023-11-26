@@ -1,6 +1,5 @@
 import { RouterProvider, createBrowserRouter } from "react-router-dom";
 
-import SettingsPage from "./pages/SettingsPage";
 import { Provider as ReduxProvider } from "react-redux/es/exports";
 import { store } from "./global/store";
 import { lazy, Suspense } from "react";
@@ -15,6 +14,7 @@ const InboxLayout = lazy(() => import("./layouts/InboxLayout"));
 const InboxPage = lazy(() => import("./pages/InboxPage"));
 const InboxMessageDetailsPage = lazy(() => import("./pages/Inbox/InboxMessageDetailsPage"));
 const UsersPage = lazy(() => import("./pages/UsersPage"));
+const SettingsPage = lazy(() => import("./pages/SettingsPage"));
 
 function App() {
   const router = createBrowserRouter([
@@ -24,101 +24,53 @@ function App() {
       children: [
         {
           index: true,
-          element: (
-            <Suspense fallback={null}>
-              <DashBoardPage />
-            </Suspense>
-          ),
+          element: <DashBoardPage />,
         },
         {
           path: "inbox",
-          element: (
-            <Suspense fallback={null}>
-              <InboxLayout />
-            </Suspense>
-          ),
+          element: <InboxLayout />,
           children: [
             {
               index: true,
-              element: (
-                <Suspense fallback={null}>
-                  <InboxPage />
-                </Suspense>
-              ),
+              element: <InboxPage />,
             },
             {
               path: ":messageId",
-              element: (
-                <Suspense fallback={null}>
-                  <InboxMessageDetailsPage />
-                </Suspense>
-              ),
+              element: <InboxMessageDetailsPage />,
             },
             {
               path: "sent",
-              element: (
-                <Suspense fallback={null}>
-                  <InboxSentPage />
-                </Suspense>
-              ),
+              element: <InboxSentPage />,
             },
             {
               path: "featured",
-              element: (
-                <Suspense fallback={null}>
-                  <InboxFeaturedPage />
-                </Suspense>
-              ),
+              element: <InboxFeaturedPage />,
             },
             {
               path: "featured/:messageId",
-              element: (
-                <Suspense fallback={null}>
-                  <InboxMessageDetailsPage />
-                </Suspense>
-              ),
+              element: <InboxMessageDetailsPage />,
             },
             {
               path: "spam",
-              element: (
-                <Suspense fallback={null}>
-                  <InboxSpamPage />
-                </Suspense>
-              ),
+              element: <InboxSpamPage />,
             },
             {
               path: "spam/:messageId",
-              element: (
-                <Suspense fallback={null}>
-                  <InboxMessageDetailsPage />
-                </Suspense>
-              ),
+              element: <InboxMessageDetailsPage />,
             },
             {
               path: "trash",
-              element: (
-                <Suspense fallback={null}>
-                  <InboxTrashPage />
-                </Suspense>
-              ),
+              element: <InboxTrashPage />,
             },
             {
               path: "trash/:messageId",
-              element: (
-                <Suspense fallback={null}>
-                  <InboxMessageDetailsPage />
-                </Suspense>
-              ),
+              element: <InboxMessageDetailsPage />,
             },
           ],
         },
         {
           path: "/users",
-          element: (
-            <Suspense fallback={null}>
-              <UsersPage />
-            </Suspense>
-          ),
+          element: <UsersPage />,
         },
         { path: "/settings", element: <SettingsPage /> },
       ],
@@ -127,7 +79,9 @@ function App() {
 
   return (
     <ReduxProvider store={store}>
-      <RouterProvider router={router} />
+      <Suspense fallback={null}>
+        <RouterProvider router={router} />
+      </Suspense>
     </ReduxProvider>
   );
 }
