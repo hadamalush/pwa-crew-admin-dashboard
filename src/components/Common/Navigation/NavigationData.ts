@@ -3,7 +3,7 @@ import { NavItemProps } from "./NavItem";
 export const MainNavbarItems: NavItemProps[] = [
   {
     id: "mainNav1",
-    to: "/",
+    to: "/dashboard",
     icon: "dashboard",
     iconColor: "purple",
     title: "Dashboard",

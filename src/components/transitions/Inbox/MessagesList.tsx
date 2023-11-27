@@ -3,38 +3,28 @@ import { basicVariant } from "../../variants/variants";
 import MessageItem from "./MessageItem";
 import { useGlobalSelector } from "../../../global/hooks";
 import { useDispatch } from "react-redux";
-import { useCallback, useEffect, useRef, type RefObject, createRef, useState } from "react";
-import { filterMessages, setCheckedMessages, markAllMessage } from "../../../global/message-slice";
+import { useCallback, useEffect, useRef, type RefObject, createRef } from "react";
+import { setCheckedMessages, markAllMessage } from "../../../global/message-slice";
 import { usePage } from "../../../hooks/usePage";
 import Icon from "../../UI/Icons/Icon";
 import Heading from "../../UI/Heading";
 import { AnimatePresence, motion } from "framer-motion";
-import { getCurrentMess } from "../../../global/message-action";
+import { getCurrentMess, getFilteredMessages } from "../../../global/message-action";
 
 type MessagesListProps = {
   pageName: "spam" | "trash" | "inbox" | "featured";
 };
 
 const MessagesList = ({ pageName }: MessagesListProps) => {
-  const [isLoading, setIsLoading] = useState(true);
   const dispatch = useDispatch();
   const messState = useGlobalSelector((state) => state.messages);
+  const selectedMess = messState.checkedMessages;
   const isSelectedAllMess = messState.areMarkedAllMessages;
-  const checkedMessages = messState.checkedMessages;
-  const messages = messState[`${pageName}${"Messages"}`];
   const inputRefs = useRef<Array<RefObject<HTMLInputElement>>>([]);
-  const currentMess = getCurrentMess(messState, messages);
+  const checkedMessages = getFilteredMessages(messState, pageName);
+  const currentMess = getCurrentMess(messState, checkedMessages);
 
-  const { changedPathMess } = usePage();
-
-  const dispatchFilterMessages = useCallback(() => {
-    dispatch(filterMessages({ pageName: pageName }));
-  }, [dispatch, pageName]);
-
-  useEffect(() => {
-    dispatchFilterMessages();
-    setIsLoading(false);
-  }, [dispatchFilterMessages, checkedMessages]);
+  const { changedPathMess } = usePage("inbox");
 
   const handleMessagesCheckbox = useCallback(() => {
     const checkedMessages: string[] = [];
@@ -78,14 +68,14 @@ const MessagesList = ({ pageName }: MessagesListProps) => {
         basicVariant({ box: "default" }),
         "w-full h-auto  rounded-none md:rounded-xl overflow-hidden sm:mt-0 duration-200",
         {
-          "mt-16": checkedMessages.length > 0,
+          "mt-16": selectedMess.length > 0,
           "min-h-screen": currentMess.length < 10,
         },
         {}
       )}
     >
       <AnimatePresence>
-        {messages.length === 0 && !isLoading && (
+        {checkedMessages.length === 0 && (
           <motion.div
             initial={{ y: -500, opacity: 0 }}
             animate={{ y: 0, opacity: 1 }}

@@ -10,6 +10,7 @@ import { useEffect, useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import { useDispatch } from "react-redux";
 import { handleInboxNav, handleNav } from "../../../global/toggle-slice";
+import { useMediaQuery } from "react-responsive";
 
 type handleAdditionalInfoProps = {
   pageName: "Trash" | "Inbox" | "Featured" | "Spam" | null;
@@ -46,6 +47,7 @@ const NavItem = ({
   const [quantity, setQuantity] = useState(0);
   const dispatch = useDispatch();
   const isActivePath = pathname === to;
+  const isMediumScreen = useMediaQuery({ minWidth: 1060 });
   const formattedTitle =
     title === "Trash" || title === "Spam" || title === "Featured" || title === "Inbox"
       ? title
@@ -59,8 +61,10 @@ const NavItem = ({
   }, [quantity, allMessages, formattedTitle, isAdditionalInfo]);
 
   const closeNavHandler = () => {
-    dispatch(handleInboxNav({ isVisibleInboxNav: false }));
-    dispatch(handleNav({ isVisibleNav: false }));
+    if (!isMediumScreen) {
+      dispatch(handleInboxNav({ isVisibleInboxNav: false }));
+      dispatch(handleNav({ isVisibleNav: false }));
+    }
   };
 
   return (
