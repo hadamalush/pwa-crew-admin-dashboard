@@ -21,3 +21,11 @@ export const newUserSchema = yup.object().shape({
       "Password must be strong"
     ),
 });
+export const loginSchema = yup.object().shape({
+  email: yup
+    .string()
+    .required("Address email is required")
+    .min(3, "Pass valid address email.")
+    .email("Pass valid address email"),
+  password: yup.string().required("Password is required").min(8, "Please enter valid password"),
+});
