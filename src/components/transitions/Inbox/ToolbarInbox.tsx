@@ -81,7 +81,7 @@ const ToolbarInbox = () => {
             className="dark:text-textPrimary w-max text-xl md:text-2xl mr-auto sm:mr-0"
           >
             Select all
-          </label>{" "}
+          </label>
         </>
       )}
       <Container

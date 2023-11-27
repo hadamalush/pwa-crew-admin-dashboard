@@ -8,6 +8,7 @@ import InboxSentPage from "./pages/Inbox/InboxSentPage";
 import InboxSpamPage from "./pages/Inbox/InboxSpamPage";
 import InboxTrashPage from "./pages/Inbox/InboxTrashPage";
 import InboxFeaturedPage from "./pages/Inbox/InboxFeaturedPage";
+import HomePage from "./pages/HomePage";
 
 const DashBoardPage = lazy(() => import("./pages/DashboardPage"));
 const InboxLayout = lazy(() => import("./layouts/InboxLayout"));
@@ -20,59 +21,67 @@ function App() {
   const router = createBrowserRouter([
     {
       path: "/",
-      element: <MainLayout />,
       children: [
         {
+          element: <HomePage />,
           index: true,
-          element: <DashBoardPage />,
         },
         {
-          path: "inbox",
-          element: <InboxLayout />,
+          element: <MainLayout />,
           children: [
             {
-              index: true,
-              element: <InboxPage />,
+              path: "dashboard",
+              element: <DashBoardPage />,
             },
             {
-              path: ":messageId",
-              element: <InboxMessageDetailsPage />,
+              path: "inbox",
+              element: <InboxLayout />,
+              children: [
+                {
+                  index: true,
+                  element: <InboxPage />,
+                },
+                {
+                  path: ":messageId",
+                  element: <InboxMessageDetailsPage />,
+                },
+                {
+                  path: "sent",
+                  element: <InboxSentPage />,
+                },
+                {
+                  path: "featured",
+                  element: <InboxFeaturedPage />,
+                },
+                {
+                  path: "featured/:messageId",
+                  element: <InboxMessageDetailsPage />,
+                },
+                {
+                  path: "spam",
+                  element: <InboxSpamPage />,
+                },
+                {
+                  path: "spam/:messageId",
+                  element: <InboxMessageDetailsPage />,
+                },
+                {
+                  path: "trash",
+                  element: <InboxTrashPage />,
+                },
+                {
+                  path: "trash/:messageId",
+                  element: <InboxMessageDetailsPage />,
+                },
+              ],
             },
             {
-              path: "sent",
-              element: <InboxSentPage />,
+              path: "/users",
+              element: <UsersPage />,
             },
-            {
-              path: "featured",
-              element: <InboxFeaturedPage />,
-            },
-            {
-              path: "featured/:messageId",
-              element: <InboxMessageDetailsPage />,
-            },
-            {
-              path: "spam",
-              element: <InboxSpamPage />,
-            },
-            {
-              path: "spam/:messageId",
-              element: <InboxMessageDetailsPage />,
-            },
-            {
-              path: "trash",
-              element: <InboxTrashPage />,
-            },
-            {
-              path: "trash/:messageId",
-              element: <InboxMessageDetailsPage />,
-            },
+            { path: "/settings", element: <SettingsPage /> },
           ],
         },
-        {
-          path: "/users",
-          element: <UsersPage />,
-        },
-        { path: "/settings", element: <SettingsPage /> },
       ],
     },
   ]);

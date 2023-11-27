@@ -18,6 +18,7 @@ type MessagesListProps = {
 const MessagesList = ({ pageName }: MessagesListProps) => {
   const dispatch = useDispatch();
   const messState = useGlobalSelector((state) => state.messages);
+  const selectedMess = messState.checkedMessages;
   const isSelectedAllMess = messState.areMarkedAllMessages;
   const inputRefs = useRef<Array<RefObject<HTMLInputElement>>>([]);
   const checkedMessages = getFilteredMessages(messState, pageName);
@@ -67,7 +68,7 @@ const MessagesList = ({ pageName }: MessagesListProps) => {
         basicVariant({ box: "default" }),
         "w-full h-auto  rounded-none md:rounded-xl overflow-hidden sm:mt-0 duration-200",
         {
-          "mt-16": checkedMessages.length > 0,
+          "mt-16": selectedMess.length > 0,
           "min-h-screen": currentMess.length < 10,
         },
         {}
