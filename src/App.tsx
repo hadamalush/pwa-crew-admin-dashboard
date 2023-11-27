@@ -3,7 +3,7 @@ import { RouterProvider, createBrowserRouter } from "react-router-dom";
 import { Provider as ReduxProvider } from "react-redux/es/exports";
 import { store } from "./global/store";
 import { lazy, Suspense } from "react";
-import MainLayout from "./layouts/MainLayout";
+
 import InboxSentPage from "./pages/Inbox/InboxSentPage";
 import InboxSpamPage from "./pages/Inbox/InboxSpamPage";
 import InboxTrashPage from "./pages/Inbox/InboxTrashPage";
@@ -16,6 +16,7 @@ const InboxPage = lazy(() => import("./pages/InboxPage"));
 const InboxMessageDetailsPage = lazy(() => import("./pages/Inbox/InboxMessageDetailsPage"));
 const UsersPage = lazy(() => import("./pages/UsersPage"));
 const SettingsPage = lazy(() => import("./pages/SettingsPage"));
+const MainLayout = lazy(() => import("./layouts/MainLayout"));
 
 function App() {
   const router = createBrowserRouter([
