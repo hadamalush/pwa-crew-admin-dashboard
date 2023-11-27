@@ -1,4 +1,4 @@
-import { Suspense, useState } from "react";
+import { Suspense, useState, lazy } from "react";
 import Main from "../components/Common/Main";
 import Container from "../components/UI/Container";
 import Heading from "../components/UI/Heading";
@@ -6,8 +6,9 @@ import CardSettingsOption from "../components/transitions/Cards/CardSettingsOpti
 import { AnimatePresence } from "framer-motion";
 import Modal from "../components/transitions/Modal";
 import SettingsTool from "../components/transitions/Settings/SettingsDatabase";
-import SelectSingle from "../components/UI/Select/SelectSingle";
-import TextEditor from "../components/transitions/Editor/TextEditor";
+
+const TextEditor = lazy(() => import("../components/transitions/Editor/TextEditor"));
+const SelectSingle = lazy(() => import("../components/UI/Select/SelectSingle"));
 
 type OptionType = { label: string; value: string };
 const optionsSelect: OptionType[] = [

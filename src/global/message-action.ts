@@ -1,4 +1,5 @@
-import { initialStateType, messageProps } from "./message-slice";
+import { initialStateType, messageDetailsType, messageProps } from "./message-slice";
+import { createSelector } from "reselect";
 
 export const getMessIndex = (state: initialStateType, index: "last" | "first") => {
   const currentPage = state.currentPagePag.currentPage;
@@ -24,3 +25,39 @@ export const getCurrentMess = (state: initialStateType, messages: messageProps[]
 
   return currentMess;
 };
+
+const getAllMessagesState = (state: initialStateType) => state.allMessages;
+
+export const getFilteredMessages = createSelector(
+  [getAllMessagesState, (_state: initialStateType, pageName) => pageName],
+  (allMessages, pageName) => {
+    let filteredMessages: messageDetailsType[] = [];
+
+    if (pageName === "inbox") {
+      filteredMessages = allMessages.filter((message) => !message.isInSpam && !message.isInTrash);
+    }
+    if (pageName === "spam") {
+      filteredMessages = allMessages.filter((message) => message.isInSpam);
+    }
+    if (pageName === "trash") {
+      filteredMessages = allMessages.filter((message) => message.isInTrash);
+    }
+    if (pageName === "featured") {
+      filteredMessages = allMessages.filter((message) => message.isFeatured);
+    }
+
+    const destructionMessages = filteredMessages.map(
+      ({ id, owner, subject, avatarSrc, isFeatured, isRead, date }) => ({
+        id,
+        owner,
+        subject,
+        avatarSrc,
+        isFeatured,
+        isRead,
+        date: new Date(date).toISOString(),
+      })
+    );
+
+    return destructionMessages;
+  }
+);

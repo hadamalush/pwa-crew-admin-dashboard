@@ -12,7 +12,7 @@ const Main = ({ children, className }: MainProps) => {
       <m.main
         initial={{ opacity: 0, y: "-20%" }}
         animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.3 }}
+        transition={{ duration: 0.5 }}
         className={cn(
           `dark:bg-black bg-white w-full min-h-screen xxl:m-auto md:pl-36  
           w-max-main pt-28   `,

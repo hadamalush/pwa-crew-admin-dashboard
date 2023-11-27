@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { useLocation } from "react-router-dom";
 
-export const usePage = () => {
+export const usePage = (mode?: "inbox") => {
   const location = useLocation();
   const [path, setPath] = useState("");
   const [changedPathMess, setChangedPathMess] = useState(false);
@@ -10,17 +10,15 @@ export const usePage = () => {
   useEffect(() => {
     if (location.pathname !== path) {
       setChangedPathMess(true);
-      setPath(location.pathname);
-    }
-
-    if (location.pathname !== path) {
       setChangedPath(true);
       setPath(location.pathname);
     } else {
-      setChangedPath(false);
-      setPath(location.pathname);
+      if (mode !== "inbox") {
+        setChangedPath(false);
+        setPath(location.pathname);
+      }
     }
-  }, [location, path]);
+  }, [location, path, mode]);
 
   return { changedPathMess, changePath, path };
 };

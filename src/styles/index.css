@@ -1,8 +1,41 @@
-@import url("https://fonts.googleapis.com/css2?family=Nunito:wght@300;400;500;700;800&display=swap");
-
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@font-face {
+  font-family: "Nunito";
+  src: local("Nunito-Regular"), url(/Nunito-Regular.woff2);
+  font-display: swap;
+  font-weight: 400;
+}
+
+@font-face {
+  font-family: "Nunito";
+  src: local("Nunito-Medium"), url(/Nunito-Medium.woff2);
+  font-display: swap;
+  font-weight: 500;
+}
+
+@font-face {
+  font-family: "Nunito";
+  src: local("Nunito-SemiBold"), url(/Nunito-SemiBold.woff2);
+  font-display: swap;
+  font-weight: 600;
+}
+
+@font-face {
+  font-family: "Nunito";
+  src: local("Nunito-Bold"), url(/Nunito-Bold.woff2);
+  font-display: swap;
+  font-weight: 700;
+}
+
+@font-face {
+  font-family: "Nunito";
+  src: local("Nunito-ExtraBold"), url(/Nunito-ExtraBold.woff2);
+  font-display: swap;
+  font-weight: 900;
+}
 
 :root {
   --black-gradient: linear-gradient(144.39deg, #ffffff -278.56%, #6d6d6d -78.47%, #11101d 91.61%);
