@@ -5,6 +5,7 @@ import { cn } from "../util/utils";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { loginSchema } from "../schemas/schema";
+import axios from "axios";
 
 const HomePage = () => {
   const {
@@ -20,8 +21,36 @@ const HomePage = () => {
      xl:bg-[url('/background/mountain-xl.webp')]
      xxl:bg-[url('/background/mountain-xxl.webp')]`;
 
-  const handleCreateUser = () => {
-    console.log("gooo");
+  const handleCreateUser = async ({ email, password }: { email: string; password: string }) => {
+    const token = localStorage.getItem("token");
+    const config = {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    };
+    const response = await axios({
+      method: "post",
+      url: "http://localhost:3000/api/admin/auth",
+      data: {
+        email,
+        password,
+      },
+      responseType: "json",
+      headers: config.headers,
+    });
+
+    console.log(response);
+    // const response = await axios({
+    //   method: "post",
+    //   url: "http://localhost:3000/api/admin/auth",
+    //   data: {
+    //     email,
+    //     password,
+    //   },
+    //   responseType: "json",
+    // });
+
+    // localStorage.setItem("token", response.data);
   };
 
   return (
