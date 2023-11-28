@@ -6,6 +6,8 @@ import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { loginSchema } from "../schemas/schema";
 import axios from "axios";
+import { API_URL } from "../config/config";
+import Cookies from "js-cookie";
 
 const HomePage = () => {
   const {
@@ -25,7 +27,7 @@ const HomePage = () => {
     try {
       const response = await axios({
         method: "post",
-        url: "http://localhost:3000/api/admin/auth",
+        url: `${API_URL}/admin/auth`,
         data: {
           email,
           password,
@@ -35,45 +37,77 @@ const HomePage = () => {
 
       const data = await response.data;
 
-      if (data) {
-        localStorage.setItem("token", response.data);
+      console.log(response);
+
+      if (data && data.accessToken && data.refreshToken) {
+        console.log(data);
+
+        Cookies.set("accessToken", data.accessToken, { expires: 7, secure: true });
+        Cookies.set("refreshToken", data.refreshToken, { expires: 7, secure: true });
       }
     } catch (err: unknown) {
       console.log(err);
     }
   };
 
-  const sendToken = async () => {
-    const token = localStorage.getItem("token");
-    const config = {
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
-    };
+  //tokenRefresh
+  const refreshToken = async () => {
+    const token = Cookies.get("refreshToken");
 
     try {
       const response = await axios({
         method: "post",
-        url: "http://localhost:3000/api/admin/addSomething",
+        url: "http://localhost:3000/api/admin/auth/refreshToken",
         data: {
-          message: "Checking...",
+          token: token,
         },
         responseType: "json",
-        headers: config.headers,
       });
 
       console.log(response);
 
-      // const data = await response.data;
+      const data = await response.data;
 
-      // if (data) {
-      //   localStorage.setItem("token", response.data);
-      // }
+      if (data) {
+        Cookies.set("accessToken", data.accessToken, { expires: 7, secure: true });
+      }
     } catch (err: unknown) {
-      // console.log(err.response.data.message);
       console.log(err);
     }
   };
+
+  //token access
+  // const sendToken = async () => {
+  //   const token = localStorage.getItem("token");
+  //   const config = {
+  //     headers: {
+  //       Authorization: `Bearer ${token}`,
+  //     },
+  //   };
+
+  //   try {
+  //     const response = await axios({
+  //       method: "post",
+  //       url: "http://localhost:3000/api/admin/addSomething",
+  //       data: {
+  //         message: "Checking...",
+  //       },
+  //       responseType: "json",
+  //       headers: config.headers,
+  //     });
+
+  //     console.log(response);
+
+  //     // const data = await response.data;
+
+  //     // if (data) {
+  //     //   localStorage.setItem("token", response.data);
+  //     // }
+  //   } catch (err: unknown) {
+  //     // console.log(err.response.data.message);
+  //     console.log(err);
+  //   }
+  // };
 
   return (
     <main
@@ -111,7 +145,7 @@ const HomePage = () => {
         <Button variant="default" className="w-full mt-10">
           Login
         </Button>
-        <Button variant="default" className="w-full mt-10" type="button" onClick={sendToken}>
+        <Button variant="default" className="w-full mt-10" type="button" onClick={refreshToken}>
           SendToken
         </Button>
       </form>
