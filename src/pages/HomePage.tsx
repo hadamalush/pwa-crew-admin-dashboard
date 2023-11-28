@@ -58,13 +58,14 @@ const HomePage = () => {
       const response = await axios({
         method: "post",
         url: "http://localhost:3000/api/admin/auth/refreshToken",
+        withCredentials: true,
         data: {
           token: token,
         },
         responseType: "json",
       });
 
-      console.log(response);
+      // console.log(response);
 
       const data = await response.data;
 
