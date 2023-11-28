@@ -21,36 +21,58 @@ const HomePage = () => {
      xl:bg-[url('/background/mountain-xl.webp')]
      xxl:bg-[url('/background/mountain-xxl.webp')]`;
 
-  const handleCreateUser = async ({ email, password }: { email: string; password: string }) => {
+  const handleLogin = async ({ email, password }: { email: string; password: string }) => {
+    try {
+      const response = await axios({
+        method: "post",
+        url: "http://localhost:3000/api/admin/auth",
+        data: {
+          email,
+          password,
+        },
+        responseType: "json",
+      });
+
+      const data = await response.data;
+
+      if (data) {
+        localStorage.setItem("token", response.data);
+      }
+    } catch (err: unknown) {
+      console.log(err);
+    }
+  };
+
+  const sendToken = async () => {
     const token = localStorage.getItem("token");
     const config = {
       headers: {
         Authorization: `Bearer ${token}`,
       },
     };
-    const response = await axios({
-      method: "post",
-      url: "http://localhost:3000/api/admin/auth",
-      data: {
-        email,
-        password,
-      },
-      responseType: "json",
-      headers: config.headers,
-    });
 
-    console.log(response);
-    // const response = await axios({
-    //   method: "post",
-    //   url: "http://localhost:3000/api/admin/auth",
-    //   data: {
-    //     email,
-    //     password,
-    //   },
-    //   responseType: "json",
-    // });
+    try {
+      const response = await axios({
+        method: "post",
+        url: "http://localhost:3000/api/admin/addSomething",
+        data: {
+          message: "Checking...",
+        },
+        responseType: "json",
+        headers: config.headers,
+      });
 
-    // localStorage.setItem("token", response.data);
+      console.log(response);
+
+      // const data = await response.data;
+
+      // if (data) {
+      //   localStorage.setItem("token", response.data);
+      // }
+    } catch (err: unknown) {
+      // console.log(err.response.data.message);
+      console.log(err);
+    }
   };
 
   return (
@@ -61,7 +83,7 @@ const HomePage = () => {
       )}
     >
       <form
-        onSubmit={handleSubmit(handleCreateUser)}
+        onSubmit={handleSubmit(handleLogin)}
         className="bg-primary w-full h-full  p-5 ss:w-160 ss:h-160 ss:p-20 ss:rounded-lg landscape:h-auto landscape:sm:h-160"
       >
         <Heading as="h1" className="text-5xl text-white mt-[20%] ss:mt-[10%]">
@@ -88,6 +110,9 @@ const HomePage = () => {
 
         <Button variant="default" className="w-full mt-10">
           Login
+        </Button>
+        <Button variant="default" className="w-full mt-10" type="button" onClick={sendToken}>
+          SendToken
         </Button>
       </form>
     </main>
