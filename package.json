@@ -51,6 +51,7 @@
     "sass": "^1.69.5",
     "tailwind-scrollbar": "^3.0.5",
     "tailwindcss": "^3.3.5",
+    "tailwindcss-pseudo-elements": "^2.0.0",
     "typescript": "^5.0.2",
     "vite": "^4.4.5"
   }

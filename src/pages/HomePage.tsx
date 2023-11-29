@@ -12,6 +12,7 @@ import { useGlobalDispatch } from "../global/hooks";
 import { setAuth } from "../global/auth-slice";
 import { redirect, useNavigate } from "react-router-dom";
 import { Suspense } from "react";
+import CircleLoader from "../components/UI/Loader/CircleLoader";
 
 const HomePage = () => {
   const {
@@ -93,8 +94,12 @@ const HomePage = () => {
             className="bg-grayInputDark border-grayInputDark text-white"
           />
 
-          <Button variant="default" className="w-full mt-10">
+          <Button
+            variant="default"
+            className={`w-full relative  mt-10  flex items-center justify-center`}
+          >
             Login
+            <CircleLoader />
           </Button>
         </form>
       </main>
