@@ -23,9 +23,7 @@ const FormEditUser = ({ initialData }: initialData) => {
   const { id, name, email } = initialData;
 
   const handleEditUser = () => {
-    console.log("gooo");
     console.log(id);
-
     //hendle user edit...
   };
 
