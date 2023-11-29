@@ -31,10 +31,11 @@ export const MainNavbarItems: NavItemProps[] = [
   },
   {
     id: "mainNav6",
-    to: "/test",
+    to: "/",
     icon: "power",
     iconColor: "red",
     title: "Sign out",
+    action: "logout",
   },
 ];
 export const InboxNavbarItems: NavItemProps[] = [

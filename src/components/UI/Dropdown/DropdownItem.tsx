@@ -5,6 +5,7 @@ import Heading from "../Heading";
 import { NavLink } from "react-router-dom";
 import { cn } from "../../../util/utils";
 import { basicVariantColorType } from "../../variants/variants";
+import useLogout from "../../../hooks/useLogout";
 
 export type DropdownItemProps = {
   iconName?: IconNameType | undefined;
@@ -12,9 +13,12 @@ export type DropdownItemProps = {
   title: string;
   description?: string;
   id: string;
+  action?: "logout";
 };
 
-const DropdownItem = ({ iconName, avatarSrc, title, description }: DropdownItemProps) => {
+const DropdownItem = ({ iconName, avatarSrc, title, description, action }: DropdownItemProps) => {
+  const logout = useLogout();
+
   let img;
   const iconColor = cn({
     ["blue"]: iconName === "users" || iconName === "settings",
@@ -39,9 +43,16 @@ const DropdownItem = ({ iconName, avatarSrc, title, description }: DropdownItemP
   }
   if (avatarSrc) img = <Avatar size="s5" src={avatarSrc} className="ml-3" />;
 
+  const handleAction = async () => {
+    if (action === "logout") {
+      console.log("ruszlo");
+      await logout();
+    }
+  };
+
   return (
     <li>
-      <NavLink to="/" className={c.link}>
+      <NavLink to="/" className={c.link} onClick={handleAction}>
         {img}
         <div className="w-10/12 px-10 mr-2">
           <Heading as="h5" className={c.heading}>

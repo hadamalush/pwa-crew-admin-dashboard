@@ -7,16 +7,17 @@ type InputTextProps = {
   label?: string;
   errors?: FieldErrors;
   id: string;
+  labelClass?: string;
 } & ComponentPropsWithoutRef<"input">;
 
 const InputText = forwardRef<HTMLInputElement, InputTextProps>(function Input(
-  { label, errors, id, className, ...props },
+  { label, labelClass, errors, id, className, ...props },
   ref
 ) {
   return (
     <>
       {label && (
-        <label htmlFor={id} className="dark:text-white text-black mt-10 block ">
+        <label htmlFor={id} className={cn("dark:text-white text-black mt-10 block ", labelClass)}>
           {label}
         </label>
       )}

@@ -11,6 +11,7 @@ import { AnimatePresence, motion } from "framer-motion";
 import { useDispatch } from "react-redux";
 import { handleInboxNav, handleNav } from "../../../global/toggle-slice";
 import { useMediaQuery } from "react-responsive";
+import useLogout from "../../../hooks/useLogout";
 
 type handleAdditionalInfoProps = {
   pageName: "Trash" | "Inbox" | "Featured" | "Spam" | null;
@@ -24,6 +25,7 @@ export type NavItemProps = {
   className?: string;
   iconColor?: basicVariantColorType;
   isAdditionalInfo?: boolean;
+  action?: "logout";
 } & ComponentPropsWithoutRef<"a">;
 
 const classesNavItem = {
@@ -40,12 +42,15 @@ const NavItem = ({
   title,
   className,
   isAdditionalInfo,
+  action,
   ...props
 }: NavItemProps) => {
   const allMessages = useGlobalSelector((state) => state.messages.allMessages);
   const pathname = useLocation().pathname;
   const [quantity, setQuantity] = useState(0);
   const dispatch = useDispatch();
+  const logout = useLogout();
+
   const isActivePath = pathname === to;
   const isMediumScreen = useMediaQuery({ minWidth: 1060 });
   const formattedTitle =
@@ -64,6 +69,10 @@ const NavItem = ({
     if (!isMediumScreen) {
       dispatch(handleInboxNav({ isVisibleInboxNav: false }));
       dispatch(handleNav({ isVisibleNav: false }));
+    }
+
+    if (action === "logout") {
+      logout();
     }
   };
 
