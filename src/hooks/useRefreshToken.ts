@@ -14,6 +14,7 @@ const useRefreshToken = () => {
       const response = await axios({
         method: "post",
         url: `${API_URL}/admin/auth/refreshToken`,
+        withCredentials: true,
         data: {
           token: token,
         },

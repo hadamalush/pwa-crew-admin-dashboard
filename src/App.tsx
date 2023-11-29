@@ -10,6 +10,7 @@ import InboxTrashPage from "./pages/Inbox/InboxTrashPage";
 import InboxFeaturedPage from "./pages/Inbox/InboxFeaturedPage";
 import HomePage from "./pages/HomePage";
 import PersistLogin from "./layouts/PersistLogin";
+import { loader as rootLoader } from "./pages/HomePage";
 
 const DashBoardPage = lazy(() => import("./pages/DashboardPage"));
 const InboxLayout = lazy(() => import("./layouts/InboxLayout"));
@@ -27,6 +28,7 @@ function App() {
         {
           element: <HomePage />,
           index: true,
+          loader: rootLoader,
         },
         {
           element: <PersistLogin />,

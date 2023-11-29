@@ -16,7 +16,6 @@ const PersistLogin = () => {
     const verifyRefreshToken = async () => {
       try {
         const token = await refresh();
-        console.log("TOKEN: ", token);
 
         if (!token) {
           console.log("dsd");
