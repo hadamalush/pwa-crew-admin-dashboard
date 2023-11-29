@@ -5,6 +5,7 @@ type AuthType = {
   email: string;
   username: string;
   avatar: string;
+  accessToken: string;
 };
 
 export type AuthState = {
@@ -13,7 +14,7 @@ export type AuthState = {
 };
 
 const initialState: AuthState = {
-  auth: { email: "", username: "", avatar: "" },
+  auth: { email: "", username: "", avatar: "", accessToken: "" },
   persist: Cookies.get("refreshToken"),
 };
 

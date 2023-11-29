@@ -8,6 +8,8 @@ import { loginSchema } from "../schemas/schema";
 import axios from "axios";
 import { API_URL } from "../config/config";
 import Cookies from "js-cookie";
+import { useGlobalDispatch } from "../global/hooks";
+import { setAuth } from "../global/auth-slice";
 
 const HomePage = () => {
   const {
@@ -15,6 +17,7 @@ const HomePage = () => {
     handleSubmit,
     formState: { errors },
   } = useForm({ resolver: yupResolver(loginSchema), mode: "onBlur" });
+  const dispatch = useGlobalDispatch();
 
   const backgroundImgClass = `
      ss:bg-[url('/background/mountain-ss.webp')]
@@ -37,13 +40,13 @@ const HomePage = () => {
 
       const data = await response.data;
 
-      console.log(response);
-
       if (data && data.accessToken && data.refreshToken) {
-        console.log(data);
+        const { refreshToken, accessToken, avatar, email, username } = data;
 
-        Cookies.set("accessToken", data.accessToken, { expires: 7, secure: true });
-        Cookies.set("refreshToken", data.refreshToken, { expires: 7, secure: true });
+        Cookies.set("accessToken", accessToken, { expires: 7, secure: true });
+        Cookies.set("refreshToken", refreshToken, { expires: 7, secure: true });
+
+        dispatch(setAuth({ authData: { accessToken: refreshToken, avatar, email, username } }));
       }
     } catch (err: unknown) {
       console.log(err);
@@ -58,19 +61,17 @@ const HomePage = () => {
       const response = await axios({
         method: "post",
         url: "http://localhost:3000/api/admin/auth/refreshToken",
-        withCredentials: true,
         data: {
           token: token,
         },
         responseType: "json",
       });
 
-      // console.log(response);
-
       const data = await response.data;
 
       if (data) {
         Cookies.set("accessToken", data.accessToken, { expires: 7, secure: true });
+        dispatch(setAuth({ authData: data }));
       }
     } catch (err: unknown) {
       console.log(err);
