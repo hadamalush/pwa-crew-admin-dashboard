@@ -4,8 +4,11 @@ import Navbar from "../components/Common/Navigation/Navbar";
 import Footer from "../components/Common/Footer";
 import { MainNavbarItems } from "../components/Common/Navigation/NavigationData";
 import { Suspense } from "react";
+import CircleLoader from "../components/UI/Loader/CircleLoader";
+import { useGlobalSelector } from "../global/hooks";
 
 const MainLayout = () => {
+  const isLoading = useGlobalSelector((state) => state.toggle.isLoading);
   return (
     <>
       <Header />
@@ -14,6 +17,9 @@ const MainLayout = () => {
         <Outlet />
       </Suspense>
       <Footer />
+      {isLoading && (
+        <CircleLoader className="!fixed right-10 bottom-10 md:!w-16 md:!h-16 !border-lightBlue" />
+      )}
     </>
   );
 };

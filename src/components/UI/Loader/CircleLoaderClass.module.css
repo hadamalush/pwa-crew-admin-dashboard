@@ -1,4 +1,4 @@
-.loader {
+.loaderCircle {
   position: absolute;
   width: 20px;
   height: 20px;
@@ -9,7 +9,7 @@
   box-sizing: border-box;
   animation: rotation 2s linear infinite;
 }
-.loader::after {
+.loaderCircle::after {
   content: "";
   box-sizing: border-box;
   position: absolute;
