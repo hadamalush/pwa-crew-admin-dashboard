@@ -5,6 +5,7 @@ export type ToggleState = {
   isVisibleInboxNav: boolean;
   isLoading: boolean;
   theme: "dark" | "light";
+  stats: number;
 };
 
 const initialState: ToggleState = {
@@ -12,6 +13,7 @@ const initialState: ToggleState = {
   isVisibleInboxNav: false,
   isLoading: false,
   theme: "dark",
+  stats: 0,
 };
 
 export const toggleSlice = createSlice({
@@ -30,7 +32,10 @@ export const toggleSlice = createSlice({
     setLoading(state, action: PayloadAction<{ loading: boolean }>) {
       state.isLoading = action.payload.loading;
     },
+    setStats(state, action: PayloadAction<{ stat: number }>) {
+      state.stats = action.payload.stat;
+    },
   },
 });
 
-export const { handleNav, handleInboxNav, handleTheme, setLoading } = toggleSlice.actions;
+export const { handleNav, handleInboxNav, handleTheme, setLoading, setStats } = toggleSlice.actions;

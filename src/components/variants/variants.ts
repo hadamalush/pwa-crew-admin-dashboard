@@ -6,12 +6,12 @@ export type basicVariantSizeType = VariantProps<typeof basicVariant>["size"];
 export const basicVariant = cva("w-10 h-10", {
   variants: {
     color: {
-      default: "!text-white",
+      default: "text-white",
       purple: "text-darkPurple",
       red: "text-lightRed",
       yellow: "text-orangeYellow",
       green: "text-lightGreen",
-      blue: "!text-lightBlue",
+      blue: "text-lightBlue",
       gray: "text-textPrimary",
     },
 

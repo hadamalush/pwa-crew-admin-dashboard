@@ -149,6 +149,7 @@ const VerifyRfToken = async () => {
   return access;
 };
 
+// eslint-disable-next-line react-refresh/only-export-components
 export const loader = async () => {
   const refreshToken = Cookies.get("refreshToken");
   let isAccess = false;

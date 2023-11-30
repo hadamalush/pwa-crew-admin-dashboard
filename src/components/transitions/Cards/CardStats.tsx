@@ -4,6 +4,9 @@ import Heading from "../../UI/Heading";
 import { ComponentPropsWithoutRef } from "react";
 import { cn } from "../../../util/utils";
 import { IconNameType } from "../../UI/Icons/IconBase";
+import Button from "../../UI/Button";
+import { API_URL } from "../../../config/config";
+import axios from "axios";
 
 type CardStatsProps = {
   title: string;
@@ -14,6 +17,18 @@ type CardStatsProps = {
 
 const CardStats = ({ title, quantity, percentages, iconName, ...props }: CardStatsProps) => {
   const isMinusPercentage = percentages < 0 ? true : false;
+
+  const handleFetchData = async () => {
+    try {
+      const response = await axios({
+        method: "get",
+        url: `${API_URL}/admin/stats/mongoConnections`,
+      });
+      console.log("RESPONSE: ", response.data);
+    } catch (err) {
+      console.log(err);
+    }
+  };
 
   return (
     <Container as="div" variant="default" className={cn("w-full h-72 flex", props.className)}>
@@ -41,12 +56,13 @@ const CardStats = ({ title, quantity, percentages, iconName, ...props }: CardSta
         </Heading>
       </div>
 
-      <span
+      <Button
         className="self-end p-2 mr-7 mb-7 bg-slate-200 dark:bg-primaryLight rounded-2xl flex items-center justify-center cursor-pointer hover:bg-slate-300
        dark:hover:bg-navItemActive duration-200"
+        onClick={handleFetchData}
       >
         <Icon iconName="arrowBottomRight" size="s3" color="blue" className="block " />
-      </span>
+      </Button>
     </Container>
   );
 };
