@@ -1,13 +1,19 @@
 import { createSlice, type PayloadAction } from "@reduxjs/toolkit";
 
-interface mongoConnType {
+type mongoConnType = {
   current: number;
   percentages: number;
   available: number;
-}
+};
+
+type pagesViewsType = {
+  views: number;
+  percentages: number;
+};
 
 export type StatsState = {
   mongoConns: mongoConnType;
+  pagesViews: pagesViewsType;
 };
 
 const initialState: StatsState = {
@@ -15,6 +21,11 @@ const initialState: StatsState = {
     current: 0,
     percentages: 0,
     available: 0,
+  },
+
+  pagesViews: {
+    views: 0,
+    percentages: 0,
   },
 };
 
@@ -33,7 +44,14 @@ export const statsSlice = createSlice({
         state.mongoConns.current = mongoData.current;
       }
     },
+    setPageViews(state, action: PayloadAction<{ views: number }>) {
+      const pageViews = action.payload.views;
+      const percentages = parseFloat(((pageViews / 50) * 100).toFixed(2));
+
+      state.pagesViews.views = pageViews;
+      state.pagesViews.percentages = percentages;
+    },
   },
 });
 
-export const { setMongoStats } = statsSlice.actions;
+export const { setMongoStats, setPageViews } = statsSlice.actions;

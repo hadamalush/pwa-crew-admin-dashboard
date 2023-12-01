@@ -12,16 +12,17 @@ type CardStatsProps = {
   quantity: number | null | undefined;
   percentages: number | undefined | null;
   iconName: IconNameType;
-  fetch: () => Promise<string>;
+  fetch?: () => Promise<string>;
 } & ComponentPropsWithoutRef<"div">;
 
 const CardStats = ({ title, quantity, percentages, iconName, fetch, ...props }: CardStatsProps) => {
   const isMinusPercentage = percentages && percentages < 0 ? true : false;
 
   const handleFetchData = async () => {
-    const message = await fetch();
-
-    toast.success(message);
+    if (fetch) {
+      const message = await fetch();
+      toast.success(message);
+    }
   };
 
   return (

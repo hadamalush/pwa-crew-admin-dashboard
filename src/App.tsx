@@ -8,7 +8,7 @@ import InboxFeaturedPage from "./pages/Inbox/InboxFeaturedPage";
 import HomePage from "./pages/HomePage";
 import PersistLogin from "./layouts/PersistLogin";
 import { loader as rootLoader } from "./pages/HomePage";
-import { fetchStatsMongo } from "./util/actions/actions";
+import { fetchPageViews, fetchStatsMongo } from "./util/actions/actions";
 import { useGlobalDispatch } from "./global/hooks";
 import useAxiosPrivate from "./hooks/usePrivateAxios";
 
@@ -40,8 +40,10 @@ function App() {
               element: <MainLayout />,
               loader: async () => {
                 const connections = await fetchStatsMongo(axiosPrivate, dispatch);
+                const pageViews = await fetchPageViews(axiosPrivate, dispatch);
 
-                if (!connections) console.log("error");
+                if (!connections) console.log("Error download conncetions");
+                if (!pageViews) console.log("Error download pageViews");
 
                 return "continue...";
               },

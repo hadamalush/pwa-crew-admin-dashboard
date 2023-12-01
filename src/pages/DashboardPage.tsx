@@ -1,4 +1,5 @@
 import Main from "../components/Common/Main";
+// import Button from "../components/UI/Button";
 import Container from "../components/UI/Container";
 import { IconNameType } from "../components/UI/Icons/IconBase";
 import Advertisement from "../components/transitions/Advertisement";
@@ -9,7 +10,7 @@ import UsersList from "../components/transitions/Users/UsersList";
 import { DUMMY_STORAGE } from "../components/transitions/dummy-items";
 import { useGlobalDispatch, useGlobalSelector } from "../global/hooks";
 import useAxiosPrivate from "../hooks/usePrivateAxios";
-import { fetchStatsMongo } from "../util/actions/actions";
+import { fetchPageViews, fetchStatsMongo } from "../util/actions/actions";
 
 type DUMMY_INFOTYPE = {
   id: string;
@@ -17,27 +18,40 @@ type DUMMY_INFOTYPE = {
   quantity: number | undefined | null;
   percentages: number;
   iconName: IconNameType;
-  fetch?: () => Promise<string> | null;
+  fetch?: () => Promise<string>;
 };
 
-const DUMMY_INFO: DUMMY_INFOTYPE[] = [
-  { id: "e1", title: "Page views", iconName: "eyeUp", quantity: 959, percentages: -3.59 },
-  {
-    id: "e2",
-    title: "Base connections",
-    iconName: "cloudConnections",
-    quantity: 201,
-    percentages: 71.59,
-  },
-  { id: "e3", title: "Number of errors ", iconName: "warning", quantity: 2, percentages: -2.33 },
-  { id: "e4", title: "Number of users", iconName: "usersPlus", quantity: 30, percentages: 30 },
-];
 const DashBoardPage = () => {
-  const connections = useGlobalSelector((state) => state.stats.mongoConns);
+  const stateStats = useGlobalSelector((state) => state.stats);
   const dispatch = useGlobalDispatch();
   const axiosPrivate = useAxiosPrivate();
 
-  console.log("CONNECTIONS: ", connections);
+  const DUMMY_INFO: DUMMY_INFOTYPE[] = [
+    {
+      id: "e1",
+      title: "Page views",
+      iconName: "eyeUp",
+      quantity: stateStats.pagesViews.views,
+      percentages: stateStats.pagesViews.percentages,
+      fetch: async () => fetchPageViews(axiosPrivate, dispatch),
+    },
+    {
+      id: "e2",
+      title: "Base connections",
+      iconName: "cloudConnections",
+      quantity: stateStats.mongoConns.current,
+      percentages: stateStats.mongoConns.percentages,
+      fetch: async () => fetchStatsMongo(axiosPrivate, dispatch),
+    },
+    { id: "e3", title: "Number of errors ", iconName: "warning", quantity: 2, percentages: -2.33 },
+    { id: "e4", title: "Number of users", iconName: "usersPlus", quantity: 30, percentages: 30 },
+  ];
+
+  // const fetchdata = async () => {
+  //   const response = await axiosPrivate("/admin/stats/pageViews");
+
+  //   console.log(response);
+  // };
 
   return (
     <Main>
@@ -48,16 +62,9 @@ const DashBoardPage = () => {
           variant="grid"
           className="grid-cols-1 gap-5 sm:grid-cols-2 xlg:grid-cols-4"
         >
-          {DUMMY_INFO.map((item, index) => {
-            return (
-              <CardStats
-                key={item.id}
-                {...item}
-                quantity={index === 1 ? connections?.current : item.quantity}
-                percentages={index === 1 ? connections?.percentages : item.quantity}
-                fetch={async () => fetchStatsMongo(axiosPrivate, dispatch)}
-              />
-            );
+          {/* <Button onClick={fetchdata}>sadasd</Button> */}
+          {DUMMY_INFO.map((item) => {
+            return <CardStats key={item.id} {...item} />;
           })}
         </Container>
         <Container as="section" variant="flex" className="flex-col gap-10 md:flex-row">
