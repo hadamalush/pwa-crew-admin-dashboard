@@ -8,7 +8,6 @@ import { toast } from "sonner";
 
 const useRefreshToken = () => {
   const dispatch = useGlobalDispatch();
-
   const refresh = async () => {
     dispatch(setLoading({ loading: true }));
     const token = Cookies.get("refreshToken");
@@ -23,8 +22,6 @@ const useRefreshToken = () => {
         },
         responseType: "json",
       });
-
-      console.log(response);
 
       const data = await response.data;
 

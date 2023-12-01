@@ -5,8 +5,10 @@ import { ComponentPropsWithoutRef } from "react";
 import { cn } from "../../../util/utils";
 import { IconNameType } from "../../UI/Icons/IconBase";
 import Button from "../../UI/Button";
-import { API_URL } from "../../../config/config";
-import axios from "axios";
+// import { API_URL } from "../../../config/config";
+// import axios from "axios";
+import useAxiosPrivate from "../../../hooks/usePrivateAxios";
+import { toast } from "sonner";
 
 type CardStatsProps = {
   title: string;
@@ -17,16 +19,14 @@ type CardStatsProps = {
 
 const CardStats = ({ title, quantity, percentages, iconName, ...props }: CardStatsProps) => {
   const isMinusPercentage = percentages < 0 ? true : false;
+  const axiosPrivate = useAxiosPrivate();
 
   const handleFetchData = async () => {
     try {
-      const response = await axios({
-        method: "get",
-        url: `${API_URL}/admin/stats/mongoConnections`,
-      });
-      console.log("RESPONSE: ", response.data);
+      const response = await axiosPrivate.get("/admin/stats/mongoConnections");
+      console.log(response);
     } catch (err) {
-      console.log(err);
+      toast.error("Something went wrong, please try again later");
     }
   };
 

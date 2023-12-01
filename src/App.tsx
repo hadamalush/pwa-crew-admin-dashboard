@@ -9,9 +9,9 @@ import HomePage from "./pages/HomePage";
 import PersistLogin from "./layouts/PersistLogin";
 import { loader as rootLoader } from "./pages/HomePage";
 import { fetchStatsMongo } from "./util/actions/actions";
-import { setStats } from "./global/toggle-slice";
-// import { loader as layoutLoader } from "./layouts/MainLayout";
 import { useGlobalDispatch } from "./global/hooks";
+import useAxiosPrivate from "./hooks/usePrivateAxios";
+import { setMongoStats } from "./global/stats-slice";
 
 const DashBoardPage = lazy(() => import("./pages/DashboardPage"));
 const InboxLayout = lazy(() => import("./layouts/InboxLayout"));
@@ -23,6 +23,8 @@ const MainLayout = lazy(() => import("./layouts/MainLayout"));
 
 function App() {
   const dispatch = useGlobalDispatch();
+  const axiosPrivate = useAxiosPrivate();
+
   const router = createBrowserRouter([
     {
       path: "/",
@@ -38,10 +40,13 @@ function App() {
             {
               element: <MainLayout />,
               loader: async () => {
-                const connections = await fetchStatsMongo();
-                dispatch(setStats({ stat: connections.current }));
+                const connections = await fetchStatsMongo(axiosPrivate);
 
-                return connections;
+                dispatch(setMongoStats({ mongodata: connections }));
+
+                if (connections) return connections;
+
+                return "continue...";
               },
               children: [
                 {

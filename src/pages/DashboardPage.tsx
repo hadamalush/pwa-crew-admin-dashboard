@@ -7,7 +7,7 @@ import CardStorage from "../components/transitions/Cards/CardStorage";
 import CardUsersStats from "../components/transitions/Cards/CardUsersStat";
 import UsersList from "../components/transitions/Users/UsersList";
 import { DUMMY_STORAGE } from "../components/transitions/dummy-items";
-import { useGlobalSelector } from "../global/hooks";
+// import { useGlobalSelector } from "../global/hooks";
 
 type DUMMY_INFOTYPE = {
   id: string;
@@ -30,7 +30,7 @@ const DUMMY_INFO: DUMMY_INFOTYPE[] = [
   { id: "e4", title: "Number of users", iconName: "usersPlus", quantity: 30, percentages: 30 },
 ];
 const DashBoardPage = () => {
-  const connections = useGlobalSelector((state) => state.toggle.stats);
+  // const connections = useGlobalSelector((state) => state.toggle.stats);
 
   return (
     <Main>
@@ -48,7 +48,7 @@ const DashBoardPage = () => {
               <CardStats
                 key={item.id}
                 {...item}
-                quantity={index === 1 ? connections : item.quantity}
+                // quantity={index === 1 ? connections : item.quantity}
               />
             );
           })}

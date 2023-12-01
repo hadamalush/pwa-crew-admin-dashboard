@@ -1,14 +1,18 @@
-import axios from "axios";
-import { API_URL } from "../../config/config";
+import { AxiosInstance } from "axios";
+import { toast } from "sonner";
 
-export const fetchStatsMongo = async () => {
+export const fetchStatsMongo = async (axiosPrivate: AxiosInstance) => {
+  let response;
+
   try {
-    const response = await axios({
-      method: "get",
-      url: `${API_URL}/admin/stats/mongoConnections`,
-    });
-    return response.data;
+    response = await axiosPrivate.get("/admin/stats/mongoConnections");
+
+    if (response.status === 200) {
+      return response.data;
+    }
   } catch (err) {
-    console.log(err);
+    toast.error("An error occurred while downloading statistics from mongodb");
+    return;
   }
+  return 0;
 };

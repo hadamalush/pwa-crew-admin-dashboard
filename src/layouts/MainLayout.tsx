@@ -6,11 +6,10 @@ import { MainNavbarItems } from "../components/Common/Navigation/NavigationData"
 import { Suspense } from "react";
 import CircleLoader from "../components/UI/Loader/CircleLoader";
 import { useGlobalSelector } from "../global/hooks";
-import axios from "axios";
-import { API_URL } from "../config/config";
 
 const MainLayout = () => {
   const isLoading = useGlobalSelector((state) => state.toggle.isLoading);
+
   const ok = useLoaderData();
 
   console.log(ok);
@@ -36,32 +35,3 @@ const MainLayout = () => {
 };
 
 export default MainLayout;
-
-// eslint-disable-next-line react-refresh/only-export-components
-export const loader = () => {
-  const handleFetchData = async () => {
-    try {
-      const response = await axios({
-        method: "get",
-        url: `${API_URL}/admin/stats/mongoConnections`,
-      });
-      return response.data;
-    } catch (err) {
-      console.log(err);
-    }
-  };
-
-  const data = {
-    name: "Bill",
-    meta: {
-      occupation: "Programmer",
-      age: 18,
-    },
-  };
-
-  localStorage.setItem("user", JSON.stringify(data));
-
-  const connections = handleFetchData();
-
-  return connections;
-};
