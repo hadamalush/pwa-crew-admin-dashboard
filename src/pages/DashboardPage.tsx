@@ -7,14 +7,17 @@ import CardStorage from "../components/transitions/Cards/CardStorage";
 import CardUsersStats from "../components/transitions/Cards/CardUsersStat";
 import UsersList from "../components/transitions/Users/UsersList";
 import { DUMMY_STORAGE } from "../components/transitions/dummy-items";
-// import { useGlobalSelector } from "../global/hooks";
+import { useGlobalDispatch, useGlobalSelector } from "../global/hooks";
+import useAxiosPrivate from "../hooks/usePrivateAxios";
+import { fetchStatsMongo } from "../util/actions/actions";
 
 type DUMMY_INFOTYPE = {
   id: string;
   title: string;
-  quantity: number;
+  quantity: number | undefined | null;
   percentages: number;
   iconName: IconNameType;
+  fetch?: () => Promise<string> | null;
 };
 
 const DUMMY_INFO: DUMMY_INFOTYPE[] = [
@@ -30,7 +33,11 @@ const DUMMY_INFO: DUMMY_INFOTYPE[] = [
   { id: "e4", title: "Number of users", iconName: "usersPlus", quantity: 30, percentages: 30 },
 ];
 const DashBoardPage = () => {
-  // const connections = useGlobalSelector((state) => state.toggle.stats);
+  const connections = useGlobalSelector((state) => state.stats.mongoConns);
+  const dispatch = useGlobalDispatch();
+  const axiosPrivate = useAxiosPrivate();
+
+  console.log("CONNECTIONS: ", connections);
 
   return (
     <Main>
@@ -42,13 +49,13 @@ const DashBoardPage = () => {
           className="grid-cols-1 gap-5 sm:grid-cols-2 xlg:grid-cols-4"
         >
           {DUMMY_INFO.map((item, index) => {
-            console.log(index);
-
             return (
               <CardStats
                 key={item.id}
                 {...item}
-                // quantity={index === 1 ? connections : item.quantity}
+                quantity={index === 1 ? connections?.current : item.quantity}
+                percentages={index === 1 ? connections?.percentages : item.quantity}
+                fetch={async () => fetchStatsMongo(axiosPrivate, dispatch)}
               />
             );
           })}

@@ -7,11 +7,15 @@ interface mongoConnType {
 }
 
 export type StatsState = {
-  mongoConns: mongoConnType | null;
+  mongoConns: mongoConnType;
 };
 
 const initialState: StatsState = {
-  mongoConns: null,
+  mongoConns: {
+    current: 0,
+    percentages: 0,
+    available: 0,
+  },
 };
 
 export const statsSlice = createSlice({
@@ -21,12 +25,12 @@ export const statsSlice = createSlice({
     setMongoStats(state, action: PayloadAction<{ mongodata: mongoConnType }>) {
       const mongoData = action.payload.mongodata;
       if (mongoData) {
-        const percentages = (mongoData.current / mongoData.available) * 100;
+        const percentages = parseFloat(
+          ((mongoData.current / mongoData.available) * 100).toFixed(2)
+        );
 
-        if (state.mongoConns) {
-          state.mongoConns.percentages = percentages;
-          state.mongoConns.current = mongoData.current;
-        }
+        state.mongoConns.percentages = percentages;
+        state.mongoConns.current = mongoData.current;
       }
     },
   },

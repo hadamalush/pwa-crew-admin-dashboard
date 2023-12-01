@@ -11,7 +11,6 @@ import { loader as rootLoader } from "./pages/HomePage";
 import { fetchStatsMongo } from "./util/actions/actions";
 import { useGlobalDispatch } from "./global/hooks";
 import useAxiosPrivate from "./hooks/usePrivateAxios";
-import { setMongoStats } from "./global/stats-slice";
 
 const DashBoardPage = lazy(() => import("./pages/DashboardPage"));
 const InboxLayout = lazy(() => import("./layouts/InboxLayout"));
@@ -40,11 +39,9 @@ function App() {
             {
               element: <MainLayout />,
               loader: async () => {
-                const connections = await fetchStatsMongo(axiosPrivate);
+                const connections = await fetchStatsMongo(axiosPrivate, dispatch);
 
-                dispatch(setMongoStats({ mongodata: connections }));
-
-                if (connections) return connections;
+                if (!connections) console.log("error");
 
                 return "continue...";
               },

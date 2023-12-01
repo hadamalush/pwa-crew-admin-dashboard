@@ -5,29 +5,23 @@ import { ComponentPropsWithoutRef } from "react";
 import { cn } from "../../../util/utils";
 import { IconNameType } from "../../UI/Icons/IconBase";
 import Button from "../../UI/Button";
-// import { API_URL } from "../../../config/config";
-// import axios from "axios";
-import useAxiosPrivate from "../../../hooks/usePrivateAxios";
 import { toast } from "sonner";
 
 type CardStatsProps = {
   title: string;
-  quantity: number;
-  percentages: number;
+  quantity: number | null | undefined;
+  percentages: number | undefined | null;
   iconName: IconNameType;
+  fetch: () => Promise<string>;
 } & ComponentPropsWithoutRef<"div">;
 
-const CardStats = ({ title, quantity, percentages, iconName, ...props }: CardStatsProps) => {
-  const isMinusPercentage = percentages < 0 ? true : false;
-  const axiosPrivate = useAxiosPrivate();
+const CardStats = ({ title, quantity, percentages, iconName, fetch, ...props }: CardStatsProps) => {
+  const isMinusPercentage = percentages && percentages < 0 ? true : false;
 
   const handleFetchData = async () => {
-    try {
-      const response = await axiosPrivate.get("/admin/stats/mongoConnections");
-      console.log(response);
-    } catch (err) {
-      toast.error("Something went wrong, please try again later");
-    }
+    const message = await fetch();
+
+    toast.success(message);
   };
 
   return (
