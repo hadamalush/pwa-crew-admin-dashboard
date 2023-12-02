@@ -4,7 +4,7 @@ export const getDataUserForSearchable = (state: UserState) => {
   const allUsers = state.allUsers;
   const convertedUsers = allUsers.map((user) => ({
     value: user.email,
-    label: user.name,
+    label: user.username,
     email: user.email,
   }));
 

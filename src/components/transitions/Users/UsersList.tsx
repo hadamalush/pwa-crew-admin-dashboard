@@ -24,7 +24,7 @@ type UserOption = {
 
 const UsersList = ({ searchOption, className }: UsersListProps) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [dataUser, setDataUser] = useState({ id: "", email: "", name: "", mode: "" });
+  const [dataUser, setDataUser] = useState({ id: "", email: "", username: "", mode: "" });
   const userState = useGlobalSelector((state) => state.users);
   const userOptions = getDataUserForSearchable(userState);
   const allUsers = userState.allUsers;
@@ -41,11 +41,11 @@ const UsersList = ({ searchOption, className }: UsersListProps) => {
   const handleActionModal = (action: {
     mode: "edit" | "delete";
     email: string;
-    name: string;
+    username: string;
     id: string;
   }) => {
-    const { mode, id, email, name } = action;
-    setDataUser({ id, email, name, mode });
+    const { mode, id, email, username } = action;
+    setDataUser({ id, email, username, mode });
     setIsModalOpen(true);
   };
 
@@ -53,7 +53,7 @@ const UsersList = ({ searchOption, className }: UsersListProps) => {
     const filteredUser = allUsers.filter(
       (user) =>
         user.email.toLocaleLowerCase().includes(inputValue) ||
-        user.name.toLocaleLowerCase().includes(inputValue)
+        user.username.toLocaleLowerCase().includes(inputValue)
     );
 
     setFilteredUsers(filteredUser);

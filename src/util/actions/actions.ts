@@ -2,6 +2,7 @@ import { AxiosInstance } from "axios";
 
 import { setMongoStats, setPageViews } from "../../global/stats-slice";
 import { AppDispatch } from "../../global/store";
+import { setUsers } from "../../global/user-slice";
 
 export const fetchStatsMongo = async (axiosPrivate: AxiosInstance, dispatch: AppDispatch) => {
   let response;
@@ -37,4 +38,22 @@ export const fetchPageViews = async (axiosPrivate: AxiosInstance, dispatch: AppD
   }
 
   return "An error occurred while updating page views";
+};
+
+export const fetchUsers = async (axiosPrivate: AxiosInstance, dispatch: AppDispatch) => {
+  let response;
+
+  try {
+    response = await axiosPrivate.get("/admin/users");
+
+    if (response.status === 200) {
+      dispatch(setUsers({ users: response.data }));
+
+      return { mess: "The users have been updated", users: response.data };
+    }
+  } catch (err) {
+    return { mess: "An error occurred while updating users" };
+  }
+
+  return { mess: "An error occurred while updating ysers" };
 };

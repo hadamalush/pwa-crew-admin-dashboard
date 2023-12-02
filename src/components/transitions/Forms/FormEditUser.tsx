@@ -6,7 +6,7 @@ import { newUserSchema } from "../../../schemas/schema";
 
 type FormEditUserProps = {
   id: string;
-  name: string;
+  username: string;
   email: string;
 };
 
@@ -20,7 +20,7 @@ const FormEditUser = ({ initialData }: initialData) => {
     handleSubmit,
     formState: { errors },
   } = useForm({ resolver: yupResolver(newUserSchema), mode: "onBlur" });
-  const { id, name, email } = initialData;
+  const { id, username, email } = initialData;
 
   const handleEditUser = () => {
     console.log(id);
@@ -32,7 +32,7 @@ const FormEditUser = ({ initialData }: initialData) => {
       <InputText
         id="username"
         label="Username *"
-        defaultValue={name}
+        defaultValue={username}
         errors={errors}
         {...register("username")}
       />

@@ -8,9 +8,10 @@ import InboxFeaturedPage from "./pages/Inbox/InboxFeaturedPage";
 import HomePage from "./pages/HomePage";
 import PersistLogin from "./layouts/PersistLogin";
 import { loader as rootLoader } from "./pages/HomePage";
-import { fetchPageViews, fetchStatsMongo } from "./util/actions/actions";
+import { fetchPageViews, fetchStatsMongo, fetchUsers } from "./util/actions/actions";
 import { useGlobalDispatch } from "./global/hooks";
 import useAxiosPrivate from "./hooks/usePrivateAxios";
+import { setUsersStats } from "./global/stats-slice";
 
 const DashBoardPage = lazy(() => import("./pages/DashboardPage"));
 const InboxLayout = lazy(() => import("./layouts/InboxLayout"));
@@ -41,9 +42,13 @@ function App() {
               loader: async () => {
                 const connections = await fetchStatsMongo(axiosPrivate, dispatch);
                 const pageViews = await fetchPageViews(axiosPrivate, dispatch);
+                const users = await fetchUsers(axiosPrivate, dispatch);
+
+                dispatch(setUsersStats({ numberUsers: users.users.length }));
 
                 if (!connections) console.log("Error download conncetions");
                 if (!pageViews) console.log("Error download pageViews");
+                if (!users) console.log("Error download users");
 
                 return "continue...";
               },

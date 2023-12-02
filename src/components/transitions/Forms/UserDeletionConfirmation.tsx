@@ -3,12 +3,12 @@ import Button from "../../UI/Button";
 type UserDeletionConfirmationProps = {
   initialData: {
     id: string;
-    name: string;
+    username: string;
   };
 };
 
 const UserDeletionConfirmation = ({ initialData }: UserDeletionConfirmationProps) => {
-  const { id, name } = initialData;
+  const { id, username } = initialData;
 
   const handleDeleteUser = () => {
     console.log(id);
@@ -22,7 +22,7 @@ const UserDeletionConfirmation = ({ initialData }: UserDeletionConfirmationProps
         Are you sure you want to delete a user?
       </h3>
       <p className="text-center text-black dark:text-white pt-2">
-        Username: <strong className="text-lightRed">{name}</strong>
+        Username: <strong className="text-lightRed">{username}</strong>
       </p>
       <Button
         variant="default"

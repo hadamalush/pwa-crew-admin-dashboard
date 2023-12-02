@@ -5,39 +5,42 @@ import Icon from "../../UI/Icons/Icon";
 import { useState, type MouseEvent } from "react";
 import Avatar from "../Avatar";
 import { type ComponentPropsWithoutRef } from "react";
+import { parseISO, format } from "date-fns";
 
 type UserActionType = {
   id: string;
   mode: "delete" | "edit";
   email: string;
-  name: string;
+  username: string;
 };
 
 export type UserItemProps = {
-  name: string;
-  avatarSrc?: string;
+  username: string;
+  avatarImg?: string;
   email: string;
-  accountActive: boolean;
+  isActivated: boolean;
   newsletter: boolean;
   id: string;
-  createdAccount: string;
+  createAt: string;
   onAction: (action: UserActionType) => void;
 } & ComponentPropsWithoutRef<"ul">;
 
 const UsersItem = ({
-  name,
+  username,
   id,
-  avatarSrc,
+  avatarImg,
   email,
-  accountActive,
+  isActivated,
   newsletter,
-  createdAccount,
+  createAt,
   className,
   onAction,
   ...props
 }: UserItemProps) => {
-  const avatarImg = avatarSrc ? avatarSrc : "/anonymous.webp";
+  const avatarSrc = avatarImg ? avatarImg : "/anonymous.webp";
   const [isOpenTools, setIsOpenUserTools] = useState(false);
+  const parsedDate = parseISO(createAt);
+  const formattedDate = format(parsedDate, "dd.MM.yyyy");
 
   const handleUserTools = (e: MouseEvent<HTMLButtonElement>) => {
     e.stopPropagation();
@@ -71,39 +74,36 @@ const UsersItem = ({
               <li
                 className="py-4 border-b dark:border-borderPrimary border-pLight dark:hover:bg-primaryLight hover:bg-slate-100 duration-200"
                 role="button"
-                onClick={() => onAction({ mode: "edit", id, email, name })}
+                onClick={() => onAction({ mode: "edit", id, email, username })}
               >
                 Edit
               </li>
               <li
                 className="py-4 text-lightRed hover:bg-slate-100 dark:hover:bg-primaryLight duration-200"
                 role="button"
-                onClick={() => onAction({ mode: "delete", id, email, name })}
+                onClick={() => onAction({ mode: "delete", id, email, username })}
               >
                 Delete
               </li>
             </SimpleDropdownList>
           </Button>
 
-          <Avatar src={avatarImg} size="s2" />
+          <Avatar src={avatarSrc} size="s2" />
           <p className="inline p-2 overflow-hidden text-ellipsis whitespace-nowrap max-w-125">
-            {name}
+            {username}
           </p>
         </li>
         <li className="w-56 flex items-center pl-5">
           <p className="overflow-hidden text-ellipsis whitespace-nowrap">{email}</p>
         </li>
         <li className="w-56 flex items-center justify-center">
-          <Icon
-            iconName={accountActive ? "check" : "cross"}
-            color={accountActive ? "green" : "red"}
-          />
+          <Icon iconName={isActivated ? "check" : "cross"} color={isActivated ? "green" : "red"} />
         </li>
         <li className="w-56 flex items-center justify-center">
           <Icon iconName={newsletter ? "check" : "cross"} color={newsletter ? "green" : "red"} />
         </li>
         <li className="w-56 flex items-center justify-center">
-          <time>{createdAccount}</time>
+          <time>{formattedDate}</time>
         </li>
       </ul>
     </li>
