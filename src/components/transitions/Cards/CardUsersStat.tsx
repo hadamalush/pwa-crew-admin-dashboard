@@ -5,22 +5,16 @@ import { ComponentPropsWithoutRef } from "react";
 import { cn } from "../../../util/utils";
 import Heading from "../../UI/Heading";
 import { useMediaQuery } from "react-responsive";
+import { getLastWeek } from "../../../global/user-action";
+import { useGlobalSelector } from "../../../global/hooks";
 
 type CardUsersStatsProps = ComponentPropsWithoutRef<"div">;
 
 const CardUsersStats = ({ className, ...props }: CardUsersStatsProps) => {
   const isMdScreen = useMediaQuery({ minWidth: 1060 });
+  const numberOfUsers = useGlobalSelector((state) => state.stats.users.regUsersLastWeek);
 
-  const labels = Array.from({ length: 7 }, (_, i) => {
-    const date = new Date();
-
-    date.setDate(date.getDate() - i);
-    const day = date.getDate();
-    const month = date.getMonth() + 1;
-    const year = date.getFullYear();
-
-    return `${day}.${month}.${year}`;
-  }).reverse();
+  const labels = getLastWeek();
 
   const data = {
     labels: labels,
@@ -28,7 +22,7 @@ const CardUsersStats = ({ className, ...props }: CardUsersStatsProps) => {
     datasets: [
       {
         label: "New users",
-        data: [2, 1, 5, 2, 4, 2, 5],
+        data: numberOfUsers,
         fill: false,
         responsive: true,
         backgroundColor: [

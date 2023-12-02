@@ -1,5 +1,5 @@
 import Main from "../components/Common/Main";
-import Button from "../components/UI/Button";
+// import Button from "../components/UI/Button";
 import Container from "../components/UI/Container";
 import { IconNameType } from "../components/UI/Icons/IconBase";
 import Advertisement from "../components/transitions/Advertisement";
@@ -53,17 +53,17 @@ const DashBoardPage = () => {
       percentages: stateStats.users.percentages,
       fetch: async () => {
         const users = await fetchUsers(axiosPrivate, dispatch);
-        dispatch(setUsersStats({ numberUsers: users.users.length }));
+        dispatch(setUsersStats({ users: users.users }));
         return users.mess;
       },
     },
   ];
 
-  const fetchdata = async () => {
-    const response = await axiosPrivate("/admin/users");
+  // const fetchdata = async () => {
+  //   const response = await axiosPrivate("/admin/users");
 
-    console.log(response);
-  };
+  //   console.log(response);
+  // };
 
   return (
     <Main>
@@ -74,7 +74,7 @@ const DashBoardPage = () => {
           variant="grid"
           className="grid-cols-1 gap-5 sm:grid-cols-2 xlg:grid-cols-4"
         >
-          <Button onClick={fetchdata}>sadasd</Button>
+          {/* <Button onClick={fetchdata}>sadasd</Button> */}
           {DUMMY_INFO.map((item) => {
             return <CardStats key={item.id} {...item} />;
           })}

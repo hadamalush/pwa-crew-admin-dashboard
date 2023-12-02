@@ -12,12 +12,9 @@ const MainLayout = () => {
 
   const ok = useLoaderData();
 
-  console.log(ok);
   if (!ok) {
     return null;
   }
-
-  console.log("brawo");
 
   return (
     <>

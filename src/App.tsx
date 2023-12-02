@@ -44,7 +44,7 @@ function App() {
                 const pageViews = await fetchPageViews(axiosPrivate, dispatch);
                 const users = await fetchUsers(axiosPrivate, dispatch);
 
-                dispatch(setUsersStats({ numberUsers: users.users.length }));
+                dispatch(setUsersStats({ users: users.users }));
 
                 if (!connections) console.log("Error download conncetions");
                 if (!pageViews) console.log("Error download pageViews");

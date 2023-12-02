@@ -1,4 +1,7 @@
 import { createSlice, type PayloadAction } from "@reduxjs/toolkit";
+import { UserProps } from "./user-slice";
+import { getLastWeek } from "./user-action";
+import { parseISO, format } from "date-fns";
 
 type mongoConnType = {
   current: number;
@@ -13,6 +16,7 @@ type pagesViewsType = {
 type usersType = {
   numberUsers: number;
   percentages: number;
+  regUsersLastWeek: Array<number>;
 };
 
 export type StatsState = {
@@ -35,6 +39,7 @@ const initialState: StatsState = {
   users: {
     numberUsers: 0,
     percentages: 0,
+    regUsersLastWeek: [0, 0, 0, 0, 0, 0, 0],
   },
 };
 
@@ -62,13 +67,30 @@ export const statsSlice = createSlice({
       state.pagesViews.views = pageViews;
       state.pagesViews.percentages = percentages;
     },
-    setUsersStats(state, action: PayloadAction<{ numberUsers: number }>) {
-      const numberUsers = action.payload.numberUsers;
+    setUsersStats(state, action: PayloadAction<{ users: UserProps[] }>) {
+      const users = action.payload.users;
+      const numberUsers = users.length;
 
       //temporary calculations
       const percentages = parseFloat(((numberUsers / 10) * 100).toFixed(2));
       state.users.numberUsers = numberUsers;
       state.users.percentages = percentages;
+
+      //Registered users since last week.
+
+      const datesLastWeek = getLastWeek();
+      const formattedUserDates = users.map((user) => {
+        const parsedDate = parseISO(user.createAt);
+        const formattedDate = format(parsedDate, "d.MM.yyyy");
+
+        return formattedDate;
+      });
+
+      for (let i = 0; i < 7; i++) {
+        state.users.regUsersLastWeek[i] = formattedUserDates.filter(
+          (date) => date === datesLastWeek[i]
+        ).length;
+      }
     },
   },
 });
