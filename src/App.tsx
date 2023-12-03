@@ -13,6 +13,7 @@ import {
   fetchStatsCloudinary,
   fetchStatsMega,
   fetchStatsMongo,
+  fetchStatsVercel,
   fetchUsers,
 } from "./util/actions/actions";
 import { useGlobalDispatch } from "./global/hooks";
@@ -51,6 +52,7 @@ function App() {
                 const users = await fetchUsers(axiosPrivate, dispatch);
                 await fetchStatsCloudinary(axiosPrivate, dispatch);
                 await fetchStatsMega(axiosPrivate, dispatch);
+                await fetchStatsVercel(axiosPrivate, dispatch);
 
                 dispatch(setUsersStats({ users: users.users }));
 

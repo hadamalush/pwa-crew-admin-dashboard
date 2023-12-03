@@ -5,6 +5,7 @@ import {
   setMegaStats,
   setMongoStats,
   setPageViews,
+  setVercelStats,
 } from "../../global/stats-slice";
 import { AppDispatch } from "../../global/store";
 import { setUsers } from "../../global/user-slice";
@@ -97,4 +98,22 @@ export const fetchStatsMega = async (axiosPrivate: AxiosInstance, dispatch: AppD
   }
 
   return "An error occurred while mega.nz statistics";
+};
+
+export const fetchStatsVercel = async (axiosPrivate: AxiosInstance, dispatch: AppDispatch) => {
+  let response;
+
+  try {
+    response = await axiosPrivate.get("/admin/stats/vercel");
+
+    if (response.status === 200) {
+      dispatch(setVercelStats({ vercelData: response.data }));
+
+      return "Vercel blob statistics updated";
+    }
+  } catch (err) {
+    return "An error occurred while downloading statistics from vercel blob";
+  }
+
+  return "An error occurred while downloading statistics from vercel blob";
 };

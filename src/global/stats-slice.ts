@@ -55,7 +55,7 @@ const initialState: StatsState = {
     },
     vercelblob: {
       labels: "vercelblob",
-      data: [9, 22],
+      data: [0, 0],
       color: "#eb904d",
     },
   },
@@ -97,6 +97,14 @@ export const statsSlice = createSlice({
         const freeSpace = parseFloat((megaData.limit - megaData.usage).toFixed(2));
 
         state.storage.mega.data = [megaData.usage, freeSpace];
+      }
+    },
+    setVercelStats(state, action: PayloadAction<{ vercelData: cloudinaryStatsType }>) {
+      const vercelData = action.payload.vercelData;
+      if (vercelData) {
+        const freeSpace = parseFloat((vercelData.limit - vercelData.usage).toFixed(2));
+
+        state.storage.vercelblob.data = [vercelData.usage, freeSpace];
       }
     },
     setMongoStats(state, action: PayloadAction<{ mongodata: mongoConnType }>) {
@@ -147,5 +155,11 @@ export const statsSlice = createSlice({
   },
 });
 
-export const { setMongoStats, setPageViews, setUsersStats, setCloudinaryStats, setMegaStats } =
-  statsSlice.actions;
+export const {
+  setMongoStats,
+  setPageViews,
+  setUsersStats,
+  setCloudinaryStats,
+  setMegaStats,
+  setVercelStats,
+} = statsSlice.actions;
