@@ -3,13 +3,13 @@ import Heading from "../../UI/Heading";
 import { Doughnut } from "react-chartjs-2";
 import { ComponentPropsWithoutRef, useState } from "react";
 import { cn } from "../../../util/utils";
-import { type DUMMY_STORAGETYPE } from "../dummy-items";
+import { type storageType } from "../../../global/stats-slice";
 import SelectSingle from "../../UI/Select/SelectSingle";
 import "chart.js/auto";
 import { memo } from "react";
 
 type CardStorageProps = {
-  dataStorage: DUMMY_STORAGETYPE;
+  dataStorage: storageType;
 } & ComponentPropsWithoutRef<"div">;
 
 const CardStorage = memo(({ dataStorage, className, ...props }: CardStorageProps) => {

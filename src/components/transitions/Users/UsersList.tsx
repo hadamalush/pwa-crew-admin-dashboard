@@ -31,12 +31,12 @@ const UsersList = ({ searchOption, className }: UsersListProps) => {
   const [filteredUsers, setFilteredUsers] = useState(allUsers);
   const [foundUser, setFoundUser] = useState<UserProps | null>(null);
 
-  //pagination
+  // //pagination
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 10;
   const lastMessIndex = currentPage * itemsPerPage;
   const firstMessIndex = lastMessIndex - itemsPerPage;
-  const currentUsers = filteredUsers.slice(firstMessIndex, lastMessIndex);
+  const currentUsers = [...filteredUsers].reverse().slice(firstMessIndex, lastMessIndex);
 
   const handleActionModal = (action: {
     mode: "edit" | "delete";

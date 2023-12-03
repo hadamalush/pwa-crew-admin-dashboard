@@ -1,6 +1,6 @@
 import { AxiosInstance } from "axios";
 
-import { setMongoStats, setPageViews } from "../../global/stats-slice";
+import { setCloudinaryStats, setMongoStats, setPageViews } from "../../global/stats-slice";
 import { AppDispatch } from "../../global/store";
 import { setUsers } from "../../global/user-slice";
 
@@ -55,5 +55,23 @@ export const fetchUsers = async (axiosPrivate: AxiosInstance, dispatch: AppDispa
     return { mess: "An error occurred while updating users" };
   }
 
-  return { mess: "An error occurred while updating ysers" };
+  return { mess: "An error occurred while updating users" };
+};
+
+export const fetchStatsCloudinary = async (axiosPrivate: AxiosInstance, dispatch: AppDispatch) => {
+  let response;
+
+  try {
+    response = await axiosPrivate.get("/admin/stats/cloudinary");
+
+    if (response.status === 200) {
+      dispatch(setCloudinaryStats({ cldData: response.data }));
+
+      return "The cloudinary statistics have been updated";
+    }
+  } catch (err) {
+    return "An error occurred while cloudinary statistics";
+  }
+
+  return "An error occurred while cloudinary statistics";
 };

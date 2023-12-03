@@ -8,7 +8,12 @@ import InboxFeaturedPage from "./pages/Inbox/InboxFeaturedPage";
 import HomePage from "./pages/HomePage";
 import PersistLogin from "./layouts/PersistLogin";
 import { loader as rootLoader } from "./pages/HomePage";
-import { fetchPageViews, fetchStatsMongo, fetchUsers } from "./util/actions/actions";
+import {
+  fetchPageViews,
+  fetchStatsCloudinary,
+  fetchStatsMongo,
+  fetchUsers,
+} from "./util/actions/actions";
 import { useGlobalDispatch } from "./global/hooks";
 import useAxiosPrivate from "./hooks/usePrivateAxios";
 import { setUsersStats } from "./global/stats-slice";
@@ -43,6 +48,7 @@ function App() {
                 const connections = await fetchStatsMongo(axiosPrivate, dispatch);
                 const pageViews = await fetchPageViews(axiosPrivate, dispatch);
                 const users = await fetchUsers(axiosPrivate, dispatch);
+                await fetchStatsCloudinary(axiosPrivate, dispatch);
 
                 dispatch(setUsersStats({ users: users.users }));
 

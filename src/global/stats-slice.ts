@@ -3,6 +3,20 @@ import { UserProps } from "./user-slice";
 import { getLastWeek } from "./user-action";
 import { parseISO, format } from "date-fns";
 
+export type storageType = {
+  [key: string]: {
+    labels: string;
+    data: number[];
+    color: string;
+  };
+};
+
+type cloudinaryStatsType = {
+  usage: number;
+  limit: number;
+  used_percent: number;
+};
+
 type mongoConnType = {
   current: number;
   percentages: number;
@@ -13,6 +27,7 @@ type pagesViewsType = {
   views: number;
   percentages: number;
 };
+
 type usersType = {
   numberUsers: number;
   percentages: number;
@@ -20,12 +35,31 @@ type usersType = {
 };
 
 export type StatsState = {
-  mongoConns: mongoConnType;
-  pagesViews: pagesViewsType;
+  storage: storageType;
+  mongoConns: mongoConnType; // mongodb
+  pagesViews: pagesViewsType; // statistics from google api analitycs for https://pwa-crew-site-demo.vercel.app/
   users: usersType;
 };
 
 const initialState: StatsState = {
+  storage: {
+    cloudinary: {
+      labels: "cloudinary",
+      data: [0, 0],
+      color: "#0090e7",
+    },
+    mega: {
+      labels: "mega",
+      data: [389, 300],
+      color: "#fc424a",
+    },
+    vercelblob: {
+      labels: "vercelblob",
+      data: [9, 22],
+      color: "#eb904d",
+    },
+  },
+
   mongoConns: {
     current: 0,
     percentages: 0,
@@ -47,6 +81,15 @@ export const statsSlice = createSlice({
   name: "stats",
   initialState: initialState,
   reducers: {
+    setCloudinaryStats(state, action: PayloadAction<{ cldData: cloudinaryStatsType }>) {
+      const cldData = action.payload.cldData;
+      if (cldData) {
+        const usageConvertedToMB = cldData.usage * 1000;
+        const limitConvertedToMB = cldData.limit * 1000;
+
+        state.storage.cloudinary.data = [usageConvertedToMB, limitConvertedToMB];
+      }
+    },
     setMongoStats(state, action: PayloadAction<{ mongodata: mongoConnType }>) {
       const mongoData = action.payload.mongodata;
       if (mongoData) {
@@ -95,4 +138,5 @@ export const statsSlice = createSlice({
   },
 });
 
-export const { setMongoStats, setPageViews, setUsersStats } = statsSlice.actions;
+export const { setMongoStats, setPageViews, setUsersStats, setCloudinaryStats } =
+  statsSlice.actions;

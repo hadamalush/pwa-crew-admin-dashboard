@@ -1,5 +1,5 @@
 import Main from "../components/Common/Main";
-// import Button from "../components/UI/Button";
+import Button from "../components/UI/Button";
 import Container from "../components/UI/Container";
 import { IconNameType } from "../components/UI/Icons/IconBase";
 import Advertisement from "../components/transitions/Advertisement";
@@ -7,7 +7,7 @@ import CardStats from "../components/transitions/Cards/CardStats";
 import CardStorage from "../components/transitions/Cards/CardStorage";
 import CardUsersStats from "../components/transitions/Cards/CardUsersStat";
 import UsersList from "../components/transitions/Users/UsersList";
-import { DUMMY_STORAGE } from "../components/transitions/dummy-items";
+
 import { useGlobalDispatch, useGlobalSelector } from "../global/hooks";
 import { setUsersStats } from "../global/stats-slice";
 import useAxiosPrivate from "../hooks/usePrivateAxios";
@@ -24,6 +24,7 @@ type DUMMY_INFOTYPE = {
 
 const DashBoardPage = () => {
   const stateStats = useGlobalSelector((state) => state.stats);
+
   const dispatch = useGlobalDispatch();
   const axiosPrivate = useAxiosPrivate();
 
@@ -59,11 +60,11 @@ const DashBoardPage = () => {
     },
   ];
 
-  // const fetchdata = async () => {
-  //   const response = await axiosPrivate("/admin/users");
+  const fetchdata = async () => {
+    const response = await axiosPrivate("/admin/stats/cloudinary");
 
-  //   console.log(response);
-  // };
+    console.log(response);
+  };
 
   return (
     <Main>
@@ -74,13 +75,13 @@ const DashBoardPage = () => {
           variant="grid"
           className="grid-cols-1 gap-5 sm:grid-cols-2 xlg:grid-cols-4"
         >
-          {/* <Button onClick={fetchdata}>sadasd</Button> */}
+          <Button onClick={fetchdata}>sadasd</Button>
           {DUMMY_INFO.map((item) => {
             return <CardStats key={item.id} {...item} />;
           })}
         </Container>
         <Container as="section" variant="flex" className="flex-col gap-10 md:flex-row">
-          <CardStorage dataStorage={DUMMY_STORAGE} className="md:w-2/6" />
+          <CardStorage dataStorage={stateStats.storage} className="md:w-2/6" />
           <CardUsersStats className="md:w-4/6" />
         </Container>
         <Container
