@@ -50,7 +50,7 @@ const initialState: StatsState = {
     },
     mega: {
       labels: "mega",
-      data: [389, 300],
+      data: [0, 0],
       color: "#fc424a",
     },
     vercelblob: {
@@ -86,8 +86,17 @@ export const statsSlice = createSlice({
       if (cldData) {
         const usageConvertedToMB = cldData.usage * 1000;
         const limitConvertedToMB = cldData.limit * 1000;
+        const freeSpace = parseFloat((limitConvertedToMB - usageConvertedToMB).toFixed(2));
 
-        state.storage.cloudinary.data = [usageConvertedToMB, limitConvertedToMB];
+        state.storage.cloudinary.data = [usageConvertedToMB, freeSpace];
+      }
+    },
+    setMegaStats(state, action: PayloadAction<{ megaData: cloudinaryStatsType }>) {
+      const megaData = action.payload.megaData;
+      if (megaData) {
+        const freeSpace = parseFloat((megaData.limit - megaData.usage).toFixed(2));
+
+        state.storage.mega.data = [megaData.usage, freeSpace];
       }
     },
     setMongoStats(state, action: PayloadAction<{ mongodata: mongoConnType }>) {
@@ -138,5 +147,5 @@ export const statsSlice = createSlice({
   },
 });
 
-export const { setMongoStats, setPageViews, setUsersStats, setCloudinaryStats } =
+export const { setMongoStats, setPageViews, setUsersStats, setCloudinaryStats, setMegaStats } =
   statsSlice.actions;

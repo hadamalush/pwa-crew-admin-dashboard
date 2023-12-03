@@ -11,6 +11,7 @@ import { loader as rootLoader } from "./pages/HomePage";
 import {
   fetchPageViews,
   fetchStatsCloudinary,
+  fetchStatsMega,
   fetchStatsMongo,
   fetchUsers,
 } from "./util/actions/actions";
@@ -49,6 +50,7 @@ function App() {
                 const pageViews = await fetchPageViews(axiosPrivate, dispatch);
                 const users = await fetchUsers(axiosPrivate, dispatch);
                 await fetchStatsCloudinary(axiosPrivate, dispatch);
+                await fetchStatsMega(axiosPrivate, dispatch);
 
                 dispatch(setUsersStats({ users: users.users }));
 

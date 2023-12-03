@@ -61,7 +61,7 @@ const DashBoardPage = () => {
   ];
 
   const fetchdata = async () => {
-    const response = await axiosPrivate("/admin/stats/cloudinary");
+    const response = await axiosPrivate("/admin/stats/vercel");
 
     console.log(response);
   };
