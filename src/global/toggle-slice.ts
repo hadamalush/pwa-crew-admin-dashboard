@@ -3,12 +3,14 @@ import { createSlice, type PayloadAction } from "@reduxjs/toolkit";
 export type ToggleState = {
   isVisibleNav: boolean;
   isVisibleInboxNav: boolean;
+  isLoading: boolean;
   theme: "dark" | "light";
 };
 
 const initialState: ToggleState = {
   isVisibleNav: false,
   isVisibleInboxNav: false,
+  isLoading: false,
   theme: "dark",
 };
 
@@ -25,7 +27,10 @@ export const toggleSlice = createSlice({
     handleTheme(state, action: PayloadAction<{ theme: "dark" | "light" }>) {
       state.theme = action.payload.theme;
     },
+    setLoading(state, action: PayloadAction<{ loading: boolean }>) {
+      state.isLoading = action.payload.loading;
+    },
   },
 });
 
-export const { handleNav, handleInboxNav, handleTheme } = toggleSlice.actions;
+export const { handleNav, handleInboxNav, handleTheme, setLoading } = toggleSlice.actions;

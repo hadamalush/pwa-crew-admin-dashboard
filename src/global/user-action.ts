@@ -4,9 +4,24 @@ export const getDataUserForSearchable = (state: UserState) => {
   const allUsers = state.allUsers;
   const convertedUsers = allUsers.map((user) => ({
     value: user.email,
-    label: user.name,
+    label: user.username,
     email: user.email,
   }));
 
   return convertedUsers;
+};
+
+export const getLastWeek = () => {
+  const dates = Array.from({ length: 7 }, (_, i) => {
+    const date = new Date();
+
+    date.setDate(date.getDate() - i);
+    const day = date.getDate();
+    const month = date.getMonth() + 1;
+    const year = date.getFullYear();
+
+    return `${day}.${month}.${year}`;
+  });
+
+  return dates;
 };

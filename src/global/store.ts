@@ -3,6 +3,7 @@ import { toggleSlice } from "./toggle-slice";
 import { messageSlice } from "./message-slice";
 import { usersSlice } from "./user-slice";
 import { authSlice } from "./auth-slice";
+import { statsSlice } from "./stats-slice";
 
 export const store = configureStore({
   reducer: {
@@ -10,6 +11,7 @@ export const store = configureStore({
     messages: messageSlice.reducer,
     users: usersSlice.reducer,
     auth: authSlice.reducer,
+    stats: statsSlice.reducer,
   },
 });
 

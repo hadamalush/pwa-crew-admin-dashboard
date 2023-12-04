@@ -14,6 +14,7 @@ export const basicVariant = cva("w-10 h-10", {
       blue: "text-lightBlue",
       gray: "text-textPrimary",
     },
+
     size: {
       default: "w-10 h-10",
       s0: "w-4 h-4",

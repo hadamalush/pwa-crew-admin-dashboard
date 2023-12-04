@@ -37,7 +37,7 @@ const MessageItemDetails = ({
       )}
       onClick={() => setIsVisibleMess((prev) => !prev)}
     >
-      <Avatar src={avatarSrc} size="s5" />
+      <Avatar src={avatarSrc ? avatarSrc : "/avatar.webp"} size="s5" />
       <Container className="flex-col justify-start w-10/12 md:w-11/12 relative">
         <h2 className="text-2xl px-4 font-semibold mr-auto text-black dark:text-textPrimary sm:flex">
           <p>{owner}</p>

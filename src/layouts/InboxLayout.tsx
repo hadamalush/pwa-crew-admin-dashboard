@@ -1,4 +1,4 @@
-import { Outlet, useLocation } from "react-router-dom";
+import { Outlet, useLoaderData, useLocation } from "react-router-dom";
 import { InboxNavbarItems } from "../components/Common/Navigation/NavigationData";
 import { useGlobalSelector } from "../global/hooks";
 import { cn } from "../util/utils";
@@ -23,6 +23,12 @@ const InboxLayout = () => {
       dispatch(resetCurrentPage());
     }
   }, [dispatch, changePath]);
+
+  const ok = useLoaderData();
+
+  if (!ok) {
+    return null;
+  }
 
   return (
     <>

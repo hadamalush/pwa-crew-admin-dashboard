@@ -1,0 +1,41 @@
+.loaderCircle {
+  position: absolute;
+  width: 20px;
+  height: 20px;
+  border: 3px dotted #1b0b63;
+  border-style: solid solid dotted dotted;
+  border-radius: 50%;
+  display: inline-block;
+  box-sizing: border-box;
+  animation: rotation 2s linear infinite;
+}
+.loaderCircle::after {
+  content: "";
+  box-sizing: border-box;
+  position: absolute;
+  margin: auto;
+  border: 3px dotted #ffffff;
+  border-style: solid solid dotted;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  animation: rotationBack 1s linear infinite;
+  transform-origin: center center;
+}
+
+@keyframes rotation {
+  0% {
+    rotate: 0deg;
+  }
+  100% {
+    rotate: 360deg;
+  }
+}
+@keyframes rotationBack {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(-360deg);
+  }
+}

@@ -12,6 +12,7 @@ export default {
       fontFamily: {
         poppins: ["Poppins", "sans-serif"],
       },
+
       keyframes: {
         spin: {
           "0%": { transform: "rotate(0deg)" },
@@ -26,6 +27,7 @@ export default {
         scale: "scale 0.5s ",
         spin: "spin 2s linear infinite",
       },
+
       width: {
         126: "30rem",
         128: "32rem",
@@ -37,6 +39,9 @@ export default {
       },
       maxWidth: {
         125: "11.5rem",
+      },
+      boxShadowSpinner: {
+        inset: "inset 0 0 8px #8baa36",
       },
     },
     screens: {

@@ -4,16 +4,26 @@ import Heading from "../../UI/Heading";
 import { ComponentPropsWithoutRef } from "react";
 import { cn } from "../../../util/utils";
 import { IconNameType } from "../../UI/Icons/IconBase";
+import Button from "../../UI/Button";
+import { toast } from "sonner";
 
 type CardStatsProps = {
   title: string;
-  quantity: number;
-  percentages: number;
+  quantity: number | null | undefined;
+  percentages: number | undefined | null;
   iconName: IconNameType;
+  fetch?: () => Promise<string>;
 } & ComponentPropsWithoutRef<"div">;
 
-const CardStats = ({ title, quantity, percentages, iconName, ...props }: CardStatsProps) => {
-  const isMinusPercentage = percentages < 0 ? true : false;
+const CardStats = ({ title, quantity, percentages, iconName, fetch, ...props }: CardStatsProps) => {
+  const isMinusPercentage = percentages && percentages < 0 ? true : false;
+
+  const handleFetchData = async () => {
+    if (fetch) {
+      const message = await fetch();
+      toast.success(message);
+    }
+  };
 
   return (
     <Container as="div" variant="default" className={cn("w-full h-72 flex", props.className)}>
@@ -41,12 +51,13 @@ const CardStats = ({ title, quantity, percentages, iconName, ...props }: CardSta
         </Heading>
       </div>
 
-      <span
+      <Button
         className="self-end p-2 mr-7 mb-7 bg-slate-200 dark:bg-primaryLight rounded-2xl flex items-center justify-center cursor-pointer hover:bg-slate-300
        dark:hover:bg-navItemActive duration-200"
+        onClick={handleFetchData}
       >
         <Icon iconName="arrowBottomRight" size="s3" color="blue" className="block " />
-      </span>
+      </Button>
     </Container>
   );
 };

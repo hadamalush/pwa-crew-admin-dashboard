@@ -5,13 +5,15 @@ import { cn } from "../util/utils";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { loginSchema } from "../schemas/schema";
-import axios from "axios";
+import axios, { AxiosError } from "axios";
 import { API_URL } from "../config/config";
 import Cookies from "js-cookie";
-import { useGlobalDispatch } from "../global/hooks";
+import { useGlobalDispatch, useGlobalSelector } from "../global/hooks";
 import { setAuth } from "../global/auth-slice";
 import { redirect, useNavigate } from "react-router-dom";
-import { Suspense } from "react";
+import { setLoading } from "../global/toggle-slice";
+import CircleLoader from "../components/UI/Loader/CircleLoader";
+import { toast } from "sonner";
 
 const HomePage = () => {
   const {
@@ -21,6 +23,7 @@ const HomePage = () => {
   } = useForm({ resolver: yupResolver(loginSchema), mode: "onBlur" });
   const dispatch = useGlobalDispatch();
   const navigate = useNavigate();
+  const isLoading = useGlobalSelector((state) => state.toggle.isLoading);
 
   const backgroundImgClass = `
      ss:bg-[url('/background/mountain-ss.webp')]
@@ -30,6 +33,7 @@ const HomePage = () => {
      xxl:bg-[url('/background/mountain-xxl.webp')]`;
 
   const handleLogin = async ({ email, password }: { email: string; password: string }) => {
+    dispatch(setLoading({ loading: true }));
     try {
       const response = await axios({
         method: "post",
@@ -49,18 +53,28 @@ const HomePage = () => {
 
         Cookies.set("accessToken", accessToken, { expires: 7, secure: true });
         Cookies.set("refreshToken", refreshToken, { expires: 7, secure: true });
-
         dispatch(setAuth({ authData: { accessToken: refreshToken, avatar, email, username } }));
 
+        toast.success("Successfully logged in");
+        dispatch(setLoading({ loading: false }));
         return navigate("/dashboard");
       }
-    } catch (err: unknown) {
-      console.log(err);
+    } catch (err) {
+      const error = err as AxiosError;
+      dispatch(setLoading({ loading: false }));
+      const message = (error.response?.data as AxiosError)?.message;
+
+      if (message) {
+        toast.error(message);
+        return;
+      }
+      toast.error("An error occurred, please try again");
     }
   };
 
   return (
-    <Suspense>
+    <>
+      {isLoading && <CircleLoader className="right-10 bottom-10 !border-sky-500" />}
       <main
         className={cn(
           "w-screen h-screen bg-black flex items-center justify-center  bg-center	bg-cover landscape:items-start landscape:h-160 landscape:sm:items-center landscape:sm:h-screen",
@@ -93,12 +107,16 @@ const HomePage = () => {
             className="bg-grayInputDark border-grayInputDark text-white"
           />
 
-          <Button variant="default" className="w-full mt-10">
+          <Button
+            variant="default"
+            className={`w-full relative  mt-10  flex items-center justify-center`}
+            isLoading={isLoading}
+          >
             Login
           </Button>
         </form>
       </main>
-    </Suspense>
+    </>
   );
 };
 
@@ -131,6 +149,7 @@ const VerifyRfToken = async () => {
   return access;
 };
 
+// eslint-disable-next-line react-refresh/only-export-components
 export const loader = async () => {
   const refreshToken = Cookies.get("refreshToken");
   let isAccess = false;

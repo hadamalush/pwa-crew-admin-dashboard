@@ -1,14 +1,15 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { DUMMY_USERSFULL } from "../components/transitions/dummy-items";
+// import { DUMMY_USERSFULL } from "../components/transitions/dummy-items";
+import { PayloadAction } from "@reduxjs/toolkit";
 
 export type UserProps = {
   id: string;
-  name: string;
+  username: string;
   email: string;
-  avatarSrc?: string;
-  accountActive: boolean;
+  avatarImg?: string;
+  isActivated: boolean;
   newsletter: boolean;
-  createdAccount: string;
+  createAt: string;
 };
 
 export type UserState = {
@@ -16,17 +17,18 @@ export type UserState = {
 };
 
 const initialState: UserState = {
-  allUsers: DUMMY_USERSFULL,
+  allUsers: [],
 };
 
 export const usersSlice = createSlice({
   name: "users",
   initialState: initialState,
   reducers: {
-    display(state) {
-      console.log(state);
+    setUsers(state, action: PayloadAction<{ users: UserProps[] }>) {
+      const users = action.payload.users;
+      state.allUsers = users;
     },
   },
 });
 
-export const { display } = usersSlice.actions;
+export const { setUsers } = usersSlice.actions;

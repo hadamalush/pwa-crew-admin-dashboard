@@ -1,6 +1,7 @@
 import { type FC, type ButtonHTMLAttributes } from "react";
 import { VariantProps, cva } from "class-variance-authority";
 import { cn } from "../../util/utils";
+import CircleLoader from "./Loader/CircleLoader";
 
 const buttonVariant = cva("inline-flex items-center justify-center", {
   variants: {
@@ -19,10 +20,19 @@ const buttonVariant = cva("inline-flex items-center justify-center", {
   defaultVariants: {},
 });
 
-type ButtonProps = ButtonHTMLAttributes<HTMLButtonElement> & VariantProps<typeof buttonVariant>;
+type ButtonProps = { isLoading?: boolean } & ButtonHTMLAttributes<HTMLButtonElement> &
+  VariantProps<typeof buttonVariant>;
 
-const Button: FC<ButtonProps> = ({ variant, size, className, ...props }) => {
-  return <button className={cn(buttonVariant({ variant, size }), className)} {...props}></button>;
+const Button: FC<ButtonProps> = ({ variant, size, className, isLoading, ...props }) => {
+  return (
+    <button
+      className={cn(buttonVariant({ variant, size }), className, { "text-transparent": isLoading })}
+      {...props}
+    >
+      {props.children}
+      {isLoading && <CircleLoader />}
+    </button>
+  );
 };
 
 export default Button;

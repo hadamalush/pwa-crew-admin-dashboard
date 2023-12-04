@@ -1,7 +1,4 @@
 import { RouterProvider, createBrowserRouter } from "react-router-dom";
-
-import { Provider as ReduxProvider } from "react-redux/es/exports";
-import { store } from "./global/store";
 import { lazy, Suspense } from "react";
 
 import InboxSentPage from "./pages/Inbox/InboxSentPage";
@@ -11,6 +8,18 @@ import InboxFeaturedPage from "./pages/Inbox/InboxFeaturedPage";
 import HomePage from "./pages/HomePage";
 import PersistLogin from "./layouts/PersistLogin";
 import { loader as rootLoader } from "./pages/HomePage";
+import {
+  fetchAllMessages,
+  fetchPageViews,
+  fetchStatsCloudinary,
+  fetchStatsMega,
+  fetchStatsMongo,
+  fetchStatsVercel,
+  fetchUsers,
+} from "./util/actions/actions";
+import { useGlobalDispatch, useGlobalSelector } from "./global/hooks";
+import useAxiosPrivate from "./hooks/usePrivateAxios";
+import { setUsersStats } from "./global/stats-slice";
 
 const DashBoardPage = lazy(() => import("./pages/DashboardPage"));
 const InboxLayout = lazy(() => import("./layouts/InboxLayout"));
@@ -21,6 +30,12 @@ const SettingsPage = lazy(() => import("./pages/SettingsPage"));
 const MainLayout = lazy(() => import("./layouts/MainLayout"));
 
 function App() {
+  const dispatch = useGlobalDispatch();
+  const messages1 = useGlobalSelector((state) => state.messages.allMessages);
+
+  const axiosPrivate = useAxiosPrivate();
+  console.log(messages1);
+
   const router = createBrowserRouter([
     {
       path: "/",
@@ -35,6 +50,23 @@ function App() {
           children: [
             {
               element: <MainLayout />,
+              loader: async () => {
+                const connections = await fetchStatsMongo(axiosPrivate, dispatch);
+                const pageViews = await fetchPageViews(axiosPrivate, dispatch);
+                const users = await fetchUsers(axiosPrivate, dispatch);
+                await fetchStatsCloudinary(axiosPrivate, dispatch);
+                await fetchStatsMega(axiosPrivate, dispatch);
+                await fetchStatsVercel(axiosPrivate, dispatch);
+
+                dispatch(setUsersStats({ users: users.users }));
+
+                //temporary
+                if (!connections) console.log("Error download conncetions");
+                if (!pageViews) console.log("Error download pageViews");
+                if (!users) console.log("Error download users");
+
+                return "continue...";
+              },
               children: [
                 {
                   path: "dashboard",
@@ -43,6 +75,16 @@ function App() {
                 {
                   path: "inbox",
                   element: <InboxLayout />,
+                  loader: async () => {
+                    if (!messages1) {
+                      const messages = await fetchAllMessages(axiosPrivate, dispatch);
+
+                      //temporary
+                      if (!messages) console.log("Error download messages");
+                    }
+
+                    return "continue...";
+                  },
                   children: [
                     {
                       index: true,
@@ -96,11 +138,9 @@ function App() {
   ]);
 
   return (
-    <ReduxProvider store={store}>
-      <Suspense fallback={null}>
-        <RouterProvider router={router} />
-      </Suspense>
-    </ReduxProvider>
+    <Suspense fallback={null}>
+      <RouterProvider router={router} />
+    </Suspense>
   );
 }
 
