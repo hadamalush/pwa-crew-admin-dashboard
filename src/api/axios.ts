@@ -1,5 +1,5 @@
 import axios from "axios";
-const BASE_URL = "https://pwa-crew-site-demo.vercel.app/";
+const BASE_URL = "https://pwa-crew-site-demo.vercel.app/api";
 
 export default axios.create({
   baseURL: BASE_URL,
