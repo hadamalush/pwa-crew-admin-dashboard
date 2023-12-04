@@ -1,5 +1,5 @@
 import axios from "axios";
-const BASE_URL = "http://localhost:3000/api";
+const BASE_URL = "https://pwa-crew-site-demo.vercel.app/";
 
 export default axios.create({
   baseURL: BASE_URL,

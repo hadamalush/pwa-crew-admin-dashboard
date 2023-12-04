@@ -17,7 +17,7 @@ import {
   fetchStatsVercel,
   fetchUsers,
 } from "./util/actions/actions";
-import { useGlobalDispatch } from "./global/hooks";
+import { useGlobalDispatch, useGlobalSelector } from "./global/hooks";
 import useAxiosPrivate from "./hooks/usePrivateAxios";
 import { setUsersStats } from "./global/stats-slice";
 
@@ -31,7 +31,10 @@ const MainLayout = lazy(() => import("./layouts/MainLayout"));
 
 function App() {
   const dispatch = useGlobalDispatch();
+  const messages1 = useGlobalSelector((state) => state.messages.allMessages);
+
   const axiosPrivate = useAxiosPrivate();
+  console.log(messages1);
 
   const router = createBrowserRouter([
     {
@@ -73,10 +76,13 @@ function App() {
                   path: "inbox",
                   element: <InboxLayout />,
                   loader: async () => {
-                    const messages = await fetchAllMessages(axiosPrivate, dispatch);
+                    if (!messages1) {
+                      const messages = await fetchAllMessages(axiosPrivate, dispatch);
 
-                    //temporary
-                    if (!messages) console.log("Error download messages");
+                      //temporary
+                      if (!messages) console.log("Error download messages");
+                    }
+
                     return "continue...";
                   },
                   children: [
