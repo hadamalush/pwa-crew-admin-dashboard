@@ -47,13 +47,13 @@ export const getFilteredMessages = createSelector(
     }
 
     const destructionMessages = filteredMessages.map(
-      ({ id, owner, subject, avatarSrc, isFeatured, isRead, date }) => ({
+      ({ id, owner, subject, avatarSrc, isFeatured, unRead, date }) => ({
         id,
         owner,
         subject,
         avatarSrc,
         isFeatured,
-        isRead,
+        unRead,
         date: new Date(date).toISOString(),
       })
     );

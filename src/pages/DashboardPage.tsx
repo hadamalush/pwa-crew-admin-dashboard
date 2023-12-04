@@ -24,7 +24,6 @@ type DUMMY_INFOTYPE = {
 
 const DashBoardPage = () => {
   const stateStats = useGlobalSelector((state) => state.stats);
-
   const dispatch = useGlobalDispatch();
   const axiosPrivate = useAxiosPrivate();
 
@@ -61,7 +60,7 @@ const DashBoardPage = () => {
   ];
 
   const fetchdata = async () => {
-    const response = await axiosPrivate("/admin/stats/vercel");
+    const response = await axiosPrivate("/admin/inbox");
 
     console.log(response);
   };

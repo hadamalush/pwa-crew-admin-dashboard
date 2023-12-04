@@ -18,7 +18,7 @@ type dataMessage = {
 
 const MessageItem = forwardRef<HTMLInputElement, dataMessage>(({ dataMessage, pageName }, ref) => {
   const dispatch = useGlobalDispatch();
-  const { id, owner, subject, avatarSrc, isFeatured, isRead, date } = dataMessage;
+  const { id, owner, subject, avatarSrc, isFeatured, unRead, date } = dataMessage;
   const [isFeaturedMess, setIsFeaturedMess] = useState(isFeatured);
   const newDate = new Date(date);
   const formattedDate = format(newDate, "dd MMM");
@@ -45,7 +45,7 @@ const MessageItem = forwardRef<HTMLInputElement, dataMessage>(({ dataMessage, pa
       className={cn(
         `flex w-full mx-auto text-xl xlg:text-2xl text-black dark:text-textPrimary px-5 border-pLight dark:border-borderPrimary border-b
    md:py-3 md:px-10`,
-        { "dark:bg-messageItemActive bg-slate-200": !isRead }
+        { "dark:bg-messageItemActive bg-slate-200": !unRead }
       )}
     >
       <InputRef
@@ -73,7 +73,11 @@ const MessageItem = forwardRef<HTMLInputElement, dataMessage>(({ dataMessage, pa
         />
       </Button>
 
-      <Avatar src={avatarSrc} size="s2" className="hidden md:block self-center" />
+      <Avatar
+        src={avatarSrc ? avatarSrc : "/avatar.webp"}
+        size="s2"
+        className="hidden md:block self-center"
+      />
 
       <NavLink
         to={id}

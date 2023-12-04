@@ -9,6 +9,7 @@ import HomePage from "./pages/HomePage";
 import PersistLogin from "./layouts/PersistLogin";
 import { loader as rootLoader } from "./pages/HomePage";
 import {
+  fetchAllMessages,
   fetchPageViews,
   fetchStatsCloudinary,
   fetchStatsMega,
@@ -56,6 +57,7 @@ function App() {
 
                 dispatch(setUsersStats({ users: users.users }));
 
+                //temporary
                 if (!connections) console.log("Error download conncetions");
                 if (!pageViews) console.log("Error download pageViews");
                 if (!users) console.log("Error download users");
@@ -70,6 +72,13 @@ function App() {
                 {
                   path: "inbox",
                   element: <InboxLayout />,
+                  loader: async () => {
+                    const messages = await fetchAllMessages(axiosPrivate, dispatch);
+
+                    //temporary
+                    if (!messages) console.log("Error download messages");
+                    return "continue...";
+                  },
                   children: [
                     {
                       index: true,

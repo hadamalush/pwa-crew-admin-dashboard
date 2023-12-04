@@ -1,13 +1,13 @@
 import { createSlice, type PayloadAction } from "@reduxjs/toolkit";
-import { DUMMY_INBOXMESSAGES } from "../components/transitions/dummy-items";
+// import { DUMMY_INBOXMESSAGES } from "../components/transitions/dummy-items";
 
 export interface messageProps {
   id: string;
   owner: string;
   subject: string;
-  avatarSrc: string;
+  avatarSrc?: string;
   isFeatured: boolean;
-  isRead: boolean;
+  unRead: boolean;
   date: string;
 }
 
@@ -41,7 +41,7 @@ const initialCurrentPage = {
 };
 
 const initialState: initialStateType = {
-  allMessages: DUMMY_INBOXMESSAGES,
+  allMessages: [],
   currentPagePag: initialCurrentPage,
   trashMessages: [],
   featuredMessages: [],
@@ -56,6 +56,9 @@ export const messageSlice = createSlice({
   name: "message",
   initialState: initialState,
   reducers: {
+    setAllMessages(state, action: PayloadAction<{ allMessages: messageDetailsType[] }>) {
+      state.allMessages = action.payload.allMessages;
+    },
     filterMessages(
       state,
       action: PayloadAction<{ pageName: "trash" | "spam" | "inbox" | "featured" }>
@@ -79,13 +82,13 @@ export const messageSlice = createSlice({
       }
 
       const destructionMessages = filteredMessages.map(
-        ({ id, owner, subject, avatarSrc, isFeatured, isRead, date }) => ({
+        ({ id, owner, subject, avatarSrc, isFeatured, unRead, date }) => ({
           id,
           owner,
           subject,
           avatarSrc,
           isFeatured,
-          isRead,
+          unRead,
           date: new Date(date).toISOString(),
         })
       );
@@ -230,6 +233,7 @@ export const getNumberOfMessagesByPage = (
 };
 
 export const {
+  setAllMessages,
   filterMessages,
   markSingleMessage,
   setCheckedMessages,

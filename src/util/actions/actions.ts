@@ -9,6 +9,7 @@ import {
 } from "../../global/stats-slice";
 import { AppDispatch } from "../../global/store";
 import { setUsers } from "../../global/user-slice";
+import { setAllMessages } from "../../global/message-slice";
 
 export const fetchStatsMongo = async (axiosPrivate: AxiosInstance, dispatch: AppDispatch) => {
   let response;
@@ -116,4 +117,22 @@ export const fetchStatsVercel = async (axiosPrivate: AxiosInstance, dispatch: Ap
   }
 
   return "An error occurred while downloading statistics from vercel blob";
+};
+
+export const fetchAllMessages = async (axiosPrivate: AxiosInstance, dispatch: AppDispatch) => {
+  let response;
+
+  try {
+    response = await axiosPrivate.get("/admin/inbox");
+
+    if (response.status === 200) {
+      dispatch(setAllMessages({ allMessages: response.data }));
+
+      return "Messages updated";
+    }
+  } catch (err) {
+    return "An error occurred while downloading messages";
+  }
+
+  return "An error occurred while downloading messages";
 };
