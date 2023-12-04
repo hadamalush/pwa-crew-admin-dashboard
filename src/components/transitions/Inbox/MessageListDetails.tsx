@@ -55,7 +55,7 @@ const MessageListDetails = () => {
         return (
           <MessageItemDetails
             key={message.id}
-            avatarSrc={message.avatarSrc}
+            avatarSrc={message.avatarSrc ? message.avatarSrc : ""}
             date={message.date}
             description={message.description}
             email={message.email}
