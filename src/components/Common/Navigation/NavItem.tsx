@@ -116,18 +116,18 @@ const getUnreadMessageCountByTab = ({ pageName, allMessages }: handleAdditionalI
   let quantity: number = 0;
 
   if (pageName === "Trash") {
-    quantity = allMessages.filter((mess) => mess.isInTrash && !mess.isRead).length;
+    quantity = allMessages.filter((mess) => mess.isInTrash && !mess.unRead).length;
   }
   if (pageName === "Inbox") {
     quantity = allMessages.filter(
-      (mess) => !mess.isInSpam && !mess.isInTrash && !mess.isRead
+      (mess) => !mess.isInSpam && !mess.isInTrash && !mess.unRead
     ).length;
   }
   if (pageName === "Featured") {
-    quantity = allMessages.filter((mess) => mess.isFeatured && !mess.isRead).length;
+    quantity = allMessages.filter((mess) => mess.isFeatured && !mess.unRead).length;
   }
   if (pageName === "Spam") {
-    quantity = allMessages.filter((mess) => mess.isInSpam && !mess.isRead).length;
+    quantity = allMessages.filter((mess) => mess.isInSpam && !mess.unRead).length;
   }
 
   return quantity;
