@@ -28,6 +28,7 @@ const InboxLayout = () => {
     }
   }, [dispatch, changePath]);
 
+  //FETCHING MESSAGES IN THE BACKGROUND
   useEffect(() => {
     const fetchDataInBackground = async () => {
       let token,

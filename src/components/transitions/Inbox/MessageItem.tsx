@@ -10,6 +10,8 @@ import { ChangeEvent, forwardRef } from "react";
 import InputRef from "../../UI/Input/InputRef";
 import { useState, useEffect } from "react";
 import { NavLink } from "react-router-dom";
+import { axiosPrivate } from "../../../api/axios";
+import { toast } from "sonner";
 
 type dataMessage = {
   dataMessage: messageProps;
@@ -34,10 +36,27 @@ const MessageItem = forwardRef<HTMLInputElement, dataMessage>(({ dataMessage, pa
     dispatch(markSingleMessage({ id, action: action, pageName: pageName }));
   };
 
-  const handleFeatured = (e: React.MouseEvent<HTMLButtonElement>) => {
+  const handleFeatured = async (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
     dispatch(markSingleMessage({ id, action: "featured", pageName: pageName }));
     setIsFeaturedMess((prev) => !prev);
+    const mode = isFeaturedMess ? "remove" : "add";
+    let res;
+
+    try {
+      res = await axiosPrivate.post("/admin/inbox/setFeatured", { mode: mode, messageId: id });
+    } catch (err) {
+      toast.error("Something went wrong");
+      setIsFeaturedMess((prev) => !prev);
+      return;
+    }
+
+    if (res.data?.error) {
+      toast.error(res.data.error);
+      setIsFeaturedMess((prev) => !prev);
+    } else {
+      toast.success(res.data.message);
+    }
   };
 
   return (
