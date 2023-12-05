@@ -10,16 +10,16 @@ import PersistLogin from "./layouts/PersistLogin";
 import { loader as rootLoader } from "./pages/HomePage";
 import {
   fetchAllMessages,
-  fetchPageViews,
-  fetchStatsCloudinary,
-  fetchStatsMega,
-  fetchStatsMongo,
-  fetchStatsVercel,
-  fetchUsers,
+  // fetchPageViews,
+  // fetchStatsCloudinary,
+  // fetchStatsMega,
+  // fetchStatsMongo,
+  // fetchStatsVercel,
+  // fetchUsers,
 } from "./util/actions/actions";
 import { useGlobalDispatch } from "./global/hooks";
 import useAxiosPrivate from "./hooks/usePrivateAxios";
-import { setUsersStats } from "./global/stats-slice";
+// import { setUsersStats } from "./global/stats-slice";
 
 const DashBoardPage = lazy(() => import("./pages/DashboardPage"));
 const InboxLayout = lazy(() => import("./layouts/InboxLayout"));
@@ -51,19 +51,19 @@ function App() {
             {
               element: <MainLayout />,
               loader: async () => {
-                const connections = await fetchStatsMongo(axiosPrivate, dispatch);
-                const pageViews = await fetchPageViews(axiosPrivate, dispatch);
-                const users = await fetchUsers(axiosPrivate, dispatch);
-                await fetchStatsCloudinary(axiosPrivate, dispatch);
-                await fetchStatsMega(axiosPrivate, dispatch);
-                await fetchStatsVercel(axiosPrivate, dispatch);
+                // const connections = await fetchStatsMongo(axiosPrivate, dispatch);
+                // const pageViews = await fetchPageViews(axiosPrivate, dispatch);
+                // const users = await fetchUsers(axiosPrivate, dispatch);
+                // await fetchStatsCloudinary(axiosPrivate, dispatch);
+                // await fetchStatsMega(axiosPrivate, dispatch);
+                // await fetchStatsVercel(axiosPrivate, dispatch);
 
-                dispatch(setUsersStats({ users: users.users }));
+                // dispatch(setUsersStats({ users: users.users }));
 
                 //temporary
-                if (!connections) console.log("Error download conncetions");
-                if (!pageViews) console.log("Error download pageViews");
-                if (!users) console.log("Error download users");
+                // if (!connections) console.log("Error download conncetions");
+                // if (!pageViews) console.log("Error download pageViews");
+                // if (!users) console.log("Error download users");
 
                 return "continue...";
               },
@@ -77,7 +77,7 @@ function App() {
                   element: <InboxLayout />,
                   loader: async () => {
                     // if (!messages1) {
-                    const messages = await fetchAllMessages(axiosPrivate, dispatch);
+                    const messages = await fetchAllMessages(axiosPrivate, dispatch, "SPAM");
 
                     //temporary
                     if (!messages) console.log("Error download messages");

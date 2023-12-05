@@ -9,7 +9,7 @@ import {
 } from "../../global/stats-slice";
 import { AppDispatch } from "../../global/store";
 import { setUsers } from "../../global/user-slice";
-import { setAllMessages } from "../../global/message-slice";
+import { addNewMsgPackage } from "../../global/message-slice";
 
 export const fetchStatsMongo = async (axiosPrivate: AxiosInstance, dispatch: AppDispatch) => {
   let response;
@@ -119,20 +119,27 @@ export const fetchStatsVercel = async (axiosPrivate: AxiosInstance, dispatch: Ap
   return "An error occurred while downloading statistics from vercel blob";
 };
 
-export const fetchAllMessages = async (axiosPrivate: AxiosInstance, dispatch: AppDispatch) => {
-  let response;
+export const fetchAllMessages = async (
+  axiosPrivate: AxiosInstance,
+  dispatch: AppDispatch,
+  label: "SPAM" | "TRASH" | "INBOX",
+  pageToken?: string
+) => {
+  let response, newLabel, newPageToken;
 
   try {
-    response = await axiosPrivate.get("/admin/inbox");
+    response = await axiosPrivate.post("/admin/inbox", { label, pageToken });
+    newLabel = response.data.label;
+    newPageToken = response.data.newPageToken ? response.data.newPageToken : "";
 
     if (response.status === 200) {
-      dispatch(setAllMessages({ allMessages: response.data }));
+      dispatch(addNewMsgPackage({ messages: response.data.allMessages }));
 
-      return "Messages updated";
+      return { newLabel, newPageToken };
     }
   } catch (err) {
-    return "An error occurred while downloading messages";
+    return { newLabel, newPageToken };
   }
 
-  return "An error occurred while downloading messages";
+  return { newLabel, newPageToken };
 };

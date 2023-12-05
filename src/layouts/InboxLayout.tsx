@@ -9,10 +9,14 @@ import usePage from "../hooks/usePage";
 import { useDispatch } from "react-redux";
 import { resetCurrentPage } from "../global/message-slice";
 import { useEffect } from "react";
+import { fetchAllMessages } from "../util/actions/actions";
+import useAxiosPrivate from "../hooks/usePrivateAxios";
 
 const InboxLayout = () => {
   const isVisibleMainNav = useGlobalSelector((state) => state.toggle.isVisibleNav);
   const isVisibleInboxNav = useGlobalSelector((state) => state.toggle.isVisibleInboxNav);
+
+  const axiosPrivate = useAxiosPrivate();
   const dispatch = useDispatch();
   const pathname = useLocation().pathname;
   const isInboxPage = pathname.includes("inbox");
@@ -23,6 +27,37 @@ const InboxLayout = () => {
       dispatch(resetCurrentPage());
     }
   }, [dispatch, changePath]);
+
+  useEffect(() => {
+    console.log("RAZ");
+    const fetchDataInBackground = async () => {
+      let token,
+        newLabel: "SPAM" | "TRASH" | "INBOX" = "SPAM",
+        continue2 = true;
+      while (continue2) {
+        const response = await fetchAllMessages(axiosPrivate, dispatch, newLabel, token);
+
+        token = response.newPageToken;
+        newLabel = response.newLabel;
+
+        if (newLabel === "INBOX" && token === "") {
+          console.log("STOOOOOP");
+          continue2 = false;
+        }
+
+        if (token === "" && newLabel === "SPAM") {
+          newLabel = "TRASH";
+        } else if (token === "" && newLabel === "TRASH") {
+          newLabel = "INBOX";
+        }
+
+        if (!newLabel) {
+          continue2 = false;
+        }
+      }
+    };
+    fetchDataInBackground();
+  }, []);
 
   const ok = useLoaderData();
 
