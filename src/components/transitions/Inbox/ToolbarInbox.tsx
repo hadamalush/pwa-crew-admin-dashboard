@@ -3,7 +3,7 @@ import { cn } from "../../../util/utils";
 import Container from "../../UI/Container";
 import Icon from "../../UI/Icons/Icon";
 import Button from "../../UI/Button";
-import { handleInboxNav, handleNav } from "../../../global/toggle-slice";
+import { handleInboxNav, handleNav, setLoading } from "../../../global/toggle-slice";
 import {
   moveMessages,
   markAllMessage,
@@ -14,14 +14,18 @@ import {
 import usePage from "../../../hooks/usePage";
 import { useParams } from "react-router";
 import { getMessIndex } from "../../../global/message-action";
+import { axiosPrivate } from "../../../api/axios";
+import { toast } from "sonner";
 
 const ToolbarInbox = () => {
   const dispatch = useGlobalDispatch();
   const toggleState = useGlobalSelector((state) => state.toggle);
   const messagesState = useGlobalSelector((state) => state.messages);
+
   const { path } = usePage();
   const { messageId } = useParams();
 
+  const checkedMessages = messagesState.checkedMessages;
   const isVisibleMainNav = toggleState.isVisibleNav;
   const isVisibleInboxNav = toggleState.isVisibleInboxNav;
   const areAllMessagesMarked = messagesState.areMarkedAllMessages;
@@ -41,9 +45,31 @@ const ToolbarInbox = () => {
     dispatch(markAllMessage({ allMessagesMarked: !areAllMessagesMarked }));
   };
 
-  const handleMessagesMove = (moveTo: "trash" | "spam" | "inbox") => {
+  const handleMessagesMove = async (moveTo: "trash" | "spam" | "inbox") => {
+    dispatch(setLoading({ loading: true }));
+    let res;
+    try {
+      res = await axiosPrivate.post("/admin/inbox/moveMessages", {
+        mode: moveTo,
+        messages: checkedMessages,
+      });
+    } catch (err) {
+      dispatch(setLoading({ loading: false }));
+      toast.error("Failed to move messages");
+      return;
+    }
+
+    if (res.data?.error) {
+      dispatch(setLoading({ loading: false }));
+      toast.error(res.data.error);
+      return;
+    } else {
+      toast.success(res.data.message);
+    }
+
     dispatch(moveMessages({ moveTo: moveTo }));
     dispatch(markAllMessage({ allMessagesMarked: false }));
+    dispatch(setLoading({ loading: false }));
   };
 
   const handleChangePage = (action: "previous" | "next") => {
