@@ -33,10 +33,6 @@ export type initialStateType = {
   checkedMessages: string[];
   areMarkedAllMessages: boolean;
   isMarkedCheckboxAll: boolean;
-
-  pageToken: string;
-  label: "SPAM" | "TRASH" | "INBOX";
-  continue: boolean;
 };
 
 const initialCurrentPage = {
@@ -54,40 +50,12 @@ const initialState: initialStateType = {
   checkedMessages: [],
   areMarkedAllMessages: false,
   isMarkedCheckboxAll: false,
-
-  pageToken: "",
-  label: "SPAM",
-  continue: true,
 };
 
 export const messageSlice = createSlice({
   name: "message",
   initialState: initialState,
   reducers: {
-    setPaginationForBackend(
-      state,
-      action: PayloadAction<{
-        pageToken: string;
-        label: "SPAM" | "TRASH" | "INBOX";
-      }>
-    ) {
-      const pageToken = action.payload.pageToken;
-      const label = action.payload.label;
-      state.pageToken = pageToken;
-      // console.log(pageToken);
-
-      if (pageToken === "" && label === "SPAM") {
-        state.label = "TRASH";
-      } else if (pageToken === "" && label === "TRASH") {
-        state.label = "INBOX";
-      }
-
-      if (action.payload.label === "INBOX" && pageToken === "") {
-        // console.log("STOOOOOP");
-        state.continue = false;
-      }
-    },
-
     setAllMessages(state, action: PayloadAction<{ allMessages: messageDetailsType[] }>) {
       state.allMessages = action.payload.allMessages;
     },
@@ -285,6 +253,5 @@ export const {
   changeCheckboxAll,
   changeCurrentPage,
   resetCurrentPage,
-  setPaginationForBackend,
   addNewMsgPackage,
 } = messageSlice.actions;

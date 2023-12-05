@@ -29,20 +29,18 @@ const InboxLayout = () => {
   }, [dispatch, changePath]);
 
   useEffect(() => {
-    console.log("RAZ");
     const fetchDataInBackground = async () => {
       let token,
         newLabel: "SPAM" | "TRASH" | "INBOX" = "SPAM",
-        continue2 = true;
-      while (continue2) {
+        isCountinue = true;
+      while (isCountinue) {
         const response = await fetchAllMessages(axiosPrivate, dispatch, newLabel, token);
 
         token = response.newPageToken;
         newLabel = response.newLabel;
 
         if (newLabel === "INBOX" && token === "") {
-          console.log("STOOOOOP");
-          continue2 = false;
+          isCountinue = false;
         }
 
         if (token === "" && newLabel === "SPAM") {
@@ -52,12 +50,12 @@ const InboxLayout = () => {
         }
 
         if (!newLabel) {
-          continue2 = false;
+          isCountinue = false;
         }
       }
     };
     fetchDataInBackground();
-  }, []);
+  }, [axiosPrivate, dispatch]);
 
   const ok = useLoaderData();
 
