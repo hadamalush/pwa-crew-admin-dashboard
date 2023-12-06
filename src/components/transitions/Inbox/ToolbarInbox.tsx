@@ -132,7 +132,10 @@ const ToolbarInbox = () => {
                 variant="default"
                 size="big"
                 className="mb-20 mt-10 px-14"
-                onClick={() => setIsModalOpen(false)}
+                onClick={() => {
+                  document.body.classList.remove("bodyhidden");
+                  setIsModalOpen(false);
+                }}
               >
                 Cancel
               </Button>
@@ -140,7 +143,10 @@ const ToolbarInbox = () => {
                 variant="default"
                 size="big"
                 className="mb-20 mt-10 px-14"
-                onClick={() => handleDeleteMessage()}
+                onClick={() => {
+                  document.body.classList.remove("bodyhidden");
+                  handleDeleteMessage();
+                }}
               >
                 Confirm
               </Button>

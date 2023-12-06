@@ -80,7 +80,7 @@ const InboxLayout = () => {
       />
       <ToolbarInbox />
       <Main
-        className={cn("md:pl-[29rem] pt-48 ", {
+        className={cn("md:pl-[29rem] pt-48 duration-200", {
           "md:pl-[44rem]": isInboxPage && isVisibleMainNav,
         })}
       >

@@ -12,7 +12,7 @@ import { useState, useEffect } from "react";
 import { NavLink } from "react-router-dom";
 import { axiosPrivate } from "../../../api/axios";
 import { toast } from "sonner";
-import { getQuantityOfUniqueMsgById } from "../../../global/message-action";
+import { getUniqueMsgById } from "../../../global/message-action";
 
 type dataMessage = {
   dataMessage: messageProps;
@@ -24,7 +24,7 @@ const MessageItem = forwardRef<HTMLInputElement, dataMessage>(({ dataMessage, pa
   const { id, owner, subject, avatarSrc, isFeatured, unRead, date } = dataMessage;
   const [isFeaturedMess, setIsFeaturedMess] = useState(isFeatured);
   const stateMsg = useGlobalSelector((state) => state.messages);
-  const quantityMsgs = getQuantityOfUniqueMsgById(stateMsg, owner, subject);
+  const quantityMsgs = getUniqueMsgById(stateMsg, owner, subject).length;
   const newDate = new Date(date);
   const formattedDate = format(newDate, "dd MMM");
 

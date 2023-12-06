@@ -35,16 +35,14 @@ export const getUniqueMessages = (messages: messageDetailsType[]) => {
   return uniqueMessages;
 };
 
-export const getQuantityOfUniqueMsgById = (
-  state: initialStateType,
-  owner: string,
-  subject: string
-) => {
-  const quantityMsgs = state.allMessages.filter((msg) => {
-    return msg.subject === subject && msg.owner === owner;
-  }).length;
+export const getUniqueMsgById = (state: initialStateType, owner: string, subject: string) => {
+  const messages = state.allMessages
+    .filter((msg) => {
+      return msg.subject === subject && msg.owner === owner;
+    })
+    .map((msg) => msg.id);
 
-  return quantityMsgs;
+  return messages;
 };
 
 export const getCurrentMess = (state: initialStateType, messages: messageProps[]) => {

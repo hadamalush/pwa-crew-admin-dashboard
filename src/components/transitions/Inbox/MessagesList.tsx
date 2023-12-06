@@ -33,6 +33,7 @@ const MessagesList = ({ pageName }: MessagesListProps) => {
   const checkedMessages = getFilteredMessages(messState, pageName);
   const uniqueMessages = getUniqueMessages(checkedMessages);
   const currentMess = getCurrentMess(messState, uniqueMessages);
+
   const isLoading = useGlobalSelector((state) => state.toggle.isTopLoading);
 
   const { changedPathMess } = usePage("inbox");
