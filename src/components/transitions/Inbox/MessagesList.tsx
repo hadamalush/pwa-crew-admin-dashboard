@@ -13,7 +13,11 @@ import usePage from "../../../hooks/usePage";
 import Icon from "../../UI/Icons/Icon";
 import Heading from "../../UI/Heading";
 import { AnimatePresence, motion } from "framer-motion";
-import { getCurrentMess, getFilteredMessages } from "../../../global/message-action";
+import {
+  getCurrentMess,
+  getFilteredMessages,
+  getUniqueMessages,
+} from "../../../global/message-action";
 import LoaderTitle from "../../UI/Loader/TitleLoader";
 
 type MessagesListProps = {
@@ -27,7 +31,8 @@ const MessagesList = ({ pageName }: MessagesListProps) => {
   const isSelectedAllMess = messState.areMarkedAllMessages;
   const inputRefs = useRef<Array<RefObject<HTMLInputElement>>>([]);
   const checkedMessages = getFilteredMessages(messState, pageName);
-  const currentMess = getCurrentMess(messState, checkedMessages);
+  const uniqueMessages = getUniqueMessages(checkedMessages);
+  const currentMess = getCurrentMess(messState, uniqueMessages);
   const isLoading = useGlobalSelector((state) => state.toggle.isTopLoading);
 
   const { changedPathMess } = usePage("inbox");

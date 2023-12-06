@@ -5,13 +5,14 @@ import Container from "../../UI/Container";
 import { cn } from "../../../util/utils";
 import { markSingleMessage, messageProps } from "../../../global/message-slice";
 import { format } from "date-fns";
-import { useGlobalDispatch } from "../../../global/hooks";
+import { useGlobalDispatch, useGlobalSelector } from "../../../global/hooks";
 import { ChangeEvent, forwardRef } from "react";
 import InputRef from "../../UI/Input/InputRef";
 import { useState, useEffect } from "react";
 import { NavLink } from "react-router-dom";
 import { axiosPrivate } from "../../../api/axios";
 import { toast } from "sonner";
+import { getQuantityOfUniqueMsgById } from "../../../global/message-action";
 
 type dataMessage = {
   dataMessage: messageProps;
@@ -22,6 +23,8 @@ const MessageItem = forwardRef<HTMLInputElement, dataMessage>(({ dataMessage, pa
   const dispatch = useGlobalDispatch();
   const { id, owner, subject, avatarSrc, isFeatured, unRead, date } = dataMessage;
   const [isFeaturedMess, setIsFeaturedMess] = useState(isFeatured);
+  const stateMsg = useGlobalSelector((state) => state.messages);
+  const quantityMsgs = getQuantityOfUniqueMsgById(stateMsg, owner, subject);
   const newDate = new Date(date);
   const formattedDate = format(newDate, "dd MMM");
 
@@ -91,13 +94,11 @@ const MessageItem = forwardRef<HTMLInputElement, dataMessage>(({ dataMessage, pa
           })}
         />
       </Button>
-
       <Avatar
         src={avatarSrc ? avatarSrc : "/avatar.webp"}
         size="s2"
         className="hidden md:block self-center"
       />
-
       <NavLink
         to={id}
         className="w-9/12 xs:w-10/12 md:w-9/12 xlg:w-9/12  xxl:w-11/12 flex-col p-5 items-start"
@@ -106,7 +107,9 @@ const MessageItem = forwardRef<HTMLInputElement, dataMessage>(({ dataMessage, pa
           {owner}
         </p>
         <Container as="div" className="w-full">
-          <p className="text-ellipsis whitespace-nowrap overflow-hidden w-full">{subject}</p>
+          <p className="text-ellipsis whitespace-nowrap overflow-hidden w-full">
+            ( <strong>{quantityMsgs}</strong> ) {subject}
+          </p>
         </Container>
       </NavLink>
       <Container as="div" className="flex-col mx-auto">

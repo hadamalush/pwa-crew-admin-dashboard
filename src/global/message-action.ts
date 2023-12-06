@@ -18,6 +18,35 @@ export const getMessIndex = (state: initialStateType, index: "last" | "first") =
   return;
 };
 
+export const getUniqueMessages = (messages: messageDetailsType[]) => {
+  const uniqueMessages: messageDetailsType[] = [];
+
+  messages.filter((message) => {
+    const duplicateMessage = uniqueMessages.find(
+      (uniqueMessage) =>
+        uniqueMessage.subject === message.subject && uniqueMessage.owner === message.owner
+    );
+
+    if (!duplicateMessage) {
+      uniqueMessages.push(message);
+    }
+  });
+
+  return uniqueMessages;
+};
+
+export const getQuantityOfUniqueMsgById = (
+  state: initialStateType,
+  owner: string,
+  subject: string
+) => {
+  const quantityMsgs = state.allMessages.filter((msg) => {
+    return msg.subject === subject && msg.owner === owner;
+  }).length;
+
+  return quantityMsgs;
+};
+
 export const getCurrentMess = (state: initialStateType, messages: messageProps[]) => {
   const lastMessIndex = getMessIndex(state, "last");
   const firstMessIndex = getMessIndex(state, "first");
@@ -47,13 +76,29 @@ export const getFilteredMessages = createSelector(
     }
 
     const destructionMessages = filteredMessages.map(
-      ({ id, owner, subject, avatarSrc, isFeatured, unRead, date }) => ({
+      ({
         id,
         owner,
         subject,
         avatarSrc,
         isFeatured,
         unRead,
+        date,
+        isInSpam,
+        description,
+        isInTrash,
+        email,
+      }) => ({
+        id,
+        owner,
+        subject,
+        avatarSrc,
+        isFeatured,
+        isInSpam,
+        isInTrash,
+        email,
+        unRead,
+        description,
         date: new Date(date).toISOString(),
       })
     );

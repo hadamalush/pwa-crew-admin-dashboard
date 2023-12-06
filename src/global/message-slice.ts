@@ -1,4 +1,5 @@
 import { createSlice, type PayloadAction } from "@reduxjs/toolkit";
+import { getUniqueMessages } from "./message-action";
 
 export interface messageProps {
   id: string;
@@ -124,8 +125,14 @@ export const messageSlice = createSlice({
       const messageId = action.payload.id;
       const pageName = action.payload.pageName;
 
+      const foundMessage = state.allMessages.find((msg) => msg.id === messageId);
+      const groupMessages = state.allMessages.filter(
+        (msg) => msg.subject === foundMessage?.subject && msg.owner === foundMessage?.owner
+      );
+      const messagesIds = groupMessages.map((msg) => msg.id);
+
       if (action.payload.action === "add") {
-        state.checkedMessages.push(messageId);
+        state.checkedMessages = state.checkedMessages.concat(messagesIds);
 
         if (state[`${pageName}Messages`].length === state.checkedMessages.length) {
           state.areMarkedAllMessages = true;
@@ -134,7 +141,9 @@ export const messageSlice = createSlice({
         return;
       }
       if (action.payload.action === "remove") {
-        state.checkedMessages = state.checkedMessages.filter((message) => message !== messageId);
+        state.checkedMessages = state.checkedMessages.filter(
+          (message) => !messagesIds.includes(message)
+        );
 
         if (state.areMarkedAllMessages) {
           state.isMarkedCheckboxAll = false;
@@ -158,8 +167,23 @@ export const messageSlice = createSlice({
     },
 
     setCheckedMessages(state, action: PayloadAction<{ checkedMessages: string[] }>) {
-      state.checkedMessages = action.payload.checkedMessages;
+      const checkedMessages = action.payload.checkedMessages;
+
+      const foundMessages = state.allMessages.filter((message) =>
+        checkedMessages.includes(message.id)
+      );
+      const groupedMessages = state.allMessages
+        .filter((message) =>
+          foundMessages.some(
+            (foundMessage) =>
+              foundMessage.subject === message.subject && foundMessage.owner === message.owner
+          )
+        )
+        .map((item) => item.id);
+
+      state.checkedMessages = groupedMessages;
     },
+
     setUncheckedMessages(state) {
       state.checkedMessages = [];
     },
@@ -236,17 +260,18 @@ export const getNumberOfMessagesByPage = (
   page: "inbox" | "spam" | "featured" | "trash" | null
 ) => {
   let numberMessages;
+  const uniqueMessages = getUniqueMessages(state.allMessages);
 
   if (page === "spam") {
-    numberMessages = state.allMessages.filter((item) => item.isInSpam === true).length;
+    numberMessages = uniqueMessages.filter((item) => item.isInSpam === true).length;
   } else if (page === "trash") {
-    numberMessages = state.allMessages.filter((item) => item.isInTrash === true).length;
+    numberMessages = uniqueMessages.filter((item) => item.isInTrash === true).length;
   } else if (page === "inbox") {
-    numberMessages = state.allMessages.filter(
+    numberMessages = uniqueMessages.filter(
       (item) => item.isInTrash === false && item.isInSpam === false
     ).length;
   } else if (page === "featured") {
-    numberMessages = state.allMessages.filter((item) => item.isFeatured === true).length;
+    numberMessages = uniqueMessages.filter((item) => item.isFeatured === true).length;
   }
 
   return numberMessages;
