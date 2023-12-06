@@ -75,16 +75,6 @@ function App() {
                 {
                   path: "inbox",
                   element: <InboxLayout />,
-                  loader: async () => {
-                    // if (!messages1) {
-                    const messages = await fetchAllMessages(axiosPrivate, dispatch, "SPAM");
-
-                    //temporary
-                    if (!messages) console.log("Error download messages");
-                    // }
-
-                    return "continue...";
-                  },
                   children: [
                     {
                       index: true,

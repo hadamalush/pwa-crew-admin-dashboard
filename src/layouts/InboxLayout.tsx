@@ -1,4 +1,4 @@
-import { Outlet, useLoaderData, useLocation } from "react-router-dom";
+import { Outlet, useLocation } from "react-router-dom";
 import { InboxNavbarItems } from "../components/Common/Navigation/NavigationData";
 import { useGlobalSelector } from "../global/hooks";
 import { cn } from "../util/utils";
@@ -11,6 +11,7 @@ import { resetCurrentPage } from "../global/message-slice";
 import { useEffect } from "react";
 import { fetchAllMessages } from "../util/actions/actions";
 import useAxiosPrivate from "../hooks/usePrivateAxios";
+import { setTopLoading } from "../global/toggle-slice";
 
 const InboxLayout = () => {
   const isVisibleMainNav = useGlobalSelector((state) => state.toggle.isVisibleNav);
@@ -31,9 +32,12 @@ const InboxLayout = () => {
   //FETCHING MESSAGES IN THE BACKGROUND
   useEffect(() => {
     const fetchDataInBackground = async () => {
+      dispatch(setTopLoading({ loading: true, text: "Loading messages" }));
+
       let token,
         newLabel: "SPAM" | "TRASH" | "INBOX" = "SPAM",
         isCountinue = true;
+
       while (isCountinue) {
         const response = await fetchAllMessages(axiosPrivate, dispatch, newLabel, token);
 
@@ -42,6 +46,7 @@ const InboxLayout = () => {
 
         if (newLabel === "INBOX" && token === "") {
           isCountinue = false;
+          dispatch(setTopLoading({ loading: false }));
         }
 
         if (token === "" && newLabel === "SPAM") {
@@ -52,17 +57,12 @@ const InboxLayout = () => {
 
         if (!newLabel) {
           isCountinue = false;
+          dispatch(setTopLoading({ loading: false }));
         }
       }
     };
     fetchDataInBackground();
   }, [axiosPrivate, dispatch]);
-
-  const ok = useLoaderData();
-
-  if (!ok) {
-    return null;
-  }
 
   return (
     <>

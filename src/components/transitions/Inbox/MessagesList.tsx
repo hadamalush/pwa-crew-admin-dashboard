@@ -14,6 +14,7 @@ import Icon from "../../UI/Icons/Icon";
 import Heading from "../../UI/Heading";
 import { AnimatePresence, motion } from "framer-motion";
 import { getCurrentMess, getFilteredMessages } from "../../../global/message-action";
+import LoaderTitle from "../../UI/Loader/TitleLoader";
 
 type MessagesListProps = {
   pageName: "spam" | "trash" | "inbox" | "featured";
@@ -27,6 +28,7 @@ const MessagesList = ({ pageName }: MessagesListProps) => {
   const inputRefs = useRef<Array<RefObject<HTMLInputElement>>>([]);
   const checkedMessages = getFilteredMessages(messState, pageName);
   const currentMess = getCurrentMess(messState, checkedMessages);
+  const isLoading = useGlobalSelector((state) => state.toggle.isTopLoading);
 
   const { changedPathMess } = usePage("inbox");
 
@@ -81,7 +83,7 @@ const MessagesList = ({ pageName }: MessagesListProps) => {
       )}
     >
       <AnimatePresence>
-        {checkedMessages.length === 0 && (
+        {checkedMessages.length === 0 && !isLoading && (
           <motion.div
             initial={{ y: -500, opacity: 0 }}
             animate={{ y: 0, opacity: 1 }}
@@ -104,6 +106,10 @@ const MessagesList = ({ pageName }: MessagesListProps) => {
           </motion.div>
         )}
       </AnimatePresence>
+
+      {isLoading && checkedMessages.length === 0 && (
+        <LoaderTitle className="mx-auto block text-center mt-72" />
+      )}
 
       {currentMess.map((message, index) => {
         inputRefs.current[index] = createRef<HTMLInputElement>();

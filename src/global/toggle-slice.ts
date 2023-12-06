@@ -4,6 +4,8 @@ export type ToggleState = {
   isVisibleNav: boolean;
   isVisibleInboxNav: boolean;
   isLoading: boolean;
+  isTopLoading: boolean;
+  textTopLoader: string;
   theme: "dark" | "light";
 };
 
@@ -11,6 +13,8 @@ const initialState: ToggleState = {
   isVisibleNav: false,
   isVisibleInboxNav: false,
   isLoading: false,
+  isTopLoading: false,
+  textTopLoader: "",
   theme: "dark",
 };
 
@@ -30,7 +34,16 @@ export const toggleSlice = createSlice({
     setLoading(state, action: PayloadAction<{ loading: boolean }>) {
       state.isLoading = action.payload.loading;
     },
+    setTopLoading(state, action: PayloadAction<{ loading: boolean; text?: string }>) {
+      const text = action.payload.text;
+      state.isTopLoading = action.payload.loading;
+
+      if (text) {
+        state.textTopLoader = text;
+      }
+    },
   },
 });
 
-export const { handleNav, handleInboxNav, handleTheme, setLoading } = toggleSlice.actions;
+export const { handleNav, handleInboxNav, handleTheme, setLoading, setTopLoading } =
+  toggleSlice.actions;
