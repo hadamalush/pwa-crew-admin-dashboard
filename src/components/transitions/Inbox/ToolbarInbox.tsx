@@ -10,6 +10,7 @@ import {
   getNumberOfMessagesByPage,
   getInboxPage,
   changeCurrentPage,
+  deleteMessages,
 } from "../../../global/message-slice";
 import usePage from "../../../hooks/usePage";
 import { useParams } from "react-router";
@@ -98,6 +99,7 @@ const ToolbarInbox = () => {
       toast.success(res.data.message);
     }
 
+    dispatch(deleteMessages());
     dispatch(setLoading({ loading: false }));
   };
 

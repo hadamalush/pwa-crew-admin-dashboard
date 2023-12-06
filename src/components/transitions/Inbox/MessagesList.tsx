@@ -4,7 +4,11 @@ import MessageItem from "./MessageItem";
 import { useGlobalSelector } from "../../../global/hooks";
 import { useDispatch } from "react-redux";
 import { useCallback, useEffect, useRef, type RefObject, createRef } from "react";
-import { setCheckedMessages, markAllMessage } from "../../../global/message-slice";
+import {
+  setCheckedMessages,
+  markAllMessage,
+  setUncheckedMessages,
+} from "../../../global/message-slice";
 import usePage from "../../../hooks/usePage";
 import Icon from "../../UI/Icons/Icon";
 import Heading from "../../UI/Heading";
@@ -30,6 +34,8 @@ const MessagesList = ({ pageName }: MessagesListProps) => {
     const checkedMessages: string[] = [];
     if (!changedPathMess) {
       dispatch(markAllMessage({ allMessagesMarked: false }));
+      dispatch(setUncheckedMessages());
+
       return;
     }
     if (changedPathMess) {

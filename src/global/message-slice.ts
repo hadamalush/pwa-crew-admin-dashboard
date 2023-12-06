@@ -1,5 +1,4 @@
 import { createSlice, type PayloadAction } from "@reduxjs/toolkit";
-// import { DUMMY_INBOXMESSAGES } from "../components/transitions/dummy-items";
 
 export interface messageProps {
   id: string;
@@ -69,6 +68,13 @@ export const messageSlice = createSlice({
       }
 
       state.allMessages = [...state.allMessages, ...action.payload.messages];
+    },
+    deleteMessages(state) {
+      state.allMessages = state.allMessages.filter(
+        (message) => !state.checkedMessages.includes(message.id)
+      );
+
+      state.checkedMessages = [];
     },
     filterMessages(
       state,
@@ -153,6 +159,9 @@ export const messageSlice = createSlice({
 
     setCheckedMessages(state, action: PayloadAction<{ checkedMessages: string[] }>) {
       state.checkedMessages = action.payload.checkedMessages;
+    },
+    setUncheckedMessages(state) {
+      state.checkedMessages = [];
     },
 
     markAllMessage(state, action: PayloadAction<{ allMessagesMarked: boolean }>) {
@@ -254,4 +263,6 @@ export const {
   changeCurrentPage,
   resetCurrentPage,
   addNewMsgPackage,
+  deleteMessages,
+  setUncheckedMessages,
 } = messageSlice.actions;
