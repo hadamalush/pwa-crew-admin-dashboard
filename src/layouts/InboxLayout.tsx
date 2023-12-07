@@ -35,7 +35,7 @@ const InboxLayout = () => {
       dispatch(setTopLoading({ loading: true, text: "Loading messages" }));
 
       let token,
-        newLabel: "SPAM" | "TRASH" | "INBOX" = "SPAM",
+        newLabel: "SPAM" | "TRASH" | "INBOX" | "SENT" = "SPAM",
         isCountinue = true;
 
       while (isCountinue) {
@@ -44,7 +44,7 @@ const InboxLayout = () => {
         token = response.newPageToken;
         newLabel = response.newLabel;
 
-        if (newLabel === "INBOX" && token === "") {
+        if (newLabel === "SENT" && token === "") {
           isCountinue = false;
           dispatch(setTopLoading({ loading: false }));
         }
@@ -53,6 +53,8 @@ const InboxLayout = () => {
           newLabel = "TRASH";
         } else if (token === "" && newLabel === "TRASH") {
           newLabel = "INBOX";
+        } else if (token === "" && newLabel === "INBOX") {
+          newLabel = "SENT";
         }
 
         if (!newLabel) {

@@ -16,6 +16,7 @@ export interface messageDetailsType extends messageProps {
   description: string;
   isInSpam: boolean;
   isInTrash: boolean;
+  textHTML: string;
 }
 
 type CurrentPagePagType = {

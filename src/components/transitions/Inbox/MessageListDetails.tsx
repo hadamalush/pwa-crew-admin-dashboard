@@ -59,6 +59,7 @@ const MessageListDetails = () => {
             date={message.date}
             description={message.description}
             email={message.email}
+            textHTML={message.textHTML}
             owner={message.owner}
             textClass={textClass}
             className={messItemClass}

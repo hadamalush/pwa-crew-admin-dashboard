@@ -7,6 +7,7 @@ import * as yup from "yup";
 import Button from "../../UI/Button";
 import { cn } from "../../../util/utils";
 import InputText from "../../UI/Input/InputText";
+import useAxiosPrivate from "../../../hooks/usePrivateAxios";
 
 type OptionType = { label: string; value: string };
 
@@ -34,6 +35,7 @@ const NewMessage = ({ subject, email, ...props }: NewMessageProps) => {
   const [emailOptions, setEmailOptions] = useState<OptionType[]>([]);
   const [text, setText] = useState("");
   const [emails, setEmails] = useState<string[]>([]);
+  const axiosPrivate = useAxiosPrivate();
 
   useEffect(() => {
     const emails = getEmailAddresses(DUMMY_USERS);
@@ -48,12 +50,16 @@ const NewMessage = ({ subject, email, ...props }: NewMessageProps) => {
     }
   };
 
-  const handleSendMessage = () => {
+  const handleSendMessage = async () => {
     if (emails.length <= 0) {
       // errors = { ...errors };
     }
 
-    //backend handling..
+    await axiosPrivate.post("/admin/inbox/sendMessage", { text, emails });
+
+    console.log(text);
+    // console.log(emails);
+    // console.log(subject);
   };
 
   return (

@@ -98,3 +98,7 @@ div[id="root"] {
     @apply flex justify-center items-center;
   }
 }
+
+.gmail_quote {
+  display: none;
+}

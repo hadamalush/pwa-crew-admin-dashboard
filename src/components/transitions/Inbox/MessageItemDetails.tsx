@@ -8,6 +8,7 @@ type MessageItemDetailsProps = {
   avatarSrc: string;
   date: string;
   description: string;
+  textHTML: string;
   email: string;
   owner: string;
   textClass?: string;
@@ -17,6 +18,7 @@ const MessageItemDetails = ({
   avatarSrc,
   date,
   description,
+  textHTML,
   email,
   owner,
   textClass,
@@ -27,6 +29,9 @@ const MessageItemDetails = ({
   const convertedDate = new Date(date);
   const formattedDate = format(convertedDate, "yyyy-MM-dd");
   const time = format(convertedDate, "HH:mm");
+
+  console.log(textHTML);
+  console.log(description);
 
   return (
     <li
@@ -44,13 +49,13 @@ const MessageItemDetails = ({
           <pre className="font-light"> &lt; {email} &gt;</pre>
         </h2>
         <p
+          id="description"
           className={cn("text-2xl px-4 pt-4 mr-auto text-ellipsis ", textClass, {
             "whitespace-nowrap overflow-hidden w-11/12 ": !isVisibleMess && textClass,
             "whitespace-normal overflow-auto w-full": isVisibleMess,
           })}
-        >
-          {description}
-        </p>
+          dangerouslySetInnerHTML={{ __html: textHTML || description }}
+        ></p>
         <p className="absolute right-6 top-[-2rem]">
           <time dateTime={formattedDate}>{formattedDate},</time>
           <time dateTime={time}> {time}</time>
