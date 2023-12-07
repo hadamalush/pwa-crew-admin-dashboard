@@ -4,7 +4,6 @@ import { basicVariant } from "../../variants/variants";
 import { useParams } from "react-router";
 import ToolbarInboxDetails from "./ToolbarInboxDetails";
 import MessageItemDetails from "./MessageItemDetails";
-import { DUMMY_SENTMESSAGES } from "../dummy-items";
 import NewMessage from "./NewMessage";
 import Avatar from "../Avatar";
 
@@ -14,13 +13,12 @@ const MessageListDetails = () => {
   const allMessages = useGlobalSelector((state) => state.messages.allMessages);
   const messageItem = allMessages.find((val) => val.id === messageId);
   const groupReceivedMessages = allMessages.filter(
-    (message) => message.subject === messageItem?.subject && message.owner === messageItem.owner
-  );
-  const groupSentMessages = DUMMY_SENTMESSAGES.filter(
-    (message) => message.subject === messageItem?.subject && message.to === messageItem.email
+    (message) =>
+      (message.subject === messageItem?.subject && message.owner === messageItem.owner) ||
+      (message.subject === messageItem?.subject && message.to === messageItem.owner)
   );
 
-  const sortedMessages = [...groupReceivedMessages, ...groupSentMessages].sort((a, b) => {
+  const sortedMessages = [...groupReceivedMessages].sort((a, b) => {
     const dateA = new Date(a.date);
     const dateB = new Date(b.date);
     return dateA.getTime() - dateB.getTime();
@@ -60,6 +58,7 @@ const MessageListDetails = () => {
             description={message.description}
             email={message.email}
             textHTML={message.textHTML}
+            to={message.to ? message.to : ""}
             owner={message.owner}
             textClass={textClass}
             className={messItemClass}

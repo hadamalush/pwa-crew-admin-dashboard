@@ -9,6 +9,7 @@ type MessageItemDetailsProps = {
   date: string;
   description: string;
   textHTML: string;
+  to?: string;
   email: string;
   owner: string;
   textClass?: string;
@@ -19,6 +20,7 @@ const MessageItemDetails = ({
   date,
   description,
   textHTML,
+  to,
   email,
   owner,
   textClass,
@@ -30,14 +32,12 @@ const MessageItemDetails = ({
   const formattedDate = format(convertedDate, "yyyy-MM-dd");
   const time = format(convertedDate, "HH:mm");
 
-  console.log(textHTML);
-  console.log(description);
-
   return (
     <li
       className={cn(
         `flex  w-full mx-auto text-xl xlg:text-2xl text-black dark:text-textPrimary px-5 border-pLight dark:border-borderPrimary border-b
         py-10 md:px-10 cursor-pointer`,
+        { "dark:bg-primaryLight bg-slate-200": to },
         props.className
       )}
       onClick={() => setIsVisibleMess((prev) => !prev)}

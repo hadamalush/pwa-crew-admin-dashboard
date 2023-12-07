@@ -16,7 +16,9 @@ export interface messageDetailsType extends messageProps {
   description: string;
   isInSpam: boolean;
   isInTrash: boolean;
+  isInSent: boolean;
   textHTML: string;
+  to?: string;
 }
 
 type CurrentPagePagType = {
@@ -31,6 +33,7 @@ export type initialStateType = {
   featuredMessages: messageProps[];
   spamMessages: messageProps[];
   inboxMessages: messageProps[];
+  sentMessages: messageProps[];
   checkedMessages: string[];
   areMarkedAllMessages: boolean;
   isMarkedCheckboxAll: boolean;
@@ -48,6 +51,7 @@ const initialState: initialStateType = {
   featuredMessages: [],
   spamMessages: [],
   inboxMessages: [],
+  sentMessages: [],
   checkedMessages: [],
   areMarkedAllMessages: false,
   isMarkedCheckboxAll: false,
@@ -120,7 +124,7 @@ export const messageSlice = createSlice({
       action: PayloadAction<{
         id: string;
         action: "add" | "remove" | "featured";
-        pageName: "spam" | "trash" | "inbox" | "featured";
+        pageName: "spam" | "trash" | "inbox" | "featured" | "sent";
       }>
     ) {
       const messageId = action.payload.id;

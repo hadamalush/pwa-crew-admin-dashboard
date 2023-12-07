@@ -36,13 +36,21 @@ export const getUniqueMessages = (messages: messageDetailsType[]) => {
 };
 
 export const getUniqueMsgById = (state: initialStateType, owner: string, subject: string) => {
-  const messages = state.allMessages
+  const receivedMessages = state.allMessages
     .filter((msg) => {
       return msg.subject === subject && msg.owner === owner;
     })
     .map((msg) => msg.id);
 
-  return messages;
+  const sentMessages = state.allMessages
+    .filter((msg) => {
+      return msg.subject === subject && msg.to === owner;
+    })
+    .map((msg) => msg.id);
+
+  const allMsgs = [...receivedMessages, ...sentMessages];
+
+  return allMsgs;
 };
 
 export const getCurrentMess = (state: initialStateType, messages: messageProps[]) => {
@@ -69,6 +77,9 @@ export const getFilteredMessages = createSelector(
     if (pageName === "trash") {
       filteredMessages = allMessages.filter((message) => message.isInTrash);
     }
+    if (pageName === "sent") {
+      filteredMessages = allMessages.filter((message) => message.isInSent);
+    }
     if (pageName === "featured") {
       filteredMessages = allMessages.filter((message) => message.isFeatured);
     }
@@ -85,6 +96,9 @@ export const getFilteredMessages = createSelector(
         isInSpam,
         description,
         isInTrash,
+        isInSent,
+        textHTML,
+        to,
         email,
       }) => ({
         id,
@@ -95,6 +109,9 @@ export const getFilteredMessages = createSelector(
         isInSpam,
         isInTrash,
         email,
+        isInSent,
+        textHTML,
+        to,
         unRead,
         description,
         date: new Date(date).toISOString(),

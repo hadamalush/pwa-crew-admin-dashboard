@@ -16,7 +16,7 @@ import { getUniqueMsgById } from "../../../global/message-action";
 
 type dataMessage = {
   dataMessage: messageProps;
-  pageName: "spam" | "trash" | "inbox" | "featured";
+  pageName: "spam" | "trash" | "inbox" | "featured" | "sent";
 };
 
 const MessageItem = forwardRef<HTMLInputElement, dataMessage>(({ dataMessage, pageName }, ref) => {

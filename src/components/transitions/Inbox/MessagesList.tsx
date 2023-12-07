@@ -21,7 +21,7 @@ import {
 import LoaderTitle from "../../UI/Loader/TitleLoader";
 
 type MessagesListProps = {
-  pageName: "spam" | "trash" | "inbox" | "featured";
+  pageName: "spam" | "trash" | "inbox" | "featured" | "sent";
 };
 
 const MessagesList = ({ pageName }: MessagesListProps) => {
