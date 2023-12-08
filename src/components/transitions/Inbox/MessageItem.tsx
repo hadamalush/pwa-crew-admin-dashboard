@@ -13,6 +13,7 @@ import { NavLink } from "react-router-dom";
 import { axiosPrivate } from "../../../api/axios";
 import { toast } from "sonner";
 import { getUniqueMsgById } from "../../../global/message-action";
+import usePage from "../../../hooks/usePage";
 
 type dataMessage = {
   dataMessage: messageProps;
@@ -25,6 +26,7 @@ const MessageItem = forwardRef<HTMLInputElement, dataMessage>(({ dataMessage, pa
   const [isFeaturedMess, setIsFeaturedMess] = useState(isFeatured);
   const stateMsg = useGlobalSelector((state) => state.messages);
   const quantityMsgs = getUniqueMsgById(stateMsg, owner, subject).length;
+  const { path } = usePage();
   const newDate = new Date(date);
   const formattedDate = format(newDate, "dd MMM");
 
@@ -70,14 +72,16 @@ const MessageItem = forwardRef<HTMLInputElement, dataMessage>(({ dataMessage, pa
         { "dark:bg-messageItemActive bg-slate-200": !unRead }
       )}
     >
-      <InputRef
-        id={id}
-        type="checkbox"
-        onChange={(e) => handleCheckbox(e)}
-        className="cursor-pointer"
-        aria-label="Mark the message"
-        ref={ref}
-      />
+      {!path.includes("featured") && (
+        <InputRef
+          id={id}
+          type="checkbox"
+          onChange={(e) => handleCheckbox(e)}
+          className="cursor-pointer"
+          aria-label="Mark the message"
+          ref={ref}
+        />
+      )}
 
       <Button
         variant="outline"

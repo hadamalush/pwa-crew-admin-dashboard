@@ -89,6 +89,10 @@ function App() {
                       element: <InboxSentPage />,
                     },
                     {
+                      path: "sent/:messageId",
+                      element: <InboxMessageDetailsPage />,
+                    },
+                    {
                       path: "featured",
                       element: <InboxFeaturedPage />,
                     },

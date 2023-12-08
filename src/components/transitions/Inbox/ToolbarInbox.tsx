@@ -162,7 +162,7 @@ const ToolbarInbox = () => {
         )}
         as="div"
       >
-        {!messageId && (
+        {!messageId && !path.includes("featured") && (
           <>
             <input
               type="checkbox"
@@ -194,7 +194,8 @@ const ToolbarInbox = () => {
               aria-label="Move to trash"
               type="button"
               onClick={() => {
-                if (!path.includes("trash")) return handleMessagesMove("trash");
+                if (!path.includes("trash") && !path.includes("sent"))
+                  return handleMessagesMove("trash");
                 setIsModalOpen(true);
               }}
             >
@@ -206,7 +207,7 @@ const ToolbarInbox = () => {
               />
             </Button>
           )}
-          {isCheckedMessage && !path.includes("spam") && (
+          {isCheckedMessage && !path.includes("spam") && !path.includes("sent") && (
             <Button
               variant="outline"
               className="group p-5 pr-3 outline-none order-1 md:order-none block"
@@ -222,7 +223,7 @@ const ToolbarInbox = () => {
               />
             </Button>
           )}
-          {isCheckedMessage && path !== "/inbox" && (
+          {isCheckedMessage && path !== "/inbox" && !path.includes("sent") && (
             <Button
               variant="outline"
               className="group p-5 pr-3 outline-none order-1 md:order-none block"

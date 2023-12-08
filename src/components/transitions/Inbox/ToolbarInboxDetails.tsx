@@ -136,56 +136,61 @@ const ToolbarInboxDetails = ({ message }: ToolbarInboxDetailsType) => {
           <Icon iconName="arrowLeft" className="dark:text-textPrimary text-gray" />
         </Button>
 
-        <Button
-          variant="outline"
-          className="group pl-3 pr-3 outline-none order-1 md:order-none block"
-          aria-label="navigation inbox menu"
-          type="button"
-          onClick={() => {
-            if (!path.includes("trash")) return handleMessagesMove("trash");
-            setIsModalOpen(true);
-          }}
-        >
-          <Icon
-            iconName="trash"
-            size="s1_5"
-            color="yellow"
-            className=" group-hover:text-lightBlue duration-200"
-          />
-        </Button>
+        {!path.includes("featured") && (
+          <>
+            <Button
+              variant="outline"
+              className="group pl-3 pr-3 outline-none order-1 md:order-none block"
+              aria-label="navigation inbox menu"
+              type="button"
+              onClick={() => {
+                if (!path.includes("trash") && !path.includes("sent"))
+                  return handleMessagesMove("trash");
+                setIsModalOpen(true);
+              }}
+            >
+              <Icon
+                iconName="trash"
+                size="s1_5"
+                color="yellow"
+                className=" group-hover:text-lightBlue duration-200"
+              />
+            </Button>
 
-        {(message.isInSpam || message.isInTrash) && (
-          <Button
-            variant="outline"
-            className="group p-5 pr-3 outline-none order-1 md:order-none block"
-            aria-label="navigation inbox menu"
-            type="button"
-            onClick={() => handleMessagesMove("inbox")}
-          >
-            <Icon
-              iconName="inbox"
-              size="s1_5"
-              color="purple"
-              className=" group-hover:text-lightBlue duration-200"
-            />
-          </Button>
-        )}
+            {(message.isInSpam || message.isInTrash) && (
+              <Button
+                variant="outline"
+                className="group p-5 pr-3 outline-none order-1 md:order-none block"
+                aria-label="navigation inbox menu"
+                type="button"
+                onClick={() => handleMessagesMove("inbox")}
+              >
+                <Icon
+                  iconName="inbox"
+                  size="s1_5"
+                  color="purple"
+                  className=" group-hover:text-lightBlue duration-200"
+                />
+              </Button>
+            )}
 
-        {!message.isInSpam && (
-          <Button
-            variant="outline"
-            className="group p-5 pr-3 outline-none order-1 md:order-none block"
-            aria-label="navigation inbox menu"
-            type="button"
-            onClick={() => handleMessagesMove("spam")}
-          >
-            <Icon
-              iconName="flame"
-              size="s1_5"
-              color="green"
-              className=" group-hover:text-lightBlue duration-200"
-            />
-          </Button>
+            {!message.isInSpam && !message.isInSent && (
+              <Button
+                variant="outline"
+                className="group p-5 pr-3 outline-none order-1 md:order-none block"
+                aria-label="navigation inbox menu"
+                type="button"
+                onClick={() => handleMessagesMove("spam")}
+              >
+                <Icon
+                  iconName="flame"
+                  size="s1_5"
+                  color="green"
+                  className=" group-hover:text-lightBlue duration-200"
+                />
+              </Button>
+            )}
+          </>
         )}
       </li>
     </>

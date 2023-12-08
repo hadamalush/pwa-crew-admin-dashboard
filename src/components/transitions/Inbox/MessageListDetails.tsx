@@ -17,7 +17,8 @@ const MessageListDetails = () => {
     return (
       ((message.subject === messageItem?.subject || message.subject === formattedSubject) &&
         message.owner === messageItem?.owner) ||
-      (message.subject === messageItem?.subject && message.to === messageItem.owner)
+      ((message.subject === messageItem?.subject || message.subject === formattedSubject) &&
+        message.to === messageItem?.owner)
     );
   });
 

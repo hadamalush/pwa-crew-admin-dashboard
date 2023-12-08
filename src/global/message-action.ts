@@ -47,7 +47,7 @@ export const getUniqueMsgById = (state: initialStateType, owner: string, subject
 
   const sentMessages = state.allMessages
     .filter((msg) => {
-      return msg.subject === subject && msg.to === owner;
+      return (msg.subject === subject || "Re: " + msg.subject === subject) && msg.to === owner;
     })
     .map((msg) => msg.id);
 

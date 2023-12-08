@@ -252,8 +252,13 @@ export const messageSlice = createSlice({
 });
 
 export const getInboxPage = (path: string) => {
-  const allowedPages = ["trash", "spam", "featured", "inbox"];
-  const pageName = path.slice(path.lastIndexOf("/") + 1) as "trash" | "spam" | "featured" | "inbox";
+  const allowedPages = ["trash", "spam", "featured", "inbox", "sent"];
+  const pageName = path.slice(path.lastIndexOf("/") + 1) as
+    | "trash"
+    | "spam"
+    | "featured"
+    | "inbox"
+    | "sent";
 
   const receivedPage = allowedPages.includes(pageName) ? pageName : null;
 
@@ -262,7 +267,7 @@ export const getInboxPage = (path: string) => {
 
 export const getNumberOfMessagesByPage = (
   state: initialStateType,
-  page: "inbox" | "spam" | "featured" | "trash" | null
+  page: "inbox" | "spam" | "featured" | "trash" | "sent" | null
 ) => {
   let numberMessages;
   const uniqueMessages = getUniqueMessages(state.allMessages);
@@ -271,6 +276,8 @@ export const getNumberOfMessagesByPage = (
     numberMessages = uniqueMessages.filter((item) => item.isInSpam === true).length;
   } else if (page === "trash") {
     numberMessages = uniqueMessages.filter((item) => item.isInTrash === true).length;
+  } else if (page === "sent") {
+    numberMessages = uniqueMessages.filter((item) => item.isInSent === true).length;
   } else if (page === "inbox") {
     numberMessages = uniqueMessages.filter(
       (item) => item.isInTrash === false && item.isInSpam === false
