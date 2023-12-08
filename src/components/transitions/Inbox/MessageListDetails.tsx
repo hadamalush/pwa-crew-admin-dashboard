@@ -12,11 +12,14 @@ const MessageListDetails = () => {
 
   const allMessages = useGlobalSelector((state) => state.messages.allMessages);
   const messageItem = allMessages.find((val) => val.id === messageId);
-  const groupReceivedMessages = allMessages.filter(
-    (message) =>
-      (message.subject === messageItem?.subject && message.owner === messageItem.owner) ||
+  const groupReceivedMessages = allMessages.filter((message) => {
+    const formattedSubject = messageItem?.subject.replace(/^Re:\s*/, "");
+    return (
+      ((message.subject === messageItem?.subject || message.subject === formattedSubject) &&
+        message.owner === messageItem?.owner) ||
       (message.subject === messageItem?.subject && message.to === messageItem.owner)
-  );
+    );
+  });
 
   const sortedMessages = [...groupReceivedMessages].sort((a, b) => {
     const dateA = new Date(a.date);

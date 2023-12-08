@@ -24,7 +24,9 @@ export const getUniqueMessages = (messages: messageDetailsType[]) => {
   messages.filter((message) => {
     const duplicateMessage = uniqueMessages.find(
       (uniqueMessage) =>
-        uniqueMessage.subject === message.subject && uniqueMessage.owner === message.owner
+        (uniqueMessage.subject === message.subject ||
+          uniqueMessage.subject === "Re: " + message.subject) &&
+        uniqueMessage.owner === message.owner
     );
 
     if (!duplicateMessage) {
@@ -37,8 +39,9 @@ export const getUniqueMessages = (messages: messageDetailsType[]) => {
 
 export const getUniqueMsgById = (state: initialStateType, owner: string, subject: string) => {
   const receivedMessages = state.allMessages
+
     .filter((msg) => {
-      return msg.subject === subject && msg.owner === owner;
+      return (msg.subject === subject || "Re: " + msg.subject === subject) && msg.owner === owner;
     })
     .map((msg) => msg.id);
 
