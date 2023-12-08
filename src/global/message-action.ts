@@ -41,13 +41,21 @@ export const getUniqueMsgById = (state: initialStateType, owner: string, subject
   const receivedMessages = state.allMessages
 
     .filter((msg) => {
-      return (msg.subject === subject || "Re: " + msg.subject === subject) && msg.owner === owner;
+      const fSubject = msg.subject.replace(/^Re:\s*/, "");
+      return (
+        (msg.subject === subject || "Re: " + msg.subject === subject || fSubject === subject) &&
+        msg.owner === owner
+      );
     })
     .map((msg) => msg.id);
 
   const sentMessages = state.allMessages
     .filter((msg) => {
-      return (msg.subject === subject || "Re: " + msg.subject === subject) && msg.to === owner;
+      const fSubject = msg.subject.replace(/^Re:\s*/, "");
+      return (
+        (msg.subject === subject || "Re: " + msg.subject === subject || fSubject === subject) &&
+        msg.to === owner
+      );
     })
     .map((msg) => msg.id);
 

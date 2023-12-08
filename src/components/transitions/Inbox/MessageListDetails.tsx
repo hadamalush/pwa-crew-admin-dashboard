@@ -14,12 +14,14 @@ const MessageListDetails = () => {
   const messageItem = allMessages.find((val) => val.id === messageId);
   const groupReceivedMessages = allMessages.filter((message) => {
     const formattedSubject = messageItem?.subject.replace(/^Re:\s*/, "");
-    return (
-      ((message.subject === messageItem?.subject || message.subject === formattedSubject) &&
-        message.owner === messageItem?.owner) ||
-      ((message.subject === messageItem?.subject || message.subject === formattedSubject) &&
-        message.to === messageItem?.owner)
-    );
+    const isSameSubject =
+      message.subject === messageItem?.subject ||
+      message.subject === formattedSubject ||
+      message.subject === "Re: " + messageItem?.subject;
+    const isSameOwner = message.owner === messageItem?.owner;
+    const isSameRecipient = message.to === messageItem?.owner;
+
+    return isSameSubject && (isSameOwner || isSameRecipient);
   });
 
   const sortedMessages = [...groupReceivedMessages].sort((a, b) => {
@@ -45,12 +47,7 @@ const MessageListDetails = () => {
       </li>
 
       {sortedMessages.map((message, index) => {
-        let textClass: string = "";
         let messItemClass: string = "";
-
-        if (sortedMessages.length > 1 && index !== sortedMessages.length - 1) {
-          textClass = "whitespace-nowrap overflow-hidden w-11/12";
-        }
 
         if (index === sortedMessages.length - 1) messItemClass = "border-none";
 
@@ -64,13 +61,12 @@ const MessageListDetails = () => {
             textHTML={message.textHTML}
             to={message.to ? message.to : ""}
             owner={message.owner}
-            textClass={textClass}
             className={messItemClass}
           />
         );
       })}
 
-      <li className="flex ml-4 md:ml-10">
+      <li className="flex ml-4 md:ml-10 pt-5">
         <Avatar src="/avatar.webp" size="s5" />
         <NewMessage subject={messageItem.subject} email={messageItem.email} className="w-10/12 " />
       </li>
