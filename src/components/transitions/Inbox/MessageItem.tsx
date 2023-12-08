@@ -69,7 +69,7 @@ const MessageItem = forwardRef<HTMLInputElement, dataMessage>(({ dataMessage, pa
       className={cn(
         `flex w-full mx-auto text-xl xlg:text-2xl text-black dark:text-textPrimary px-5 border-pLight dark:border-borderPrimary border-b
    md:py-3 md:px-10`,
-        { "dark:bg-messageItemActive bg-slate-200": !unRead }
+        { "dark:bg-messageItemActive bg-slate-200": unRead }
       )}
     >
       {!path.includes("featured") && (

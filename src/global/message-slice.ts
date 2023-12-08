@@ -131,9 +131,18 @@ export const messageSlice = createSlice({
       const pageName = action.payload.pageName;
 
       const foundMessage = state.allMessages.find((msg) => msg.id === messageId);
-      const groupMessages = state.allMessages.filter(
-        (msg) => msg.subject === foundMessage?.subject && msg.owner === foundMessage?.owner
-      );
+
+      const groupMessages = state.allMessages.filter((msg) => {
+        const fSubject = msg.subject.replace(/^Re:\s*/, "");
+
+        return (
+          (msg.subject === foundMessage?.subject ||
+            "Re: " + msg.subject === foundMessage?.subject ||
+            fSubject === foundMessage?.subject) &&
+          (msg.owner === foundMessage?.owner || msg.to === foundMessage?.owner)
+        );
+      });
+
       const messagesIds = groupMessages.map((msg) => msg.id);
 
       if (action.payload.action === "add") {
@@ -181,7 +190,9 @@ export const messageSlice = createSlice({
         .filter((message) =>
           foundMessages.some(
             (foundMessage) =>
-              foundMessage.subject === message.subject && foundMessage.owner === message.owner
+              (foundMessage.subject === message.subject ||
+                foundMessage.subject === "Re: " + message.subject) &&
+              (foundMessage.owner === message.owner || foundMessage.owner === message.to)
           )
         )
         .map((item) => item.id);
@@ -273,17 +284,17 @@ export const getNumberOfMessagesByPage = (
   const uniqueMessages = getUniqueMessages(state.allMessages);
 
   if (page === "spam") {
-    numberMessages = uniqueMessages.filter((item) => item.isInSpam === true).length;
+    numberMessages = uniqueMessages.filter((item) => item.isInSpam).length;
   } else if (page === "trash") {
-    numberMessages = uniqueMessages.filter((item) => item.isInTrash === true).length;
+    numberMessages = uniqueMessages.filter((item) => item.isInTrash).length;
   } else if (page === "sent") {
-    numberMessages = uniqueMessages.filter((item) => item.isInSent === true).length;
+    numberMessages = uniqueMessages.filter((item) => item.isInSent).length;
   } else if (page === "inbox") {
     numberMessages = uniqueMessages.filter(
-      (item) => item.isInTrash === false && item.isInSpam === false
+      (item) => !item.isInTrash && !item.isInSpam && !item.isInSent
     ).length;
   } else if (page === "featured") {
-    numberMessages = uniqueMessages.filter((item) => item.isFeatured === true).length;
+    numberMessages = uniqueMessages.filter((item) => item.isFeatured).length;
   }
 
   return numberMessages;

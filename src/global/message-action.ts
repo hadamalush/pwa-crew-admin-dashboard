@@ -80,7 +80,9 @@ export const getFilteredMessages = createSelector(
     let filteredMessages: messageDetailsType[] = [];
 
     if (pageName === "inbox") {
-      filteredMessages = allMessages.filter((message) => !message.isInSpam && !message.isInTrash);
+      filteredMessages = allMessages.filter(
+        (message) => !message.isInSpam && !message.isInTrash && !message.isInSent
+      );
     }
     if (pageName === "spam") {
       filteredMessages = allMessages.filter((message) => message.isInSpam);

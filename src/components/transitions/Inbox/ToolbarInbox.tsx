@@ -40,6 +40,7 @@ const ToolbarInbox = () => {
   const lastIndexMess = getMessIndex(messagesState, "last");
   const firstIndexMess = getMessIndex(messagesState, "first");
 
+  console.log(checkedMessages);
   const quantityMessages = getNumberOfMessagesByPage(messagesState, getInboxPage(path));
 
   const handleInboxNavChange = () => {
