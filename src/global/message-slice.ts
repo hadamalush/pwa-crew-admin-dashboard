@@ -75,6 +75,11 @@ export const messageSlice = createSlice({
 
       state.allMessages = [...state.allMessages, ...action.payload.messages];
     },
+    addNewMsgSingle(state, action: PayloadAction<{ message: messageDetailsType }>) {
+      const message = action.payload.message;
+      state.allMessages.push(message);
+    },
+
     deleteMessages(state) {
       state.allMessages = state.allMessages.filter(
         (message) => !state.checkedMessages.includes(message.id)
@@ -313,4 +318,5 @@ export const {
   addNewMsgPackage,
   deleteMessages,
   setUncheckedMessages,
+  addNewMsgSingle,
 } = messageSlice.actions;

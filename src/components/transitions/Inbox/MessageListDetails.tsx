@@ -18,6 +18,7 @@ const MessageListDetails = () => {
       message.subject === messageItem?.subject ||
       message.subject === formattedSubject ||
       message.subject === "Re: " + messageItem?.subject;
+
     const isSameOwner = message.owner === messageItem?.owner;
     const isSameRecipient = message.to === messageItem?.owner;
 

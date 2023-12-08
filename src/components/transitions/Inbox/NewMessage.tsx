@@ -10,6 +10,9 @@ import InputText from "../../UI/Input/InputText";
 import useAxiosPrivate from "../../../hooks/usePrivateAxios";
 import { toast } from "sonner";
 import { AxiosError } from "axios";
+import { useGlobalDispatch } from "../../../global/hooks";
+import { addNewMsgSingle } from "../../../global/message-slice";
+import { setLoading } from "../../../global/toggle-slice";
 
 type OptionType = { label: string; value: string };
 
@@ -40,11 +43,16 @@ const NewMessage = ({ subject, email, onClose: closeModal, ...props }: NewMessag
   const [text, setText] = useState("");
   const [emails, setEmails] = useState<string[]>([]);
   const axiosPrivate = useAxiosPrivate();
+  const dispatch = useGlobalDispatch();
 
   useEffect(() => {
     const emails = getEmailAddresses(DUMMY_USERS);
     setEmailOptions(emails);
-  }, []);
+
+    if (email) {
+      setEmails([email]);
+    }
+  }, [email]);
 
   const handleChangeEmails = (newValue: unknown) => {
     const newEmails = newValue as OptionType[];
@@ -55,19 +63,41 @@ const NewMessage = ({ subject, email, onClose: closeModal, ...props }: NewMessag
   };
 
   const handleSendMessage = async () => {
+    dispatch(setLoading({ loading: true }));
     const subject = getValues("subject");
 
     try {
       const res = await axiosPrivate.post("/admin/inbox/sendMessage", { text, emails, subject });
 
       if (res.status === 200) {
+        const newMsg = {
+          id: res?.data,
+          owner: "pwacrewcompany@gmail.com",
+          subject: subject,
+          isFeatured: false,
+          unRead: false,
+          date: new Date().toISOString(),
+          email: "pwacrewcompany@gmail.com",
+          description: "",
+          isInSpam: false,
+          isInTrash: false,
+          isInSent: true,
+          textHTML: text,
+          to: emails[0],
+        };
+
+        dispatch(addNewMsgSingle({ message: newMsg }));
+        dispatch(setLoading({ loading: false }));
+        setText("");
         toast.success("Message sent");
 
         if (closeModal) {
           closeModal();
+          document.body.classList.remove("bodyhidden");
         }
       }
     } catch (err) {
+      dispatch(setLoading({ loading: false }));
       const error = err as AxiosError;
       const errMsg = error?.response?.data as string;
 
@@ -89,7 +119,7 @@ const NewMessage = ({ subject, email, onClose: closeModal, ...props }: NewMessag
         options={emailOptions}
         isValidNewOption={validateEmail}
         onChange={handleChangeEmails}
-        defaultInputValue={email}
+        defaultValue={email && [{ label: email, value: email }]}
       />
       <div className="bg-transparent mx-6 overflow-hidden mt-6 mb-6 ">
         <InputText

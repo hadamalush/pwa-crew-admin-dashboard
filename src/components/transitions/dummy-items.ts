@@ -100,7 +100,7 @@ export const DUMMY_USERS = [
   {
     id: "user1",
     name: "Bogdan Szermanc",
-    email: "bogdanSzermanc@o2.pl",
+    email: "poncoshplayer@gmail.com",
     avatarSrc: "laptop.webp",
     accountActive: true,
     newsletter: true,
