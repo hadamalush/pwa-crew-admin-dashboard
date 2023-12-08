@@ -40,7 +40,7 @@ const Navbar = ({ className, data, id, isAdditionalInfo, ...props }: NavbarProps
               className="sm:w-[70rem] md:w-[80rem] h-full sm:h-auto overflow-y-auto rounded-none sm:rounded-xl"
               title="New message"
             >
-              <NewMessage />
+              <NewMessage onClose={() => setIsOpenEditor(false)} />
             </Modal>
           </Suspense>
         )}

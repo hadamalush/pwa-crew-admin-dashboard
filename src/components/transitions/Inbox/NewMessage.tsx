@@ -8,6 +8,8 @@ import Button from "../../UI/Button";
 import { cn } from "../../../util/utils";
 import InputText from "../../UI/Input/InputText";
 import useAxiosPrivate from "../../../hooks/usePrivateAxios";
+import { toast } from "sonner";
+import { AxiosError } from "axios";
 
 type OptionType = { label: string; value: string };
 
@@ -18,6 +20,7 @@ type UserType = {
 type NewMessageProps = {
   subject?: string;
   email?: string;
+  onClose?: () => void;
 } & ComponentPropsWithoutRef<"form">;
 
 const emailSchema = yup.string().email().required();
@@ -26,10 +29,11 @@ const validateEmail = (email: string) => {
   return emailSchema.isValidSync(email);
 };
 
-const NewMessage = ({ subject, email, ...props }: NewMessageProps) => {
+const NewMessage = ({ subject, email, onClose: closeModal, ...props }: NewMessageProps) => {
   const {
     register,
     handleSubmit,
+    getValues,
     formState: { errors },
   } = useForm();
   const [emailOptions, setEmailOptions] = useState<OptionType[]>([]);
@@ -51,15 +55,28 @@ const NewMessage = ({ subject, email, ...props }: NewMessageProps) => {
   };
 
   const handleSendMessage = async () => {
-    if (emails.length <= 0) {
-      // errors = { ...errors };
+    const subject = getValues("subject");
+
+    try {
+      const res = await axiosPrivate.post("/admin/inbox/sendMessage", { text, emails, subject });
+
+      if (res.status === 200) {
+        toast.success("Message sent");
+
+        if (closeModal) {
+          closeModal();
+        }
+      }
+    } catch (err) {
+      const error = err as AxiosError;
+      const errMsg = error?.response?.data as string;
+
+      if (errMsg && typeof errMsg === "string") {
+        toast.error(errMsg);
+      } else {
+        toast.error("Something went wrong");
+      }
     }
-
-    await axiosPrivate.post("/admin/inbox/sendMessage", { text, emails });
-
-    console.log(text);
-    // console.log(emails);
-    // console.log(subject);
   };
 
   return (
