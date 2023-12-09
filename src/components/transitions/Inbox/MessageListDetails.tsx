@@ -1,4 +1,4 @@
-import { useGlobalSelector } from "../../../global/hooks";
+import { useGlobalDispatch, useGlobalSelector } from "../../../global/hooks";
 import { cn } from "../../../util/utils";
 import { basicVariant } from "../../variants/variants";
 import { useParams } from "react-router";
@@ -7,6 +7,11 @@ import MessageItemDetails from "./MessageItemDetails";
 import NewMessage from "./NewMessage";
 import Avatar from "../Avatar";
 import { getGropedMessages } from "../../../global/message-action";
+import { useEffect } from "react";
+import { type messageDetailsType, setMsgsAsRead as setAsRead } from "../../../global/message-slice";
+import { AxiosInstance } from "axios";
+import { AppDispatch } from "../../../global/store";
+import useAxiosPrivate from "../../../hooks/usePrivateAxios";
 
 const MessageListDetails = () => {
   const { messageId } = useParams();
@@ -14,12 +19,18 @@ const MessageListDetails = () => {
   const allMessages = useGlobalSelector((state) => state.messages.allMessages);
   const messageItem = allMessages.find((val) => val.id === messageId);
   const groupReceivedMessages = getGropedMessages(allMessages, messageItem);
+  const axiosPrivate = useAxiosPrivate();
+  const dispatch = useGlobalDispatch();
 
   const sortedMessages = groupReceivedMessages.sort((a, b) => {
     const dateA = new Date(a.date);
     const dateB = new Date(b.date);
     return dateA.getTime() - dateB.getTime();
   });
+
+  useEffect(() => {
+    setMsgsAsRead(axiosPrivate, dispatch, groupReceivedMessages);
+  }, [axiosPrivate, dispatch, groupReceivedMessages]);
 
   if (!messageItem) {
     return null;
@@ -66,3 +77,36 @@ const MessageListDetails = () => {
 };
 
 export default MessageListDetails;
+
+const getUnreadMessages = (msg: messageDetailsType[]) => {
+  const foundUnreadMsgIds = msg.filter((msg) => msg.unRead).map((msg) => msg.id);
+
+  return foundUnreadMsgIds;
+};
+
+const setMsgsAsRead = async (
+  axiosPrivate: AxiosInstance,
+  dispatch: AppDispatch,
+  msgs: messageDetailsType[]
+) => {
+  let response;
+
+  const msgIds = getUnreadMessages(msgs);
+
+  if (msgIds.length < 1) return;
+
+  try {
+    response = await axiosPrivate.post("/admin/inbox/markAsRead", msgIds);
+
+    console.log(response);
+
+    if (response.status === 200) {
+      dispatch(setAsRead({ msgIds: msgIds }));
+
+      return;
+    }
+  } catch (err) {
+    console.log(err);
+    return;
+  }
+};

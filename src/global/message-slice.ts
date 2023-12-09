@@ -217,7 +217,15 @@ export const messageSlice = createSlice({
     changeCheckboxAll(state, action: PayloadAction<{ checkbox: boolean }>) {
       state.isMarkedCheckboxAll = action.payload.checkbox;
     },
+    setMsgsAsRead(state, action: PayloadAction<{ msgIds: string[] }>) {
+      const msgIds = action.payload.msgIds;
 
+      for (const id of msgIds) {
+        const message = state.allMessages.find((msg) => msg.id === id);
+
+        if (message) message.unRead = false;
+      }
+    },
     moveMessages(
       state,
       action: PayloadAction<{ moveTo: "trash" | "inbox" | "spam"; id?: string }>
@@ -319,4 +327,5 @@ export const {
   deleteMessages,
   setUncheckedMessages,
   addNewMsgSingle,
+  setMsgsAsRead,
 } = messageSlice.actions;
