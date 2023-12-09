@@ -64,6 +64,25 @@ export const getUniqueMsgById = (state: initialStateType, owner: string, subject
   return allMsgs;
 };
 
+export const getGropedMessages = (
+  allMessages: messageDetailsType[],
+  messageItem: messageDetailsType | undefined
+) => {
+  const msgs = allMessages.filter((message) => {
+    const formattedSubject = messageItem?.subject.replace(/^Re:\s*/, "");
+    const isSameSubject =
+      message.subject === messageItem?.subject ||
+      message.subject === formattedSubject ||
+      message.subject === "Re: " + messageItem?.subject;
+
+    const isSameOwner = message.owner === messageItem?.owner;
+    const isSameRecipient = message.to === messageItem?.owner;
+
+    return isSameSubject && (isSameOwner || isSameRecipient);
+  });
+  return msgs;
+};
+
 export const getCurrentMess = (state: initialStateType, messages: messageProps[]) => {
   const lastMessIndex = getMessIndex(state, "last");
   const firstMessIndex = getMessIndex(state, "first");

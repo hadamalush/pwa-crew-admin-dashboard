@@ -6,26 +6,16 @@ import ToolbarInboxDetails from "./ToolbarInboxDetails";
 import MessageItemDetails from "./MessageItemDetails";
 import NewMessage from "./NewMessage";
 import Avatar from "../Avatar";
+import { getGropedMessages } from "../../../global/message-action";
 
 const MessageListDetails = () => {
   const { messageId } = useParams();
 
   const allMessages = useGlobalSelector((state) => state.messages.allMessages);
   const messageItem = allMessages.find((val) => val.id === messageId);
-  const groupReceivedMessages = allMessages.filter((message) => {
-    const formattedSubject = messageItem?.subject.replace(/^Re:\s*/, "");
-    const isSameSubject =
-      message.subject === messageItem?.subject ||
-      message.subject === formattedSubject ||
-      message.subject === "Re: " + messageItem?.subject;
+  const groupReceivedMessages = getGropedMessages(allMessages, messageItem);
 
-    const isSameOwner = message.owner === messageItem?.owner;
-    const isSameRecipient = message.to === messageItem?.owner;
-
-    return isSameSubject && (isSameOwner || isSameRecipient);
-  });
-
-  const sortedMessages = [...groupReceivedMessages].sort((a, b) => {
+  const sortedMessages = groupReceivedMessages.sort((a, b) => {
     const dateA = new Date(a.date);
     const dateB = new Date(b.date);
     return dateA.getTime() - dateB.getTime();
