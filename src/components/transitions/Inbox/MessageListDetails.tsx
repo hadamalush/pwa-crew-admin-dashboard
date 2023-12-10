@@ -98,8 +98,6 @@ const setMsgsAsRead = async (
   try {
     response = await axiosPrivate.post("/admin/inbox/markAsRead", msgIds);
 
-    console.log(response);
-
     if (response.status === 200) {
       dispatch(setAsRead({ msgIds: msgIds }));
 

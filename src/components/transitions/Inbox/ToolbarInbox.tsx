@@ -180,6 +180,26 @@ const ToolbarInbox = () => {
             </label>
           </>
         )}
+
+        <Button
+          variant="outline"
+          className="group pl-3 pr-3 outline-none block mxs1:mr-10"
+          aria-label="Move to trash"
+          type="button"
+          onClick={() => {
+            if (!path.includes("trash") && !path.includes("sent"))
+              return handleMessagesMove("trash");
+            setIsModalOpen(true);
+          }}
+        >
+          <Icon
+            iconName="refresh"
+            size="s1_5"
+            color="red"
+            className=" group-hover:text-lightBlue duration-200"
+          />
+        </Button>
+
         <Container
           as="div"
           className={cn(
