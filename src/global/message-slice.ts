@@ -64,17 +64,17 @@ export const messageSlice = createSlice({
     setAllMessages(state, action: PayloadAction<{ allMessages: messageDetailsType[] }>) {
       state.allMessages = action.payload.allMessages;
     },
+
     addNewMsgPackage(state, action: PayloadAction<{ messages: messageDetailsType[] }>) {
-      const foundMess = state.allMessages.find(
-        (message) => message.id === action.payload.messages[0].id
+      const newMessages = action.payload.messages.filter(
+        (newMessage) => !state.allMessages.some((message) => message.id === newMessage.id)
       );
 
-      if (foundMess) {
-        return;
+      if (newMessages.length > 0) {
+        state.allMessages = [...state.allMessages, ...newMessages];
       }
-
-      state.allMessages = [...state.allMessages, ...action.payload.messages];
     },
+
     addNewMsgSingle(state, action: PayloadAction<{ message: messageDetailsType }>) {
       const message = action.payload.message;
       state.allMessages.push(message);

@@ -28,7 +28,8 @@ export const getUniqueMessages = (messages: messageDetailsType[]) => {
   messages.filter((message) => {
     const duplicateMessage = uniqueMessages.find(
       (uniqueMessage) =>
-        (uniqueMessage.subject === message.subject ||
+        (uniqueMessage.id === message.id ||
+          uniqueMessage.subject === message.subject ||
           uniqueMessage.subject === "Re: " + message.subject) &&
         uniqueMessage.owner === message.owner
     );
