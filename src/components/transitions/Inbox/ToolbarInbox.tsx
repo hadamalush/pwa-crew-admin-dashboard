@@ -14,32 +14,32 @@ import {
 } from "../../../global/message-slice";
 import usePage from "../../../hooks/usePage";
 import { useParams } from "react-router";
-import { getMessIndex } from "../../../global/message-action";
-import { axiosPrivate } from "../../../api/axios";
+import { fetchMessagesInBackground, getMessIndex } from "../../../global/message-action";
 import { toast } from "sonner";
 import { AnimatePresence } from "framer-motion";
 import Modal from "../Modal";
 import { useState } from "react";
 import Heading from "../../UI/Heading";
+import useAxiosPrivate from "../../../hooks/usePrivateAxios";
 
 const ToolbarInbox = () => {
   const dispatch = useGlobalDispatch();
-  const toggleState = useGlobalSelector((state) => state.toggle);
   const messagesState = useGlobalSelector((state) => state.messages);
+  const axiosPrivate = useAxiosPrivate();
   const [isModalOpen, setIsModalOpen] = useState(false);
-
   const { path } = usePage();
   const { messageId } = useParams();
 
-  const checkedMessages = messagesState.checkedMessages;
-  const isVisibleMainNav = toggleState.isVisibleNav;
-  const isVisibleInboxNav = toggleState.isVisibleInboxNav;
-  const areAllMessagesMarked = messagesState.areMarkedAllMessages;
-  const isMarkedCheckboxAll = messagesState.isMarkedCheckboxAll;
+  const { isVisibleNav: isVisibleMainNav, isVisibleInboxNav } = useGlobalSelector(
+    (state) => state.toggle
+  );
+  const { checkedMessages, areMarkedAllMessages, isMarkedCheckboxAll } = useGlobalSelector(
+    (state) => state.messages
+  );
+
   const isCheckedMessage = messagesState.checkedMessages.length > 0;
   const lastIndexMess = getMessIndex(messagesState, "last");
   const firstIndexMess = getMessIndex(messagesState, "first");
-
   const quantityMessages = getNumberOfMessagesByPage(messagesState, getInboxPage(path));
 
   const handleInboxNavChange = () => {
@@ -48,7 +48,11 @@ const ToolbarInbox = () => {
   };
 
   const handleMessagesCheckbox = () => {
-    dispatch(markAllMessage({ allMessagesMarked: !areAllMessagesMarked }));
+    dispatch(markAllMessage({ allMessagesMarked: !areMarkedAllMessages }));
+  };
+
+  const handleRefreshMessages = () => {
+    fetchMessagesInBackground(dispatch, axiosPrivate);
   };
 
   const handleMessagesMove = async (moveTo: "trash" | "spam" | "inbox") => {
@@ -174,31 +178,30 @@ const ToolbarInbox = () => {
             />
             <label
               htmlFor="checkboxAll"
-              className="dark:text-textPrimary w-max text-xl md:text-2xl mr-auto sm:mr-0"
+              className="dark:text-textPrimary w-max text-xl md:text-2xl  sm:mr-0"
             >
-              Select all
+              All
             </label>
           </>
         )}
-
-        <Button
-          variant="outline"
-          className="group pl-3 pr-3 outline-none block mxs1:mr-10"
-          aria-label="Move to trash"
-          type="button"
-          onClick={() => {
-            if (!path.includes("trash") && !path.includes("sent"))
-              return handleMessagesMove("trash");
-            setIsModalOpen(true);
-          }}
-        >
-          <Icon
-            iconName="refresh"
-            size="s1_5"
-            color="red"
-            className=" group-hover:text-lightBlue duration-200"
-          />
-        </Button>
+        {!messageId && (
+          <Button
+            variant="outline"
+            className={cn("group pl-3 pr-3 outline-none block mr-auto ml-2", {
+              "md:mr-0": checkedMessages.length > 0,
+            })}
+            aria-label="Refresh messages"
+            type="button"
+            onClick={handleRefreshMessages}
+          >
+            <Icon
+              iconName="refresh"
+              size="s1_5"
+              color="red"
+              className=" group-hover:text-lightBlue duration-200"
+            />
+          </Button>
+        )}
 
         <Container
           as="div"

@@ -9,9 +9,8 @@ import usePage from "../hooks/usePage";
 import { useDispatch } from "react-redux";
 import { resetCurrentPage } from "../global/message-slice";
 import { useEffect } from "react";
-import { fetchAllMessages } from "../util/actions/actions";
 import useAxiosPrivate from "../hooks/usePrivateAxios";
-import { setTopLoading } from "../global/toggle-slice";
+import { fetchMessagesInBackground } from "../global/message-action";
 
 const InboxLayout = () => {
   const isVisibleMainNav = useGlobalSelector((state) => state.toggle.isVisibleNav);
@@ -31,39 +30,7 @@ const InboxLayout = () => {
 
   //FETCHING MESSAGES IN THE BACKGROUND
   useEffect(() => {
-    const fetchDataInBackground = async () => {
-      dispatch(setTopLoading({ loading: true, text: "Loading messages" }));
-
-      let token,
-        newLabel: "SPAM" | "TRASH" | "INBOX" | "SENT" = "SPAM",
-        isCountinue = true;
-
-      while (isCountinue) {
-        const response = await fetchAllMessages(axiosPrivate, dispatch, newLabel, token);
-
-        token = response.newPageToken;
-        newLabel = response.newLabel;
-
-        if (newLabel === "SENT" && token === "") {
-          isCountinue = false;
-          dispatch(setTopLoading({ loading: false }));
-        }
-
-        if (token === "" && newLabel === "SPAM") {
-          newLabel = "TRASH";
-        } else if (token === "" && newLabel === "TRASH") {
-          newLabel = "INBOX";
-        } else if (token === "" && newLabel === "INBOX") {
-          newLabel = "SENT";
-        }
-
-        if (!newLabel) {
-          isCountinue = false;
-          dispatch(setTopLoading({ loading: false }));
-        }
-      }
-    };
-    fetchDataInBackground();
+    fetchMessagesInBackground(dispatch, axiosPrivate);
   }, [axiosPrivate, dispatch]);
 
   return (

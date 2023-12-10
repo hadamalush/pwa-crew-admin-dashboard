@@ -9,7 +9,7 @@ import {
   moveMessages,
   setCheckedMessages,
 } from "../../../global/message-slice";
-import { getUniqueMsgById } from "../../../global/message-action";
+import { fetchMessagesInBackground, getUniqueMsgById } from "../../../global/message-action";
 import { setLoading } from "../../../global/toggle-slice";
 import useAxiosPrivate from "../../../hooks/usePrivateAxios";
 import { toast } from "sonner";
@@ -18,6 +18,7 @@ import Container from "../../UI/Container";
 import Modal from "../Modal";
 import { AnimatePresence } from "framer-motion";
 import usePage from "../../../hooks/usePage";
+import { cn } from "../../../util/utils";
 
 type ToolbarInboxDetailsType = {
   message: messageDetailsType;
@@ -57,6 +58,10 @@ const ToolbarInboxDetails = ({ message }: ToolbarInboxDetailsType) => {
 
     dispatch(moveMessages({ moveTo: moveTo }));
     dispatch(setLoading({ loading: false }));
+  };
+
+  const handleRefreshMessages = () => {
+    fetchMessagesInBackground(dispatch, axiosPrivate);
   };
 
   const handleDeleteMessage = async () => {
@@ -134,6 +139,21 @@ const ToolbarInboxDetails = ({ message }: ToolbarInboxDetailsType) => {
           aria-label="Previous page"
         >
           <Icon iconName="arrowLeft" className="dark:text-textPrimary text-gray" />
+        </Button>
+
+        <Button
+          variant="outline"
+          className={cn("group pl-3 pr-3 outline-none block ml-2")}
+          aria-label="Refresh messages"
+          type="button"
+          onClick={handleRefreshMessages}
+        >
+          <Icon
+            iconName="refresh"
+            size="s1_5"
+            color="red"
+            className=" group-hover:text-lightBlue duration-200"
+          />
         </Button>
 
         {!path.includes("featured") && (

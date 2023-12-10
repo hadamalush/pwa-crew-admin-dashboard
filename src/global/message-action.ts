@@ -1,5 +1,9 @@
+import { AxiosInstance } from "axios";
+import { fetchAllMessages } from "../util/actions/actions";
 import { initialStateType, messageDetailsType, messageProps } from "./message-slice";
 import { createSelector } from "reselect";
+import { AppDispatch } from "./store";
+import { setTopLoading } from "./toggle-slice";
 
 export const getMessIndex = (state: initialStateType, index: "last" | "first") => {
   const currentPage = state.currentPagePag.currentPage;
@@ -34,7 +38,15 @@ export const getUniqueMessages = (messages: messageDetailsType[]) => {
     }
   });
 
-  return uniqueMessages;
+  const sortedMessages = uniqueMessages
+    .sort((a, b) => {
+      const dateA = new Date(a.date);
+      const dateB = new Date(b.date);
+      return dateA.getTime() - dateB.getTime();
+    })
+    .reverse();
+
+  return sortedMessages;
 };
 
 export const getUniqueMsgById = (state: initialStateType, owner: string, subject: string) => {
@@ -153,3 +165,39 @@ export const getFilteredMessages = createSelector(
     return destructionMessages;
   }
 );
+
+export const fetchMessagesInBackground = async (
+  dispatch: AppDispatch,
+  axiosPrivate: AxiosInstance
+) => {
+  dispatch(setTopLoading({ loading: true, text: "Loading messages" }));
+
+  let token,
+    newLabel: "SPAM" | "TRASH" | "INBOX" | "SENT" = "SPAM",
+    isCountinue = true;
+
+  while (isCountinue) {
+    const response = await fetchAllMessages(axiosPrivate, dispatch, newLabel, token);
+
+    token = response.newPageToken;
+    newLabel = response.newLabel;
+
+    if (newLabel === "SENT" && token === "") {
+      isCountinue = false;
+      dispatch(setTopLoading({ loading: false }));
+    }
+
+    if (token === "" && newLabel === "SPAM") {
+      newLabel = "TRASH";
+    } else if (token === "" && newLabel === "TRASH") {
+      newLabel = "INBOX";
+    } else if (token === "" && newLabel === "INBOX") {
+      newLabel = "SENT";
+    }
+
+    if (!newLabel) {
+      isCountinue = false;
+      dispatch(setTopLoading({ loading: false }));
+    }
+  }
+};
