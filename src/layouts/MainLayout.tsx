@@ -1,4 +1,4 @@
-import { Outlet } from "react-router";
+import { Outlet, useLocation } from "react-router";
 import Header from "../components/Common/Header";
 import Navbar from "../components/Common/Navigation/Navbar";
 import Footer from "../components/Common/Footer";
@@ -10,14 +10,15 @@ import DotsLoader from "../components/UI/Loader/DotsLoader";
 import { AnimatePresence, motion } from "framer-motion";
 
 const MainLayout = () => {
-  const isLoading = useGlobalSelector((state) => state.toggle.isLoading);
-  const isLoadingTop = useGlobalSelector((state) => state.toggle.isTopLoading);
-  const loaderText = useGlobalSelector((state) => state.toggle.textTopLoader);
+  const { isTopLoading, isLoading, textTopLoader, pathTopLoader } = useGlobalSelector(
+    (state) => state.toggle
+  );
+  const pathname = useLocation().pathname;
 
   return (
     <>
       <AnimatePresence>
-        {isLoadingTop && (
+        {isTopLoading && pathname.includes(pathTopLoader) && (
           <motion.div
             initial={{ y: "-100%", x: "-50%", opacity: 0 }}
             animate={{ y: "0%", opacity: 1 }}
@@ -25,7 +26,7 @@ const MainLayout = () => {
             exit={{ opacity: 0 }}
             className="fixed top-5 h-20 px-20 flex items-center bg-transparentBlue z-[1000] left-[50%] translate-x-[-50%] rounded-lg text-white"
           >
-            {loaderText}
+            {textTopLoader}
             <DotsLoader />
           </motion.div>
         )}

@@ -171,7 +171,7 @@ export const fetchMessagesInBackground = async (
   dispatch: AppDispatch,
   axiosPrivate: AxiosInstance
 ) => {
-  dispatch(setTopLoading({ loading: true, text: "Loading messages" }));
+  dispatch(setTopLoading({ loading: true, text: "Loading messages", path: "inbox" }));
 
   let token,
     newLabel: "SPAM" | "TRASH" | "INBOX" | "SENT" = "SPAM",
