@@ -18,6 +18,7 @@ export default {
   lightRed: "#fc424a",
   blue: "#037ec8",
   lightBlue: "#006daf",
+  transparentBlue: "rgba(21, 55, 179, 0.56)",
   blueFocus: "#2684FF",
   darkBlue: "#0078c1",
   lightGreen: "#00d25b",

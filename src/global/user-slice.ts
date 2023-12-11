@@ -1,5 +1,4 @@
 import { createSlice } from "@reduxjs/toolkit";
-// import { DUMMY_USERSFULL } from "../components/transitions/dummy-items";
 import { PayloadAction } from "@reduxjs/toolkit";
 
 export type UserProps = {

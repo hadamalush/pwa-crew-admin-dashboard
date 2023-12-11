@@ -5,17 +5,22 @@ import { NavLink, useLocation } from "react-router-dom";
 import { cn } from "../../../util/utils";
 import Icon from "../../UI/Icons/Icon";
 import { useGlobalSelector } from "../../../global/hooks";
-import { messageDetailsType } from "../../../global/message-slice";
+import { initialStateType } from "../../../global/message-slice";
 import { useEffect, useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import { useDispatch } from "react-redux";
 import { handleInboxNav, handleNav } from "../../../global/toggle-slice";
 import { useMediaQuery } from "react-responsive";
 import useLogout from "../../../hooks/useLogout";
+import {
+  getFilteredMessages,
+  getGropedMessages,
+  getUniqueMessages,
+} from "../../../global/message-action";
 
 type handleAdditionalInfoProps = {
   pageName: "Trash" | "Inbox" | "Featured" | "Spam" | null;
-  allMessages: messageDetailsType[];
+  msgState: initialStateType;
 };
 
 export type NavItemProps = {
@@ -45,7 +50,8 @@ const NavItem = ({
   action,
   ...props
 }: NavItemProps) => {
-  const allMessages = useGlobalSelector((state) => state.messages.allMessages);
+  const msgState = useGlobalSelector((state) => state.messages);
+
   const pathname = useLocation().pathname;
   const [quantity, setQuantity] = useState(0);
   const dispatch = useDispatch();
@@ -60,10 +66,14 @@ const NavItem = ({
 
   useEffect(() => {
     if (isAdditionalInfo) {
-      const messQuantity = getUnreadMessageCountByTab({ pageName: formattedTitle, allMessages });
-      setQuantity(messQuantity);
+      const msgQuantity = getUnreadmessagesCountByPage({
+        msgState: msgState,
+        pageName: formattedTitle,
+      });
+
+      setQuantity(msgQuantity);
     }
-  }, [quantity, allMessages, formattedTitle, isAdditionalInfo]);
+  }, [quantity, formattedTitle, msgState, isAdditionalInfo]);
 
   const closeNavHandler = () => {
     if (!isMediumScreen) {
@@ -112,22 +122,19 @@ const NavItem = ({
 
 export default NavItem;
 
-const getUnreadMessageCountByTab = ({ pageName, allMessages }: handleAdditionalInfoProps) => {
-  let quantity: number = 0;
+const getUnreadmessagesCountByPage = ({ msgState, pageName }: handleAdditionalInfoProps) => {
+  const checkedMessages = getFilteredMessages(msgState, pageName?.toLocaleLowerCase());
+  const uniqueMessages = getUniqueMessages(checkedMessages);
+  let quantity = 0;
 
-  if (pageName === "Trash") {
-    quantity = allMessages.filter((mess) => mess.isInTrash && !mess.unRead).length;
-  }
-  if (pageName === "Inbox") {
-    quantity = allMessages.filter(
-      (mess) => !mess.isInSpam && !mess.isInTrash && !mess.unRead
-    ).length;
-  }
-  if (pageName === "Featured") {
-    quantity = allMessages.filter((mess) => mess.isFeatured && !mess.unRead).length;
-  }
-  if (pageName === "Spam") {
-    quantity = allMessages.filter((mess) => mess.isInSpam && !mess.unRead).length;
+  for (const msg of uniqueMessages) {
+    const groupedMsgs = getGropedMessages(msgState.allMessages, msg);
+
+    const unReadMsg = groupedMsgs.find((msg) => msg.unRead === true);
+
+    if (unReadMsg) {
+      quantity++;
+    }
   }
 
   return quantity;

@@ -1,4 +1,4 @@
-import { Outlet, useLoaderData, useLocation } from "react-router-dom";
+import { Outlet, useLocation } from "react-router-dom";
 import { InboxNavbarItems } from "../components/Common/Navigation/NavigationData";
 import { useGlobalSelector } from "../global/hooks";
 import { cn } from "../util/utils";
@@ -9,8 +9,8 @@ import usePage from "../hooks/usePage";
 import { useDispatch } from "react-redux";
 import { resetCurrentPage } from "../global/message-slice";
 import { useEffect } from "react";
-import { fetchAllMessages } from "../util/actions/actions";
 import useAxiosPrivate from "../hooks/usePrivateAxios";
+import { fetchMessagesInBackground } from "../global/message-action";
 
 const InboxLayout = () => {
   const isVisibleMainNav = useGlobalSelector((state) => state.toggle.isVisibleNav);
@@ -28,40 +28,10 @@ const InboxLayout = () => {
     }
   }, [dispatch, changePath]);
 
+  //FETCHING MESSAGES IN THE BACKGROUND
   useEffect(() => {
-    const fetchDataInBackground = async () => {
-      let token,
-        newLabel: "SPAM" | "TRASH" | "INBOX" = "SPAM",
-        isCountinue = true;
-      while (isCountinue) {
-        const response = await fetchAllMessages(axiosPrivate, dispatch, newLabel, token);
-
-        token = response.newPageToken;
-        newLabel = response.newLabel;
-
-        if (newLabel === "INBOX" && token === "") {
-          isCountinue = false;
-        }
-
-        if (token === "" && newLabel === "SPAM") {
-          newLabel = "TRASH";
-        } else if (token === "" && newLabel === "TRASH") {
-          newLabel = "INBOX";
-        }
-
-        if (!newLabel) {
-          isCountinue = false;
-        }
-      }
-    };
-    fetchDataInBackground();
+    fetchMessagesInBackground(dispatch, axiosPrivate);
   }, [axiosPrivate, dispatch]);
-
-  const ok = useLoaderData();
-
-  if (!ok) {
-    return null;
-  }
 
   return (
     <>
@@ -79,7 +49,7 @@ const InboxLayout = () => {
       />
       <ToolbarInbox />
       <Main
-        className={cn("md:pl-[29rem] pt-48 ", {
+        className={cn("md:pl-[29rem] pt-48 duration-200", {
           "md:pl-[44rem]": isInboxPage && isVisibleMainNav,
         })}
       >

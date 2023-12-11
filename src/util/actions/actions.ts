@@ -122,7 +122,7 @@ export const fetchStatsVercel = async (axiosPrivate: AxiosInstance, dispatch: Ap
 export const fetchAllMessages = async (
   axiosPrivate: AxiosInstance,
   dispatch: AppDispatch,
-  label: "SPAM" | "TRASH" | "INBOX",
+  label: "SPAM" | "TRASH" | "INBOX" | "SENT",
   pageToken?: string
 ) => {
   let response, newLabel, newPageToken;

@@ -100,7 +100,7 @@ export const DUMMY_USERS = [
   {
     id: "user1",
     name: "Bogdan Szermanc",
-    email: "bogdanSzermanc@o2.pl",
+    email: "poncoshplayer@gmail.com",
     avatarSrc: "laptop.webp",
     accountActive: true,
     newsletter: true,
@@ -558,6 +558,7 @@ export const DUMMY_SENTMESSAGES = [
     email: "bolesławchrobry@o2.pl",
     to: "bogdanSzermanc@o2.pl",
     avatarSrc: "/avatar.webp",
+    textHTML: "",
     subject:
       "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec justo dolor, aliquet vitae efficitur a, pretium vel metus. Sed sapien ligula, iaculis quis erat in, bibendum consectetur sapien.",
     description:
@@ -570,6 +571,7 @@ export const DUMMY_SENTMESSAGES = [
     email: "bolesławchrobry@o2.pl",
     to: "bogdanSzermanc@o2.pl",
     avatarSrc: "/avatar.webp",
+    textHTML: "",
     subject:
       "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec justo dolor, aliquet vitae efficitur a, pretium vel metus. Sed sapien ligula, iaculis quis erat in, bibendum consectetur sapien.",
     description:
@@ -582,6 +584,7 @@ export const DUMMY_SENTMESSAGES = [
     email: "bolesławchrobry@o2.pl",
     to: "bogdanSzermanc@o2.pl",
     avatarSrc: "/avatar.webp",
+    textHTML: "",
     subject: "Lorem ipsum dolor sit amet.",
     description:
       "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec justo dolor, aliquet vitae efficitur a, pretium vel metus. Sed sapien ligula, iaculis quis erat in, bibendum consectetur sapien. Cras tincidunt hendrerit orci, ac sodales risus pellentesque eget. Curabitur elementum consequat finibus. .",

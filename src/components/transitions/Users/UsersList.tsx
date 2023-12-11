@@ -1,5 +1,5 @@
 import Heading from "../../UI/Heading";
-import { type ComponentPropsWithoutRef, useState } from "react";
+import { type ComponentPropsWithoutRef, useState, useEffect } from "react";
 import UsersItem from "./UsersItem";
 import { cn } from "../../../util/utils";
 import SelectSingle from "../../UI/Select/SelectSingle";
@@ -68,6 +68,10 @@ const UsersList = ({ searchOption, className }: UsersListProps) => {
       if (currentUser) setFoundUser(currentUser);
     }
   };
+
+  useEffect(() => {
+    setFilteredUsers(allUsers);
+  }, [allUsers]);
 
   return (
     <>

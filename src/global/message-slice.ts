@@ -1,5 +1,5 @@
 import { createSlice, type PayloadAction } from "@reduxjs/toolkit";
-// import { DUMMY_INBOXMESSAGES } from "../components/transitions/dummy-items";
+import { getUniqueMessages } from "./message-action";
 
 export interface messageProps {
   id: string;
@@ -16,6 +16,9 @@ export interface messageDetailsType extends messageProps {
   description: string;
   isInSpam: boolean;
   isInTrash: boolean;
+  isInSent: boolean;
+  textHTML: string;
+  to?: string;
 }
 
 type CurrentPagePagType = {
@@ -30,6 +33,7 @@ export type initialStateType = {
   featuredMessages: messageProps[];
   spamMessages: messageProps[];
   inboxMessages: messageProps[];
+  sentMessages: messageProps[];
   checkedMessages: string[];
   areMarkedAllMessages: boolean;
   isMarkedCheckboxAll: boolean;
@@ -47,6 +51,7 @@ const initialState: initialStateType = {
   featuredMessages: [],
   spamMessages: [],
   inboxMessages: [],
+  sentMessages: [],
   checkedMessages: [],
   areMarkedAllMessages: false,
   isMarkedCheckboxAll: false,
@@ -59,16 +64,28 @@ export const messageSlice = createSlice({
     setAllMessages(state, action: PayloadAction<{ allMessages: messageDetailsType[] }>) {
       state.allMessages = action.payload.allMessages;
     },
+
     addNewMsgPackage(state, action: PayloadAction<{ messages: messageDetailsType[] }>) {
-      const foundMess = state.allMessages.find(
-        (message) => message.id === action.payload.messages[0].id
+      const newMessages = action.payload.messages.filter(
+        (newMessage) => !state.allMessages.some((message) => message.id === newMessage.id)
       );
 
-      if (foundMess) {
-        return;
+      if (newMessages.length > 0) {
+        state.allMessages = [...state.allMessages, ...newMessages];
       }
+    },
 
-      state.allMessages = [...state.allMessages, ...action.payload.messages];
+    addNewMsgSingle(state, action: PayloadAction<{ message: messageDetailsType }>) {
+      const message = action.payload.message;
+      state.allMessages.push(message);
+    },
+
+    deleteMessages(state) {
+      state.allMessages = state.allMessages.filter(
+        (message) => !state.checkedMessages.includes(message.id)
+      );
+
+      state.checkedMessages = [];
     },
     filterMessages(
       state,
@@ -112,14 +129,29 @@ export const messageSlice = createSlice({
       action: PayloadAction<{
         id: string;
         action: "add" | "remove" | "featured";
-        pageName: "spam" | "trash" | "inbox" | "featured";
+        pageName: "spam" | "trash" | "inbox" | "featured" | "sent";
       }>
     ) {
       const messageId = action.payload.id;
       const pageName = action.payload.pageName;
 
+      const foundMessage = state.allMessages.find((msg) => msg.id === messageId);
+
+      const groupMessages = state.allMessages.filter((msg) => {
+        const fSubject = msg.subject.replace(/^Re:\s*/, "");
+
+        return (
+          (msg.subject === foundMessage?.subject ||
+            "Re: " + msg.subject === foundMessage?.subject ||
+            fSubject === foundMessage?.subject) &&
+          (msg.owner === foundMessage?.owner || msg.to === foundMessage?.owner)
+        );
+      });
+
+      const messagesIds = groupMessages.map((msg) => msg.id);
+
       if (action.payload.action === "add") {
-        state.checkedMessages.push(messageId);
+        state.checkedMessages = state.checkedMessages.concat(messagesIds);
 
         if (state[`${pageName}Messages`].length === state.checkedMessages.length) {
           state.areMarkedAllMessages = true;
@@ -128,7 +160,9 @@ export const messageSlice = createSlice({
         return;
       }
       if (action.payload.action === "remove") {
-        state.checkedMessages = state.checkedMessages.filter((message) => message !== messageId);
+        state.checkedMessages = state.checkedMessages.filter(
+          (message) => !messagesIds.includes(message)
+        );
 
         if (state.areMarkedAllMessages) {
           state.isMarkedCheckboxAll = false;
@@ -152,7 +186,27 @@ export const messageSlice = createSlice({
     },
 
     setCheckedMessages(state, action: PayloadAction<{ checkedMessages: string[] }>) {
-      state.checkedMessages = action.payload.checkedMessages;
+      const checkedMessages = action.payload.checkedMessages;
+
+      const foundMessages = state.allMessages.filter((message) =>
+        checkedMessages.includes(message.id)
+      );
+      const groupedMessages = state.allMessages
+        .filter((message) =>
+          foundMessages.some(
+            (foundMessage) =>
+              (foundMessage.subject === message.subject ||
+                foundMessage.subject === "Re: " + message.subject) &&
+              (foundMessage.owner === message.owner || foundMessage.owner === message.to)
+          )
+        )
+        .map((item) => item.id);
+
+      state.checkedMessages = groupedMessages;
+    },
+
+    setUncheckedMessages(state) {
+      state.checkedMessages = [];
     },
 
     markAllMessage(state, action: PayloadAction<{ allMessagesMarked: boolean }>) {
@@ -163,7 +217,15 @@ export const messageSlice = createSlice({
     changeCheckboxAll(state, action: PayloadAction<{ checkbox: boolean }>) {
       state.isMarkedCheckboxAll = action.payload.checkbox;
     },
+    setMsgsAsRead(state, action: PayloadAction<{ msgIds: string[] }>) {
+      const msgIds = action.payload.msgIds;
 
+      for (const id of msgIds) {
+        const message = state.allMessages.find((msg) => msg.id === id);
+
+        if (message) message.unRead = false;
+      }
+    },
     moveMessages(
       state,
       action: PayloadAction<{ moveTo: "trash" | "inbox" | "spam"; id?: string }>
@@ -214,8 +276,13 @@ export const messageSlice = createSlice({
 });
 
 export const getInboxPage = (path: string) => {
-  const allowedPages = ["trash", "spam", "featured", "inbox"];
-  const pageName = path.slice(path.lastIndexOf("/") + 1) as "trash" | "spam" | "featured" | "inbox";
+  const allowedPages = ["trash", "spam", "featured", "inbox", "sent"];
+  const pageName = path.slice(path.lastIndexOf("/") + 1) as
+    | "trash"
+    | "spam"
+    | "featured"
+    | "inbox"
+    | "sent";
 
   const receivedPage = allowedPages.includes(pageName) ? pageName : null;
 
@@ -224,20 +291,23 @@ export const getInboxPage = (path: string) => {
 
 export const getNumberOfMessagesByPage = (
   state: initialStateType,
-  page: "inbox" | "spam" | "featured" | "trash" | null
+  page: "inbox" | "spam" | "featured" | "trash" | "sent" | null
 ) => {
   let numberMessages;
+  const uniqueMessages = getUniqueMessages(state.allMessages);
 
   if (page === "spam") {
-    numberMessages = state.allMessages.filter((item) => item.isInSpam === true).length;
+    numberMessages = uniqueMessages.filter((item) => item.isInSpam).length;
   } else if (page === "trash") {
-    numberMessages = state.allMessages.filter((item) => item.isInTrash === true).length;
+    numberMessages = uniqueMessages.filter((item) => item.isInTrash).length;
+  } else if (page === "sent") {
+    numberMessages = uniqueMessages.filter((item) => item.isInSent).length;
   } else if (page === "inbox") {
-    numberMessages = state.allMessages.filter(
-      (item) => item.isInTrash === false && item.isInSpam === false
+    numberMessages = uniqueMessages.filter(
+      (item) => !item.isInTrash && !item.isInSpam && !item.isInSent
     ).length;
   } else if (page === "featured") {
-    numberMessages = state.allMessages.filter((item) => item.isFeatured === true).length;
+    numberMessages = uniqueMessages.filter((item) => item.isFeatured).length;
   }
 
   return numberMessages;
@@ -254,4 +324,8 @@ export const {
   changeCurrentPage,
   resetCurrentPage,
   addNewMsgPackage,
+  deleteMessages,
+  setUncheckedMessages,
+  addNewMsgSingle,
+  setMsgsAsRead,
 } = messageSlice.actions;
