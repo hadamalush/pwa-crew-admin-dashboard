@@ -207,7 +207,7 @@ const ToolbarInbox = () => {
           as="div"
           className={cn(
             "mr-auto absolute left-0 bottom-[-4rem] invisible opacity-0 bg-slate-50 dark:bg-primaryDarkBrighter w-full justify-start h-16 sm:static sm:w-max sm:ml-2 duration-200",
-            { "visible opacity-100": isCheckedMessage }
+            { "visible opacity-100": isCheckedMessage && !messageId }
           )}
         >
           {isCheckedMessage && (

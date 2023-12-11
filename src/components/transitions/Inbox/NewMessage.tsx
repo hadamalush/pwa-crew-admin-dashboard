@@ -1,7 +1,6 @@
 import { useForm } from "react-hook-form";
 import SelectCreatable from "../../UI/Select/SelectCreatable";
 import TextEditor from "../Editor/TextEditor";
-import { DUMMY_USERS } from "../dummy-items";
 import { useState, useEffect, type ComponentPropsWithoutRef } from "react";
 import * as yup from "yup";
 import Button from "../../UI/Button";
@@ -10,7 +9,7 @@ import InputText from "../../UI/Input/InputText";
 import useAxiosPrivate from "../../../hooks/usePrivateAxios";
 import { toast } from "sonner";
 import { AxiosError } from "axios";
-import { useGlobalDispatch } from "../../../global/hooks";
+import { useGlobalDispatch, useGlobalSelector } from "../../../global/hooks";
 import { addNewMsgSingle } from "../../../global/message-slice";
 import { setLoading } from "../../../global/toggle-slice";
 
@@ -44,15 +43,16 @@ const NewMessage = ({ subject, email, onClose: closeModal, ...props }: NewMessag
   const [emails, setEmails] = useState<string[]>([]);
   const axiosPrivate = useAxiosPrivate();
   const dispatch = useGlobalDispatch();
+  const allUsers = useGlobalSelector((state) => state.users.allUsers);
 
   useEffect(() => {
-    const emails = getEmailAddresses(DUMMY_USERS);
+    const emails = getEmailAddresses(allUsers);
     setEmailOptions(emails);
 
     if (email) {
       setEmails([email]);
     }
-  }, [email]);
+  }, [email, allUsers]);
 
   const handleChangeEmails = (newValue: unknown) => {
     const newEmails = newValue as OptionType[];

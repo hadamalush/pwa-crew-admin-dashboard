@@ -8,18 +8,6 @@ import InboxFeaturedPage from "./pages/Inbox/InboxFeaturedPage";
 import HomePage from "./pages/HomePage";
 import PersistLogin from "./layouts/PersistLogin";
 import { loader as rootLoader } from "./pages/HomePage";
-import {
-  fetchAllMessages,
-  // fetchPageViews,
-  // fetchStatsCloudinary,
-  // fetchStatsMega,
-  // fetchStatsMongo,
-  // fetchStatsVercel,
-  // fetchUsers,
-} from "./util/actions/actions";
-import { useGlobalDispatch } from "./global/hooks";
-import useAxiosPrivate from "./hooks/usePrivateAxios";
-// import { setUsersStats } from "./global/stats-slice";
 
 const DashBoardPage = lazy(() => import("./pages/DashboardPage"));
 const InboxLayout = lazy(() => import("./layouts/InboxLayout"));
@@ -30,12 +18,6 @@ const SettingsPage = lazy(() => import("./pages/SettingsPage"));
 const MainLayout = lazy(() => import("./layouts/MainLayout"));
 
 function App() {
-  const dispatch = useGlobalDispatch();
-  // const messages1 = useGlobalSelector((state) => state.messages.allMessages);
-
-  const axiosPrivate = useAxiosPrivate();
-  // console.log(messages1);
-
   const router = createBrowserRouter([
     {
       path: "/",
@@ -50,23 +32,23 @@ function App() {
           children: [
             {
               element: <MainLayout />,
-              loader: async () => {
-                // const connections = await fetchStatsMongo(axiosPrivate, dispatch);
-                // const pageViews = await fetchPageViews(axiosPrivate, dispatch);
-                // const users = await fetchUsers(axiosPrivate, dispatch);
-                // await fetchStatsCloudinary(axiosPrivate, dispatch);
-                // await fetchStatsMega(axiosPrivate, dispatch);
-                // await fetchStatsVercel(axiosPrivate, dispatch);
+              // loader: async () => {
+              //   const connections = await fetchStatsMongo(axiosPrivate, dispatch);
+              //   const pageViews = await fetchPageViews(axiosPrivate, dispatch);
+              //   const users = await fetchUsers(axiosPrivate, dispatch);
+              //   await fetchStatsCloudinary(axiosPrivate, dispatch);
+              //   await fetchStatsMega(axiosPrivate, dispatch);
+              //   await fetchStatsVercel(axiosPrivate, dispatch);
 
-                // dispatch(setUsersStats({ users: users.users }));
+              //   dispatch(setUsersStats({ users: users.users }));
 
-                //temporary
-                // if (!connections) console.log("Error download conncetions");
-                // if (!pageViews) console.log("Error download pageViews");
-                // if (!users) console.log("Error download users");
+              //   // temporary;
+              //   if (!connections) console.log("Error download conncetions");
+              //   if (!pageViews) console.log("Error download pageViews");
+              //   if (!users) console.log("Error download users");
 
-                return "continue...";
-              },
+              //   return "continue...";
+              // },
               children: [
                 {
                   path: "dashboard",
