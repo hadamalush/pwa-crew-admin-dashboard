@@ -27,7 +27,25 @@ export const usersSlice = createSlice({
       const users = action.payload.users;
       state.allUsers = users;
     },
+    deleteUser(state, action: PayloadAction<{ userId: string }>) {
+      const { userId } = action.payload;
+
+      state.allUsers = state.allUsers.filter((user) => user.id !== userId);
+    },
+    editUser(
+      state,
+      action: PayloadAction<{ userId: string; newUsername: string; newEmail: string }>
+    ) {
+      const { userId, newUsername, newEmail } = action.payload;
+
+      const user = state.allUsers.find((user) => user.id === userId);
+
+      if (user) {
+        user.email = newEmail;
+        user.username = newUsername;
+      }
+    },
   },
 });
 
-export const { setUsers } = usersSlice.actions;
+export const { setUsers, editUser, deleteUser } = usersSlice.actions;

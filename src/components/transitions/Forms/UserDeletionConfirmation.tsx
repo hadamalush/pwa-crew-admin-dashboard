@@ -1,19 +1,42 @@
+import { toast } from "sonner";
+import useAxiosPrivate from "../../../hooks/usePrivateAxios";
 import Button from "../../UI/Button";
+import { useGlobalDispatch } from "../../../global/hooks";
+import { deleteUser } from "../../../global/user-slice";
 
 type UserDeletionConfirmationProps = {
   initialData: {
     id: string;
     username: string;
   };
+  onClose: () => void;
 };
 
-const UserDeletionConfirmation = ({ initialData }: UserDeletionConfirmationProps) => {
+const UserDeletionConfirmation = ({
+  initialData,
+  onClose: closeModal,
+}: UserDeletionConfirmationProps) => {
   const { id, username } = initialData;
+  const axiosPrivate = useAxiosPrivate();
+  const dispatch = useGlobalDispatch();
 
-  const handleDeleteUser = () => {
-    console.log(id);
+  const handleDeleteUser = async () => {
+    try {
+      const res = await axiosPrivate.post("/admin/users/deleteUser", {
+        id,
+      });
 
-    //handling user delete
+      if (res.status === 200) {
+        dispatch(deleteUser({ userId: id }));
+        closeModal();
+        document.body.classList.remove("bodyhidden");
+        toast.success("User deleted");
+        return;
+      }
+      toast.warning("Something went wrong");
+    } catch (err) {
+      toast.warning("Something went wrong");
+    }
   };
 
   return (
