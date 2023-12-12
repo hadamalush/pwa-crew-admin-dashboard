@@ -32,6 +32,11 @@ export const usersSlice = createSlice({
 
       state.allUsers = state.allUsers.filter((user) => user.id !== userId);
     },
+    addUser(state, action: PayloadAction<{ user: UserProps }>) {
+      const { user } = action.payload;
+
+      state.allUsers.push(user);
+    },
     editUser(
       state,
       action: PayloadAction<{ userId: string; newUsername: string; newEmail: string }>
@@ -48,4 +53,4 @@ export const usersSlice = createSlice({
   },
 });
 
-export const { setUsers, editUser, deleteUser } = usersSlice.actions;
+export const { setUsers, editUser, deleteUser, addUser } = usersSlice.actions;

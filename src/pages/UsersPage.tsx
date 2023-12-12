@@ -24,7 +24,7 @@ const UsersPage = () => {
             className="sm:w-[50rem]  h-full sm:h-auto overflow-y-auto rounded-none sm:rounded-xl"
             title="Create user"
           >
-            <FormNewUser />
+            <FormNewUser onClose={() => setIsModalOpen(false)} />
           </Modal>
         )}
       </AnimatePresence>
