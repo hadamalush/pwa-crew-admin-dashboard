@@ -17,7 +17,12 @@ const SettingsTool = ({ title, children, btnClass, className }: SettingsToolProp
         {title}
       </Heading>
       {children}
-      <Button variant="default" size="big" className={cn("mb-20 mt-5 w-full", btnClass)}>
+      <Button
+        variant="default"
+        size="big"
+        className={cn("mb-20 mt-5 w-full", btnClass)}
+        type="submit"
+      >
         Confirm
       </Button>
     </div>

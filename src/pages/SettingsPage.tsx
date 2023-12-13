@@ -6,7 +6,8 @@ import CardSettingsOption from "../components/transitions/Cards/CardSettingsOpti
 import { AnimatePresence } from "framer-motion";
 import SettingsTool from "../components/transitions/Settings/SettingsDatabase";
 
-const TextEditor = lazy(() => import("../components/transitions/Editor/TextEditor"));
+const AdditionalInfo = lazy(() => import("../components/transitions/Settings/AdditionalInfo"));
+const AutomaticMessage = lazy(() => import("../components/transitions/Settings/AutomaticMessage"));
 const SelectSingle = lazy(() => import("../components/UI/Select/SelectSingle"));
 const Modal = lazy(() => import("../components/transitions/Modal"));
 
@@ -49,20 +50,20 @@ const SettingsPage = () => {
                 </SettingsTool>
               )}
               {isOpenModal.mode === "message" && (
-                <SettingsTool
-                  title="Set up an automatic message, which will be sent to users, if they use the contact form"
-                  className="px-10"
-                >
-                  <TextEditor className="!p-0 mb-2" />
-                </SettingsTool>
+                <AutomaticMessage
+                  onClose={() => {
+                    setIsOpenModal({ mode: "none" });
+                    document.body.classList.remove("bodyhidden");
+                  }}
+                />
               )}
               {isOpenModal.mode === "info" && (
-                <SettingsTool
-                  title="Set startup information, which will appear on the homepage. Information after approval should show up to 30minutes."
-                  className="px-10"
-                >
-                  <TextEditor className="!p-0 mb-2" />
-                </SettingsTool>
+                <AdditionalInfo
+                  onClose={() => {
+                    setIsOpenModal({ mode: "none" });
+                    document.body.classList.remove("bodyhidden");
+                  }}
+                />
               )}
             </Modal>
           </Suspense>
