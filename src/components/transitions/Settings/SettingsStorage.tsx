@@ -11,13 +11,16 @@ type SettingsStorageType = {
   onClose: () => void;
 } & ComponentPropsWithoutRef<"form">;
 
-type storageType = "cloudinary" | "vercelBlob" | "mega";
+type storageType = "cloudinary" | "vercelBlob" | "mega" | "all";
 type OptionType = { label: string; value: storageType };
+
 const optionsSelect: OptionType[] = [
   { value: "cloudinary", label: "Cloudinary" },
   { value: "vercelBlob", label: "VercelBlob" },
   { value: "mega", label: "Mega" },
 ];
+
+const optionSelectUpload = [...optionsSelect, { value: "all", label: "All" }];
 
 type stateStorage = {
   upload: storageType;
@@ -113,7 +116,7 @@ const SettingsStorage = ({ onClose: closeModal, ...props }: SettingsStorageType)
               Recommend: Cloudinary
             </p>
             <SelectSingle
-              options={optionsSelect}
+              options={optionSelectUpload}
               name="upload"
               className="w-full mt-1"
               required
