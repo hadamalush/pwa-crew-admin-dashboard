@@ -15,7 +15,7 @@ const Main = ({ children, className }: MainProps) => {
         transition={{ duration: 0.5 }}
         className={cn(
           `dark:bg-black bg-white w-full min-h-screen xxl:m-auto md:pl-36  
-          w-max-main pt-28   `,
+          w-max-main pt-28   duration-200`,
           {
             "md:pl-96": isVisibleNav,
           },

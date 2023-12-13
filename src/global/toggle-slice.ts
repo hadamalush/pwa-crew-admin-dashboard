@@ -6,6 +6,7 @@ export type ToggleState = {
   isLoading: boolean;
   isTopLoading: boolean;
   textTopLoader: string;
+  pathTopLoader: string;
   theme: "dark" | "light";
 };
 
@@ -15,6 +16,7 @@ const initialState: ToggleState = {
   isLoading: false,
   isTopLoading: false,
   textTopLoader: "",
+  pathTopLoader: "",
   theme: "dark",
 };
 
@@ -34,12 +36,20 @@ export const toggleSlice = createSlice({
     setLoading(state, action: PayloadAction<{ loading: boolean }>) {
       state.isLoading = action.payload.loading;
     },
-    setTopLoading(state, action: PayloadAction<{ loading: boolean; text?: string }>) {
+    setTopLoading(
+      state,
+      action: PayloadAction<{ loading: boolean; text?: string; path?: string }>
+    ) {
       const text = action.payload.text;
+      const path = action.payload.path;
       state.isTopLoading = action.payload.loading;
 
       if (text) {
         state.textTopLoader = text;
+      }
+
+      if (path) {
+        state.pathTopLoader = path;
       }
     },
   },

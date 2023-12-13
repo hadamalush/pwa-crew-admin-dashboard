@@ -4,18 +4,11 @@ import Container from "../components/UI/Container";
 import Heading from "../components/UI/Heading";
 import CardSettingsOption from "../components/transitions/Cards/CardSettingsOption";
 import { AnimatePresence } from "framer-motion";
-import SettingsTool from "../components/transitions/Settings/SettingsDatabase";
 
-const TextEditor = lazy(() => import("../components/transitions/Editor/TextEditor"));
-const SelectSingle = lazy(() => import("../components/UI/Select/SelectSingle"));
+const AdditionalInfo = lazy(() => import("../components/transitions/Settings/AdditionalInfo"));
+const AutomaticMessage = lazy(() => import("../components/transitions/Settings/AutomaticMessage"));
+const SettingsStorage = lazy(() => import("../components/transitions/Settings/SettingsStorage"));
 const Modal = lazy(() => import("../components/transitions/Modal"));
-
-type OptionType = { label: string; value: string };
-const optionsSelect: OptionType[] = [
-  { value: "cloudinary", label: "Cloudinary" },
-  { value: "vercelblob", label: "VercelBlob" },
-  { value: "mega", label: "Mega" },
-];
 
 type ModalStateType = {
   mode: "database" | "message" | "info" | "none";
@@ -40,29 +33,28 @@ const SettingsPage = () => {
               title={modalTitle}
             >
               {isOpenModal.mode === "database" && (
-                <SettingsTool
-                  title="Select and approve the drive your application will use, the drive on the page should change within 30 minutes."
-                  className="pb-20"
-                  btnClass="w-9/12"
-                >
-                  <SelectSingle options={optionsSelect} />
-                </SettingsTool>
+                <SettingsStorage
+                  onClose={() => {
+                    setIsOpenModal({ mode: "none" });
+                    document.body.classList.remove("bodyhidden");
+                  }}
+                />
               )}
               {isOpenModal.mode === "message" && (
-                <SettingsTool
-                  title="Set up an automatic message, which will be sent to users, if they use the contact form"
-                  className="px-10"
-                >
-                  <TextEditor className="!p-0 mb-2" />
-                </SettingsTool>
+                <AutomaticMessage
+                  onClose={() => {
+                    setIsOpenModal({ mode: "none" });
+                    document.body.classList.remove("bodyhidden");
+                  }}
+                />
               )}
               {isOpenModal.mode === "info" && (
-                <SettingsTool
-                  title="Set startup information, which will appear on the homepage. Information after approval should show up to 30minutes."
-                  className="px-10"
-                >
-                  <TextEditor className="!p-0 mb-2" />
-                </SettingsTool>
+                <AdditionalInfo
+                  onClose={() => {
+                    setIsOpenModal({ mode: "none" });
+                    document.body.classList.remove("bodyhidden");
+                  }}
+                />
               )}
             </Modal>
           </Suspense>

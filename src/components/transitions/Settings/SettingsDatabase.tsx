@@ -13,11 +13,16 @@ type SettingsToolProps = {
 const SettingsTool = ({ title, children, btnClass, className }: SettingsToolProps) => {
   return (
     <div className={cn("flex flex-col items-center justify-center relative", className)}>
-      <Heading as="h3" className="my-20 dark:text-white text-2xl w-1/2 text-center">
+      <Heading as="h3" className="my-20 dark:text-white text-2xl w-3/4 md:w-1/2  text-center">
         {title}
       </Heading>
       {children}
-      <Button variant="default" size="big" className={cn("mb-20 mt-5 w-full", btnClass)}>
+      <Button
+        variant="default"
+        size="big"
+        className={cn("mb-20 mt-5 w-full", btnClass)}
+        type="submit"
+      >
         Confirm
       </Button>
     </div>

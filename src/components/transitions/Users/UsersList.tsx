@@ -82,8 +82,15 @@ const UsersList = ({ searchOption, className }: UsersListProps) => {
             className="sm:w-[50rem]  h-full sm:h-auto overflow-y-auto rounded-none sm:rounded-xl"
             title={dataUser.mode === "delete" ? "User deletion" : "User edit"}
           >
-            {dataUser.mode === "edit" && <FormEditUser initialData={dataUser} />}
-            {dataUser.mode === "delete" && <UserDeletionConfirmation initialData={dataUser} />}
+            {dataUser.mode === "edit" && (
+              <FormEditUser initialData={dataUser} onClose={() => setIsModalOpen(false)} />
+            )}
+            {dataUser.mode === "delete" && (
+              <UserDeletionConfirmation
+                initialData={dataUser}
+                onClose={() => setIsModalOpen(false)}
+              />
+            )}
           </Modal>
         )}
       </AnimatePresence>

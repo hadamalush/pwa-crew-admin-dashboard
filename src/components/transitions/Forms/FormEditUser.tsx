@@ -2,7 +2,11 @@ import { useForm } from "react-hook-form";
 import Button from "../../UI/Button";
 import InputText from "../../UI/Input/InputText";
 import { yupResolver } from "@hookform/resolvers/yup";
-import { newUserSchema } from "../../../schemas/schema";
+import { editUserSchema } from "../../../schemas/schema";
+import useAxiosPrivate from "../../../hooks/usePrivateAxios";
+import { useGlobalDispatch } from "../../../global/hooks";
+import { editUser } from "../../../global/user-slice";
+import { toast } from "sonner";
 
 type FormEditUserProps = {
   id: string;
@@ -12,19 +16,46 @@ type FormEditUserProps = {
 
 type initialData = {
   initialData: FormEditUserProps;
+  onClose: () => void;
 };
 
-const FormEditUser = ({ initialData }: initialData) => {
+const FormEditUser = ({ initialData, onClose: closeModal }: initialData) => {
   const {
     register,
     handleSubmit,
+    getValues,
     formState: { errors },
-  } = useForm({ resolver: yupResolver(newUserSchema), mode: "onBlur" });
+  } = useForm({ resolver: yupResolver(editUserSchema), mode: "onBlur" });
   const { id, username, email } = initialData;
+  const axiosPrivate = useAxiosPrivate();
+  const dispatch = useGlobalDispatch();
 
-  const handleEditUser = () => {
-    console.log(id);
-    //hendle user edit...
+  const handleEditUser = async () => {
+    const newUsername = getValues("username");
+    const newEmail = getValues("email");
+    const newPass = getValues("password");
+
+    if (!newPass && newUsername === username && newEmail === email) return;
+
+    try {
+      const res = await axiosPrivate.post("/admin/users/editUser", {
+        newUsername,
+        newEmail,
+        newPass,
+        id,
+      });
+
+      if (res.status === 200 && newUsername && newEmail) {
+        dispatch(editUser({ userId: id, newEmail: newEmail, newUsername: newUsername }));
+        closeModal();
+        document.body.classList.remove("bodyhidden");
+        toast.success("User updated");
+        return;
+      }
+      toast.warning("Something went wrong");
+    } catch (err) {
+      toast.warning("Something went wrong");
+    }
   };
 
   return (
