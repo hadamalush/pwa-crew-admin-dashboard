@@ -75,19 +75,19 @@ const SettingsStorage = ({ onClose: closeModal, ...props }: SettingsStorageType)
   const handleChangeStorage = async () => {
     for (const storage in storageState) {
       const storageName = storage as keyof stateStorage;
-      if (storageState[storageName]) {
+      if (!storageState[storageName]) {
         toast.error("You entered wrong data!");
         return;
       }
     }
 
     try {
-      const res = await axiosPrivate.post("/admin/settings/setStorage");
+      const res = await axiosPrivate.post("/admin/settings/setStorage", {
+        dataStorage: storageState,
+      });
 
-      console.log(res);
-      return;
       if (res.status === 200) {
-        toast.success("Added a message on the home page");
+        toast.success("Changed storages settings");
         closeModal();
         return;
       }
