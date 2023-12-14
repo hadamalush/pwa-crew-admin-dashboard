@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Main from "../components/Common/Main";
 import Button from "../components/UI/Button";
 import Container from "../components/UI/Container";
@@ -7,13 +7,27 @@ import Modal from "../components/transitions/Modal";
 import UsersList from "../components/transitions/Users/UsersList";
 import { AnimatePresence } from "framer-motion";
 import FormNewUser from "../components/transitions/Forms/FormNewUser";
+import { AxiosInstance } from "axios";
+import { AppDispatch } from "../global/store";
+import { StatsState, setUsersStats } from "../global/stats-slice";
+import { fetchUsers } from "../util/actions/actions";
+import useAxiosPrivate from "../hooks/usePrivateAxios";
+import { useGlobalDispatch, useGlobalSelector } from "../global/hooks";
 
 const UsersPage = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const axiosPrivate = useAxiosPrivate();
+  const dispatch = useGlobalDispatch();
+  const stateStats = useGlobalSelector((state) => state.stats);
 
   const handleNewUserModal = () => {
     setIsModalOpen((prev) => !prev);
   };
+
+  useEffect(() => {
+    fetchDataInBackground(axiosPrivate, dispatch, stateStats);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [axiosPrivate, dispatch]);
 
   return (
     <>
@@ -62,3 +76,14 @@ const UsersPage = () => {
 };
 
 export default UsersPage;
+
+const fetchDataInBackground = async (
+  axiosPrivate: AxiosInstance,
+  dispatch: AppDispatch,
+  statsState: StatsState
+) => {
+  if (statsState.users.numberUsers === 0) {
+    const users = await fetchUsers(axiosPrivate, dispatch);
+    dispatch(setUsersStats({ users: users.users }));
+  }
+};
