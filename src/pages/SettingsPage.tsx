@@ -17,10 +17,13 @@ type ModalStateType = {
 const SettingsPage = () => {
   const [isOpenModal, setIsOpenModal] = useState<ModalStateType>({ mode: "none" });
 
+  console.log(isOpenModal);
+
   const modalTitle =
-    (isOpenModal.mode === "database" && "Chaning database") || isOpenModal.mode === "info"
+    (isOpenModal.mode === "database" && "Chaning database") ||
+    (isOpenModal.mode === "info"
       ? "Additional inoformation settings"
-      : "Automatic message settings";
+      : "Automatic message settings");
 
   return (
     <>
