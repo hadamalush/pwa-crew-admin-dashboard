@@ -17,7 +17,7 @@ export const getLastWeek = () => {
 
     date.setDate(date.getDate() - i);
     const day = date.getDate();
-    const month = date.getMonth() + 1;
+    const month = String(date.getMonth() + 1).padStart(2, "0");
     const year = date.getFullYear();
 
     return `${day}.${month}.${year}`;
